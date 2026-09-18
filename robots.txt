@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /build/
+Disallow: /parts/
+Sitemap: https://www.aremuconsulting.com/sitemap.xml

@@ -1,0 +1,102 @@
+{
+  "mealprep": [
+    {
+      "file": "01.png",
+      "caption": "Production dashboard",
+      "alt": "Production dashboard"
+    },
+    {
+      "file": "02.png",
+      "caption": "Client list",
+      "alt": "Client list"
+    },
+    {
+      "file": "03.png",
+      "caption": "Edit client details",
+      "alt": "Edit client details"
+    },
+    {
+      "file": "04.png",
+      "caption": "Saved meals",
+      "alt": "Saved meals"
+    },
+    {
+      "file": "05.png",
+      "caption": "Weekly planner",
+      "alt": "Weekly planner"
+    },
+    {
+      "file": "06.png",
+      "caption": "Planning calendar",
+      "alt": "Planning calendar"
+    },
+    {
+      "file": "07.png",
+      "caption": "Orders management",
+      "alt": "Orders management"
+    },
+    {
+      "file": "08.png",
+      "caption": "Meal batch counts",
+      "alt": "Meal batch counts"
+    },
+    {
+      "file": "09.png",
+      "caption": "Meal labels",
+      "alt": "Meal labels"
+    },
+    {
+      "file": "10.png",
+      "caption": "Production planning",
+      "alt": "Production planning"
+    },
+    {
+      "file": "11.png",
+      "caption": "Shareable shopping list",
+      "alt": "Shareable shopping list"
+    },
+    {
+      "file": "12.png",
+      "caption": "Ingredients list",
+      "alt": "Ingredients list"
+    },
+    {
+      "file": "13.png",
+      "caption": "Add ingredient",
+      "alt": "Add ingredient"
+    },
+    {
+      "file": "14.png",
+      "caption": "Ingredient lookup",
+      "alt": "Ingredient lookup"
+    }
+  ],
+  "ledger-lens": [
+    {
+      "file": "01.png",
+      "caption": "LedgerLens overview",
+      "alt": "LedgerLens overview"
+    }
+  ],
+  "connex-one-data-bridge": [
+    {
+      "file": "01.png",
+      "caption": "Data bridge overview",
+      "alt": "Data bridge overview"
+    }
+  ],
+  "docket-leads-ai": [
+    {
+      "file": "01.png",
+      "caption": "DocketLeads AI overview",
+      "alt": "DocketLeads AI overview"
+    }
+  ],
+  "accident-claims-intelligent-automator": [
+    {
+      "file": "01.png",
+      "caption": "Claims automator overview",
+      "alt": "Claims automator overview"
+    }
+  ]
+}

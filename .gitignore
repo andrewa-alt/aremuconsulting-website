@@ -1,0 +1,19 @@
+# Dependencies / runtime
+node_modules/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Local / temp
+.tmp/
+site images/
+.DS_Store
+
+# Internal planning documents (not part of the public site)
+PRD.md
+DESIGN.md
+INTAKE.md
+A11Y-NOTES.md
+COMPLIANCE-NOTES.md
+DELIVERY-NOTES.md
+FINISH-REVIEW.md

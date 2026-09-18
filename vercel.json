@@ -1,0 +1,46 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/blog/:slug((?!\\.html$).*)",
+      "destination": "/blog-:slug.html",
+      "statusCode": 308
+    },
+    {
+      "source": "/case-studies/:slug((?!\\.html$).*)",
+      "destination": "/project-:slug.html",
+      "statusCode": 308
+    },
+    {
+      "source": "/lab/:path*",
+      "destination": "/blog.html",
+      "statusCode": 308
+    },
+    {
+      "source": "/case-studies",
+      "destination": "/projects.html",
+      "statusCode": 308
+    },
+    {
+      "source": "/lab",
+      "destination": "/blog.html",
+      "statusCode": 308
+    },
+    {
+      "source": "/consultation",
+      "destination": "/contact.html",
+      "statusCode": 308
+    },
+    {
+      "source": "/services",
+      "destination": "/services.html",
+      "statusCode": 308
+    },
+    {
+      "source": "/approach",
+      "destination": "/approach.html",
+      "statusCode": 308
+    }
+  ]
+}

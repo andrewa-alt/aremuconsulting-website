@@ -1,0 +1,111 @@
+<main id="main" class="page">
+  <section class="hero">
+    <div class="hero-inner">
+      <h1>A named method, published. Scope frozen in writing before a line of code.</h1>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="contact.html">Book a free fit call</a>
+      </div>
+      <p class="lede">Discover → Scope → Milestones → Handover. Changes are priced before they are done, milestones gate the build, and every project ships as a system: code, docs, tests, and a handover session.</p>
+    </div>
+  </section>
+
+  <section class="section" aria-label="The named method">
+    <div class="sec-label">Signature</div>
+    <div class="sec-body">
+      <h2>Discover → Scope → Milestones → Handover</h2>
+      <p class="lede">Four stages, each with a defined output and a handoff to the next. Discover is a separately-billed discovery/audit: £500-£2,500, credited back against a signed build of £3,000+. The drafting sheets below are the machinery of the work, published.</p>
+      <div class="method-wrap js-reveal" id="method-wrap">
+        {{METHOD}}
+      </div>
+      <p class="scroll-cue">→ scroll →</p>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Handover guarantee">
+    <div class="sec-label">Guarantee</div>
+    <div class="sec-body">
+      <h2>The handover guarantee</h2>
+      <div class="guarantee">
+        <h3>Every project ships with everything needed to run it without me.</h3>
+        <ul>
+          <li><strong>Code</strong>: version-controlled, repository handed over.</li>
+          <li><strong>Docs</strong>: architecture and run documentation written for your team.</li>
+          <li><strong>Tests</strong>: automated tests that pass before handover.</li>
+          <li><strong>Handover session</strong>: a walkthrough with whoever maintains it.</li>
+        </ul>
+        <p>This is the standard offer on every build. Care plans are published at handover as a post-delivery option — never a consultation squeeze.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Objections answered">
+    <div class="sec-label">Objections</div>
+    <div class="sec-body">
+      <h2>Three objections, answered up front</h2>
+      <div class="objection">
+        <h3>Will my team be able to maintain it?</h3>
+        <div class="cols">
+          <div><h4>What the site proves</h4><p>Handover is designed into every project: code, docs, tests, and a session with your team. Care plans exist as an option, not a requirement.</p></div>
+          <div><h4>What the consultation covers</h4><p>Stack choices fitted to your team's skills, and a training plan for the parts they will run.</p></div>
+        </div>
+      </div>
+      <div class="objection">
+        <h3>Will scope creep drag the timeline and budget?</h3>
+        <div class="cols">
+          <div><h4>What the site proves</h4><p>Scope is frozen in writing at stage two; changes are priced before they are done; milestones gate the build.</p></div>
+          <div><h4>What the consultation covers</h4><p>Your specific timeline, dependencies, and a milestone map for your project.</p></div>
+        </div>
+      </div>
+      <div class="objection">
+        <h3>Will it pay for itself?</h3>
+        <div class="cols">
+          <div><h4>What the site proves</h4><p>Scoping includes naming the ROI metric, the starting baseline, and the target, so the investment is measured, not assumed.</p></div>
+          <div><h4>What the consultation covers</h4><p>Choosing the metric for your operation, agreeing the baseline, and agreeing how it gets measured after build.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="About Andrew">
+    <div class="sec-label">About</div>
+    <div class="sec-body">
+      <h2>About Andrew</h2>
+      <div class="about-grid">
+        <dl class="about-facts">
+          <dt>Role</dt><dd>Solo builder — web and app builds, automation, AI agents</dd>
+          <dt>Location</dt><dd>Manchester, UK</dd>
+          <dt>Scope</dt><dd>Workflow automation, custom AI-agent development, software integration, bespoke web and app engineering</dd>
+        </dl>
+        <div class="prose">
+          <p>Andrew Aremu is a solo builder with an obsession for problem-solving — building tools, systems, and processes for small-to-medium businesses. Not an agency, not a template shop: hands-on work, a named method, and every project handed over with everything needed to run it.</p>
+          <p>Honest trade-offs: if a template or a low-code tool genuinely covers the case, that is the recommendation; a project only starts when a custom build is the right answer.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+(function () {
+  "use strict";
+  var wrap = document.getElementById("method-wrap");
+  if (!wrap) { return; }
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    wrap.classList.add("in");
+    return;
+  }
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          wrap.classList.add("in");
+          io.disconnect();
+        }
+      });
+    }, { threshold: 0.2 });
+    io.observe(wrap);
+  } else {
+    wrap.classList.add("in");
+  }
+})();
+</script>

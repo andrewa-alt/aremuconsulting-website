@@ -1,0 +1,808 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>document.documentElement.classList.add("js");</script>
+<title>Services — Aremu Consulting</title>
+<meta name="description" content="Three custom-scope lines: website and app building, workflow and CRM automation (n8n + your existing tools), and custom AI agent development. Three fixed-price tiers per line.">
+<style>
+:root {
+  --paper: #F5F6F6;
+  --sheet: #FFFFFF;
+  --ink: #16181A;
+  --ink-soft: #3F4448;
+  --muted: #5C6266;
+  --rule: #D9DDDC;
+  --grid: #E7EAE9;
+  --accent: #1D6A4F;
+  --accent-strong: #14532D;
+  --accent-soft: #E6F0EA;
+  --danger: #9B3226;
+  --measure: 68ch;
+  --radius: 0;
+  --radius-control: 2px;
+  --font-display: 'Atkinson Hyperlegible', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'Atkinson Hyperlegible', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'Martian Mono', 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace;
+}
+@font-face { font-family: 'Atkinson Hyperlegible'; font-style: normal; font-weight: 400; font-display: swap; src: url('build/assets/fonts/Atkinson_Hyperlegible-400.woff2') format('woff2'); }
+@font-face { font-family: 'Atkinson Hyperlegible'; font-style: normal; font-weight: 700; font-display: swap; src: url('build/assets/fonts/Atkinson_Hyperlegible-700.woff2') format('woff2'); }
+@font-face { font-family: 'Martian Mono'; font-style: normal; font-weight: 400; font-display: swap; src: url('build/assets/fonts/Martian_Mono-400.woff2') format('woff2'); }
+@font-face { font-family: 'Martian Mono'; font-style: normal; font-weight: 500; font-display: swap; src: url('build/assets/fonts/Martian_Mono-500.woff2') format('woff2'); }
+@font-face { font-family: 'Martian Mono'; font-style: normal; font-weight: 700; font-display: swap; src: url('build/assets/fonts/Martian_Mono-700.woff2') format('woff2'); }
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; font-family: var(--font-body); font-size: 17px; line-height: 1.6; color: var(--ink); background: var(--paper); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+img, svg { max-width: 100%; height: auto; display: block; }
+p { max-width: 68ch; }
+h1, h2, h3, h4, p, ul, ol, figure, blockquote, dl, dd { margin: 0; }
+ul, ol, dl { padding-left: 1.25rem; max-width: 68ch; }
+a { color: var(--accent); text-decoration: underline; text-underline-offset: 0.18em; text-decoration-color: var(--accent); }
+a:hover { text-decoration-thickness: 0.1em; }
+::selection { background: var(--accent); color: var(--paper); }
+:root { color-scheme: light; }
+* { caret-color: var(--accent); }
+::-webkit-scrollbar { width: 12px; height: 12px; }
+::-webkit-scrollbar-track { background: var(--paper); }
+::-webkit-scrollbar-thumb { background: var(--rule); border-radius: 6px; border: 2px solid var(--paper); }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+.skip-link {
+  position: fixed;
+  top: -70px; left: 12px;
+  z-index: 100;
+  padding: 13px 16px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  text-decoration: none;
+  border-radius: var(--radius-control);
+}
+.skip-link:focus { top: 12px; }
+.page { padding: 0 24px 72px; }
+.page-inner { max-width: 1200px; margin: 0 auto; }
+.section {
+  display: grid;
+  grid-template-columns: minmax(7rem, 9rem) 1fr;
+  gap: 18px 28px;
+  padding: 52px 24px;
+  border-bottom: 1px solid var(--rule);
+}
+.section:last-of-type { border-bottom: none; }
+.sec-label {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-top: 8px;
+}
+.sec-label::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: var(--rule);
+  margin-bottom: 12px;
+}
+.sec-body { min-width: 0; }
+.sec-body h2 {
+  font-family: var(--font-body);
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.22;
+  max-width: 24ch;
+  margin-bottom: 14px;
+}
+.sec-body .lede { color: var(--ink-soft); font-size: 1.05rem; margin-bottom: 22px; }
+.site-header { border-bottom: 1px solid var(--rule); background: var(--paper); }
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+  flex-wrap: wrap;
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--ink);
+  min-height: 44px;
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px; height: 34px;
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-control);
+  overflow: hidden;
+  flex: none;
+}
+.brand-mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+.brand-name { font-family: var(--font-mono); font-size: 0.86rem; font-weight: 700; letter-spacing: 0.02em; }
+.brand-sub { display: block; font-family: var(--font-mono); font-size: 0.66rem; color: var(--muted); letter-spacing: 0.06em; }
+.site-nav { display: flex; gap: 22px; flex-wrap: wrap; }
+.site-nav a {
+  color: var(--ink);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  padding: 13px 2px;
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  border-bottom: 2px solid transparent;
+}
+.site-nav a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+.site-nav a.active { color: var(--accent); border-bottom-color: var(--accent); }
+.btn {
+  display: inline-block;
+  padding: 12px 20px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+  text-align: center;
+  border: 2px solid transparent;
+  border-radius: var(--radius-control);
+  cursor: pointer;
+  min-height: 48px;
+}
+.btn-primary { background: var(--accent); color: var(--paper); }
+.btn-primary:hover { background: var(--accent-strong); }
+.btn-secondary { background: transparent; color: var(--ink); border-color: var(--ink); }
+.btn-secondary:hover { background: var(--ink); color: var(--paper); }
+.btn[aria-disabled="true"], .btn:disabled { opacity: 0.55; cursor: not-allowed; }
+.hero { padding: 72px 24px 60px; border-bottom: 1px solid var(--rule); }
+.hero-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 26px;
+}
+.hero h1 {
+  font-size: clamp(2.1rem, 4.4vw, 3.3rem);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  max-width: 18ch;
+}
+.hero .lede { max-width: 68ch; font-size: 1.12rem; color: var(--ink-soft); }
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 8px; }
+.hero-offer { max-width: 100%; }
+.offer-chips { display: flex; flex-wrap: wrap; gap: 12px; }
+.offer-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  padding: 10px 16px;
+}
+.offer-chip::before { content: ""; width: 7px; height: 7px; background: var(--accent); flex: none; }
+.offer-caption { margin: 16px 0 0; font-family: var(--font-mono); font-size: 0.85rem; color: var(--ink-soft); }
+.pf-rise { animation: pf-rise 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.pf-type { display: inline-block; overflow: hidden; white-space: nowrap; max-width: 36ch; vertical-align: bottom; animation: pf-type 1.4s steps(36, end) both; }
+@keyframes pf-rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pf-type { from { max-width: 0; } to { max-width: 36ch; } }
+.authority {
+  border-bottom: 1px solid var(--rule);
+  padding: 18px 24px;
+}
+.authority-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 34px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.03em;
+  color: var(--ink-soft);
+}
+.authority-inner .tick { color: var(--accent); }
+.service-row {
+  display: grid;
+  grid-template-columns: minmax(10rem, 16rem) 1fr auto;
+  gap: 22px;
+  align-items: baseline;
+  padding: 22px 12px;
+  border-top: 1px solid var(--rule);
+}
+.service-row:first-child { border-top: none; }
+.service-row h3 { font-size: 1.12rem; font-weight: 700; }
+.service-row p { color: var(--ink-soft); }
+.more { font-family: var(--font-mono); font-size: 0.82rem; white-space: nowrap; min-height: 44px; display: inline-flex; align-items: center; }
+.service-row .more { }
+.method-wrap { max-width: 1200px; margin: 0 auto; overflow-x: auto; }
+.sheet {
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 22px 24px;
+  margin: 0 0 14px;
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 22px 22px;
+  background-position: -1px -1px;
+}.sheet-stage { display: inline-flex; align-items: center; gap: 10px; }.sheet-stage .mono-code { font-family: var(--font-mono); font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; color: var(--accent); text-transform: uppercase; }.sheet h3 { font-size: 1.22rem; font-weight: 700; margin-bottom: 6px; }
+.sheet .thesis { font-size: 1.02rem; color: var(--ink-soft); margin-bottom: 14px; }.sheet-rows dt { font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); padding-top: 2px; }.sheet-rows dd.handoff { color: var(--accent); font-family: var(--font-mono); font-size: 0.82rem; }
+.case-study { border: 1px solid var(--rule); padding: 26px 24px; background: var(--sheet); }
+.case-label {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  border: 1px solid var(--rule);
+  padding: 4px 8px;
+  margin-bottom: 14px;
+}
+.cs-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 16px; }
+.cs-cols h3 { font-family: var(--font-mono); font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--accent); margin-bottom: 6px; }
+.cs-cols p { font-size: 0.95rem; color: var(--ink-soft); }
+.tradeoff-row { padding: 16px 12px; border-top: 1px solid var(--rule); }
+.tradeoff-row .who { font-family: var(--font-mono); font-size: 0.82rem; color: var(--accent); margin-bottom: 4px; }
+.tradeoff-row p { color: var(--ink-soft); }
+.price-table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 0.95rem; }
+.price-table th, .price-table td { text-align: left; padding: 10px 6px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.price-table th { font-family: var(--font-mono); font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
+.price-table td:first-child { font-weight: 700; }
+.price-table td:nth-child(2) { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.price-note { font-family: var(--font-mono); font-size: 0.85rem; color: var(--muted); margin-top: 8px; }
+.band-row { padding: 14px 12px; border-top: 1px solid var(--rule); }
+.band-row .band-label { font-family: var(--font-mono); font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--accent); margin-bottom: 4px; }
+.band-row p { color: var(--ink-soft); }
+.guarantee { border: 1px solid var(--accent); padding: 26px 24px; background: var(--accent-soft); }
+.guarantee h3 { font-size: 1.2rem; margin-bottom: 10px; }
+.guarantee ul { color: var(--ink); }
+
+.objection { padding: 20px 12px; border-top: 1px solid var(--rule); }
+.objection h3 { font-size: 1.1rem; margin-bottom: 8px; }
+.objection .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 8px; }
+.objection h4 { font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--accent); margin-bottom: 4px; }
+.objection p { color: var(--ink-soft); font-size: 0.95rem; }
+.about-grid { display: grid; grid-template-columns: 260px 1fr; gap: 30px; }
+.about-facts { font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-soft); line-height: 1.8; }
+.about-facts dt { color: var(--accent); }
+.contact-offer { background: var(--sheet); border: 1px solid var(--rule); padding: 34px 24px; margin: 40px 0; }
+.contact-offer h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; line-height: 1.15; margin-bottom: 12px; }
+.contact-offer p { color: var(--ink-soft); }
+.form-sheet { background: var(--sheet); border: 1px solid var(--rule); padding: 28px 24px; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.form-field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.form-field.full { grid-column: 1 / -1; }
+.form-field label { font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink); }
+.form-field input,
+.form-field select,
+.form-field textarea {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  padding: 12px 14px;
+  border: 2px solid var(--rule);
+  background: var(--paper);
+  color: var(--ink);
+  border-radius: var(--radius-control);
+  width: 100%;
+}
+.form-field textarea { min-height: 120px; resize: vertical; }
+.form-field input:focus, .form-field select:focus, .form-field textarea:focus { border-color: var(--accent); outline: 2px solid var(--accent); outline-offset: 2px; }
+.form-field .hint, .form-field .error { font-size: 0.82rem; color: var(--muted); }
+.form-field .error { color: var(--danger); }
+.form-field input[aria-invalid="true"], .form-field select[aria-invalid="true"], .form-field textarea[aria-invalid="true"] { border-color: var(--danger); }
+.form-actions { margin-top: 26px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+[role="status"] {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--accent);
+  border: 1px solid var(--rule);
+  padding: 10px 14px;
+}
+.steps { list-style: none; padding: 0; counter-reset: steps; max-width: 68ch; }
+.steps li { counter-increment: steps; padding: 14px 12px; border-top: 1px solid var(--rule); display: flex; gap: 18px; align-items: baseline; }
+.steps li::before { content: counter(steps, decimal-leading-zero); font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent); }
+.steps li p { color: var(--ink-soft); }
+.demo-note {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--muted);
+  border: 1px dashed var(--rule);
+  padding: 10px 14px;
+  margin-top: 18px;
+}
+.site-footer { border-top: 1px solid var(--rule); background: var(--sheet); margin-top: 48px; }
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 24px 24px;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1.4fr;
+  gap: 30px;
+}
+.footer-brand { font-family: var(--font-mono); font-weight: 700; font-size: 0.95rem; margin-bottom: 8px; }
+.footer-tag { color: var(--ink-soft); font-size: 0.9rem; max-width: 44ch; }
+.footer-head { font-family: var(--font-mono); font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--accent); margin-bottom: 10px; }
+.footer-links { list-style: none; padding: 0; }
+.footer-links li { margin-bottom: 2px; }
+.footer-links a { color: var(--ink); text-decoration: none; min-width: 44px; min-height: 44px; display: inline-flex; align-items: center; }
+.footer-links a:hover { color: var(--accent); text-decoration: underline; }
+.footer-line { color: var(--ink-soft); font-size: 0.9rem; margin-bottom: 6px; }
+.footer-placeholder { font-size: 0.8rem; }
+.footer-micro { font-size: 0.8rem; color: var(--ink-soft); margin-top: 10px; max-width: 34ch; }
+.footer-bottom { border-top: 1px solid var(--rule); padding: 16px 24px; }
+.footer-bottom p {
+  max-width: 68ch;
+  margin: 0 auto;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+@media (max-width: 860px) {
+  .cs-cols, .objection .cols, .about-grid, .form-grid { grid-template-columns: 1fr; }
+  .footer-inner { grid-template-columns: 1fr 1fr; }
+  .service-row { grid-template-columns: 1fr; gap: 6px; }
+  .hero { padding: 52px 18px 44px; }
+}
+@media (max-width: 640px) {
+  .method-wrap svg { width: 640px; max-width: none; }
+  .section { grid-template-columns: 1fr; padding: 44px 18px; gap: 4px; }
+  .sec-label { display: none; }
+  body { font-size: 16px; }
+  .page { padding: 0 18px 56px; }
+  .header-inner { padding: 14px 18px; }
+  .site-nav { gap: 14px; }
+  .footer-inner { grid-template-columns: 1fr; }
+  .sheet-rows { grid-template-columns: 1fr; }
+}
+.scroll-cue { font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); margin: 8px 0 0; display: none; }
+@media (max-width: 640px) { .method-wrap + .scroll-cue { display: inline-block; } }
+html.js .js-reveal g.sheet { transform: translateY(-22px); opacity: 0; }
+html.js .js-reveal.in g.sheet { transform: translateY(0); opacity: 1; }
+html.js .js-reveal g.sheet { transition: transform 650ms cubic-bezier(0.16, 1, 0.3, 1), opacity 650ms cubic-bezier(0.16, 1, 0.3, 1); }
+html.js .js-reveal g.sheet:nth-of-type(2) { transition-delay: 800ms; }
+html.js .js-reveal g.sheet:nth-of-type(3) { transition-delay: 1600ms; }
+html.js .js-reveal g.sheet:nth-of-type(4) { transition-delay: 2400ms; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  html.js .js-reveal g.sheet { transform: none !important; opacity: 1 !important; }
+  .skip-link { transition: none; }
+}
+/* ---- Blog + Projects content pages (gen/build_content.py) ---- */
+.post-list { list-style: none; padding: 0; max-width: 1200px; margin: 0 auto; }
+.entry { padding: 30px 24px; border-bottom: 1px solid var(--rule); }
+.entry:last-child { border-bottom: none; }
+.entry-title { font-size: clamp(1.25rem, 2.4vw, 1.6rem); font-weight: 700; line-height: 1.35; letter-spacing: -0.01em; margin: 6px 0 8px; max-width: 24ch; }
+.entry-title a {
+  color: var(--ink);
+  text-decoration: none;
+  display: inline-block;
+  padding: 10px 0;
+  margin: -10px 0;
+}
+.entry-title a:hover { color: var(--accent); text-decoration: underline; }
+.entry-excerpt { color: var(--ink-soft); max-width: 68ch; margin-top: 12px; }
+.post-meta { font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.03em; color: var(--muted); display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.post-meta .cat { color: var(--accent); }
+.post-head { padding: 40px 0 26px; }
+.post-head h1 { font-size: clamp(1.9rem, 4vw, 3rem); font-weight: 700; line-height: 1.12; letter-spacing: -0.02em; max-width: 22ch; margin: 14px 0 14px; }
+.post-head .lede { color: var(--ink-soft); font-size: 1.1rem; max-width: 68ch; }
+.prose { max-width: 68ch; padding-top: 26px; }
+.prose h2 { font-size: clamp(1.35rem, 2.4vw, 1.7rem); font-weight: 700; line-height: 1.22; letter-spacing: -0.01em; max-width: 24ch; margin: 2.1em 0 0.7em; }
+.prose h3 { font-size: 1.12rem; font-weight: 700; margin: 1.7em 0 0.5em; }
+.prose p { margin: 0 0 1.05em; color: var(--ink); }
+.prose ul, .prose ol { margin: 0 0 1.05em; }
+.prose li { margin: 0 0 0.4em; }
+.prose blockquote { margin: 1.4em 0; padding: 0 0 0 1em; border-left: 3px solid var(--accent); color: var(--ink-soft); }
+.prose hr { border: none; border-top: 1px solid var(--rule); margin: 2em 0; }
+.prose strong { font-weight: 700; }
+.prose em { font-style: italic; }
+.prose pre {
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  max-width: 100%;
+  overflow-x: auto;
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  padding: 14px 16px;
+  font-family: var(--font-mono);
+  font-size: 0.84rem;
+  line-height: 1.55;
+  margin: 1.2em 0;
+}
+.prose code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  background: var(--accent-soft);
+  padding: 1px 5px;
+  border-radius: 2px;
+  overflow-wrap: break-word;
+}
+.prose pre code { background: none; padding: 0; }
+.prose table { max-width: 100%; display: block; overflow-x: auto; }
+.case-label { display: inline-block; font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.03em; color: var(--accent); border: 1px solid var(--accent); padding: 3px 9px; margin: 0 0 14px; }
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; margin: 30px 0; max-width: 1100px; }
+.stat { background: var(--sheet); border: 1px solid var(--rule); padding: 18px 16px; }
+.stat .stat-v { font-family: var(--font-mono); font-size: 1.45rem; font-weight: 700; color: var(--accent); }
+.stat .stat-l { font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); margin-top: 6px; }
+.quote { margin: 26px 0; padding: 18px 22px; border-left: 3px solid var(--accent); background: var(--accent-soft); max-width: 68ch; }
+.quote p { font-size: 1.06rem; color: var(--ink); max-width: 68ch; margin: 0; }
+.quote-footer { font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted); margin-top: 10px; }
+.disclosure {
+  margin: 26px 0;
+  max-width: 68ch;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--muted);
+  border: 1px dashed var(--rule);
+  padding: 10px 14px;
+}
+.post-cta { margin: 34px 0 8px; }
+@media (max-width: 640px) {
+  .post-head { padding: 34px 0 22px; }
+  .entry { padding: 24px 8px; }
+  .stat-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* ---- Project screenshot gallery (right column on desktop) ---- */
+.project-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 68ch) minmax(320px, 1fr);
+  grid-template-areas: "main gallery";
+  gap: 40px;
+  align-items: start;
+  padding-top: 26px;
+}
+.project-main { grid-area: main; min-width: 0; }
+.project-gallery {
+  grid-area: gallery;
+  position: sticky;
+  top: 20px;
+}
+.gallery-head {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  margin: 0 0 10px;
+}
+.gallery { margin: 0; }
+.gallery-frame {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  width: 100%;
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  cursor: zoom-in;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  border-radius: 0;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.gallery-frame:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.gallery-zoom {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(245, 246, 246, 0.94);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+  padding: 4px 9px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-control);
+  pointer-events: none;
+}
+.gallery-frame img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+.gallery-frame img[hidden] { display: none; }
+.gallery-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+.gallery-btn {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--ink);
+  background: var(--sheet);
+  border: 2px solid var(--rule);
+  border-radius: var(--radius-control);
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 12px;
+  cursor: pointer;
+}
+.gallery-btn:hover { border-color: var(--accent); color: var(--accent); }
+.gallery-btn[disabled] { opacity: 0.4; cursor: not-allowed; }
+.gallery-counter { font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); }
+.gallery-caption {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  margin-top: 8px;
+  min-height: 1.4em;
+}
+@media (max-width: 960px) {
+  .project-layout { grid-template-columns: 1fr; grid-template-areas: "gallery" "main"; gap: 28px; }
+  .project-gallery { position: static; }
+}
+
+/* ---- Lightbox (full-size screenshot viewer) ---- */
+.lightbox { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px; }
+.lightbox[hidden] { display: none; }
+.lightbox-backdrop { position: absolute; inset: 0; background: rgba(15, 17, 18, 0.86); }
+.lightbox-panel {
+  position: relative;
+  z-index: 1;
+  width: min(1080px, 96vw);
+  max-height: 92vh;
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  display: flex;
+  flex-direction: column;
+}
+.lightbox-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 12px 8px 16px; border-bottom: 1px solid var(--rule); }
+.lightbox-status { font-family: var(--font-mono); font-size: 0.82rem; color: var(--ink-soft); }
+.lightbox-close {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  color: var(--ink);
+  background: var(--sheet);
+  border: 2px solid var(--rule);
+  border-radius: var(--radius-control);
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 10px;
+  cursor: pointer;
+}
+.lightbox-close:hover { border-color: var(--accent); color: var(--accent); }
+.lightbox-stage { background: var(--ink); display: flex; align-items: center; justify-content: center; padding: 24px; flex: 1; min-height: 0; }
+.lightbox-img { max-width: 100%; max-height: calc(92vh - 130px); object-fit: contain; }
+.lightbox-nav { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 12px 14px; border-top: 1px solid var(--rule); background: var(--sheet); }
+.lightbox-counter { font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); }
+
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a><header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html" aria-label="Aremu Consulting: home">
+      <span class="brand-mark" aria-hidden="true"><img src="build/assets/logo.png" alt="" width="34" height="34" decoding="async"></span>
+      <span class="brand-text">
+        <span class="brand-name">Aremu Consulting</span>
+        <span class="brand-sub">Ltd · Manchester, UK</span>
+      </span>
+    </a>
+    <nav class="site-nav" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="services.html" class="active">Services</a>
+      <a href="approach.html">Approach</a>
+      <a href="projects.html">Projects</a>
+      <a href="blog.html">Blog</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a class="btn btn-primary nav-cta" href="contact.html">Book a free fit call</a>
+  </div>
+</header><main id="main" class="page">
+  <section class="hero">
+    <div class="hero-inner">
+      <h1>Three lines. One method. Custom scope.</h1>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="contact.html">Book a free fit call</a>
+      </div>
+      <p class="lede">Three fixed-price tiers per line, each with a defined scope and a typical delivery window. The exact figure is confirmed in your written scope before any build begins: no bare &ldquo;call for pricing&rdquo;.</p>
+    </div>
+  </section>
+
+  <section class="section" id="websites" aria-label="Website and application building">
+    <div class="sec-label">Service 1</div>
+    <div class="sec-body">
+      <h2>Website &amp; Custom Application Building</h2>
+      <div class="band-row">
+        <span class="band-label">What it is</span>
+        <p>Bespoke React/Next.js applications, PostgreSQL/SQLite backends, custom portals, member systems, internal tools, and multi-role platforms, built developer-first, tested, documented, and handed over.</p>
+      </div>
+      <div class="band-row">
+        <span class="band-label">Who it is for</span>
+        <p>Small-to-medium organisations that need a bespoke, high-performance web application: a custom portal, member system, internal tool, or a site whose requirements outgrow what a theme can do.</p>
+      </div>
+      <table class="price-table">
+        <thead>
+          <tr><th scope="col">Tier</th><th scope="col">Fixed price</th><th scope="col">Typical delivery</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Entry / Focused Sprint</td><td>£7,500</td><td>2-3 weeks</td></tr>
+          <tr><td>Standard Business Solution</td><td>£18,000</td><td>5-7 weeks</td></tr>
+          <tr><td>Enterprise / Complex Architecture</td><td>£38,000</td><td>8-12 weeks</td></tr>
+        </tbody>
+      </table>
+      <div class="band-row">
+        <span class="band-label">What&rsquo;s included</span>
+        <p><strong>Entry:</strong> single-purpose portal or lightweight tool, standard auth, 1-2 integrations, one primary user role, responsive UI, docs and handover. <strong>Standard:</strong> custom portal or member system, complex schema, role-based permissions and audit logs, multi-system integrations, admin dashboard, automated tests, full handover pack. <strong>Enterprise:</strong> multi-role platform, high-concurrency architecture, custom reporting and real-time flows, extended compliance or security review, multi-environment deployment, warranty window.</p>
+      </div>
+      <div class="band-row">
+        <span class="band-label">Not included unless quoted</span>
+        <p>Third-party subscriptions beyond the build, multi-tenant data isolation (Entry and Standard), legacy ERP or CRM two-way sync (quoted as an add-on), ongoing content updates, and paid support beyond the included warranty.</p>
+      </div>
+      <p style="margin-top:18px;"><a class="btn btn-secondary" href="contact.html">Book a free fit call</a></p>
+    </div>
+  </section>
+
+  <section class="section" id="automation" aria-label="Workflow and CRM automation">
+    <div class="sec-label">Service 2</div>
+    <div class="sec-body">
+      <h2>Workflow &amp; CRM Automation <span style="font-weight:400;font-size:0.8em;">(n8n + your existing tools)</span></h2>
+      <div class="band-row">
+        <span class="band-label">What it is</span>
+        <p>Automating manual operations across the systems you already run. I connect your existing tools (Zoho, Google Workspace, CRMs, email, spreadsheets, dialler platforms) using n8n, Deluge, and webhooks, and add document and inbox parsing where it removes manual work. Delivered as fixed-scope sprints.</p>
+      </div>
+      <div class="band-row">
+        <span class="band-label">Who it is for</span>
+        <p>Organisations eliminating repetitive process work: lead capture, follow-ups, data entry, and reporting, anything currently copied between tools by hand.</p>
+      </div>
+      <table class="price-table">
+        <thead>
+          <tr><th scope="col">Tier</th><th scope="col">Fixed price</th><th scope="col">Typical delivery</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Entry / Focused Sprint</td><td>£2,200</td><td>1-2 weeks</td></tr>
+          <tr><td>Standard Business Solution</td><td>£6,000</td><td>3-4 weeks</td></tr>
+          <tr><td>Enterprise / Complex Architecture</td><td>£11,000</td><td>5-7 weeks</td></tr>
+        </tbody>
+      </table>
+      <div class="band-row">
+        <span class="band-label">What&rsquo;s included</span>
+        <p><strong>Entry:</strong> one core workflow such as lead capture and routing, a webhook between two of your existing tools, simple automation scripts, a basic flow diagram, one round of testing and handover. <strong>Standard:</strong> end-to-end process automation, custom scripts, triggers, advanced flow diagrams, field mapping and data cleanup, admin handover and documentation. <strong>Enterprise:</strong> multi-department automated pipelines, complex multi-agent or API orchestration, legacy data migration and two-way syncs, full team training and an extended warranty.</p>
+      </div>
+      <div class="band-row">
+        <span class="band-label">Not included unless quoted</span>
+        <p>Third-party SaaS seats for the tools being connected, Google Cloud project compliance work beyond Standard, process mapping of undocumented operations (adds 20-30% discovery), and ongoing maintenance (see care plans below).</p>
+      </div>
+      <p style="margin-top:18px;"><a class="btn btn-secondary" href="contact.html">Book a free fit call</a></p>
+    </div>
+  </section>
+
+  <section class="section" id="agents" aria-label="Custom AI agent development">
+    <div class="sec-label">Service 3</div>
+    <div class="sec-body">
+      <h2>Custom AI Agent Development</h2>
+      <div class="band-row">
+        <span class="band-label">What it is</span>
+        <p>Specialised autonomous agents built for a named workflow on advanced developer harnesses (pi.dev, OpenClaw, Agent Zero, OpenCode CLI) with modern LLM APIs (Claude, Gemini Flash, Kimi, Qwen), RAG, guardrails, and run documentation.</p>
+      </div>
+      <div class="band-row">
+        <span class="band-label">Who it is for</span>
+        <p>Businesses deploying specialised autonomous agents: research and preparation, multi-step operations, or work that currently needs a person glued to several tools.</p>
+      </div>
+      <table class="price-table">
+        <thead>
+          <tr><th scope="col">Tier</th><th scope="col">Fixed price</th><th scope="col">Typical delivery</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Entry / Single-Task Agent</td><td>£4,500</td><td>1-2 weeks</td></tr>
+          <tr><td>Standard / Multi-Step Agent</td><td>£9,000</td><td>3-5 weeks</td></tr>
+          <tr><td>Enterprise / Multi-Agent System</td><td>£18,000</td><td>6-9 weeks</td></tr>
+        </tbody>
+      </table>
+      <div class="band-row">
+        <span class="band-label">What&rsquo;s included</span>
+        <p><strong>Entry:</strong> one workflow for research, triage, or drafting, standard API connections, basic logging, basic guardrails, run documentation, and one handover session. <strong>Standard:</strong> complex reasoning and multi-step operations, custom harness and VPS or Docker setup, RAG or knowledge-base integration, guardrail evaluation, run documentation, and an evaluation report. <strong>Enterprise:</strong> several interacting agents, multi-system read and write actions, human-in-the-loop approval workflows, deep evaluation, and a security review.</p>
+      </div>
+      <div class="band-row">
+        <span class="band-label">Not included unless quoted</span>
+        <p>Ongoing LLM token and hosting costs, third-party API subscriptions, vector-database running costs, model-deprecation monitoring (a care plan), and write-autonomy beyond the agreed scope.</p>
+      </div>
+      <p style="margin-top:18px;"><a class="btn btn-secondary" href="contact.html">Book a free fit call</a></p>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Care plans, running costs and discovery">
+    <div class="sec-label">After handover</div>
+    <div class="sec-body">
+      <h2>Care plans, running costs and discovery</h2>
+      <p class="lede">Third-party tool, hosting, and model costs are always separate from the fixed price, passed through at cost plus 10%, or capped inside a care plan. A care plan is standard for any live agent or write-enabled workflow.</p>
+      <div class="band-row">
+        <span class="band-label">Care / Monitoring</span>
+        <p><strong>£350/mo</strong>, 3-5 hrs/mo: prompt maintenance, model-deprecation patches, server and agent uptime monitoring, and a monthly health report.</p>
+      </div>
+      <div class="band-row">
+        <span class="band-label">Optimise / Iterate</span>
+        <p><strong>£750/mo</strong>, up to 10 hrs/mo: everything in Care, plus active optimization, prompt tuning, workflow tweaks, user onboarding, and a quarterly review.</p>
+      </div>
+      <div class="band-row">
+        <span class="band-label">Enterprise / Proactive</span>
+        <p><strong>£1,500+/mo</strong>, 10-20+ hrs/mo: everything in Optimise, plus SLA response, agent behaviour monitoring, security patches, capacity planning, and a dedicated channel.</p>
+      </div>
+      <div class="band-row">
+        <span class="band-label">Discovery / audit</span>
+        <p>A fixed-scope assessment with a written report: <strong>£500-£2,500</strong>, credited back against a signed build of £3,000+.</p>
+      </div>
+      <p class="price-note">Fixed prices are for the defined tier scope; integrations, data complexity, RBAC, and legacy syncs adjust the figure and are confirmed in your written scope.</p>
+    </div>
+  </section>
+</main><footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col footer-about">
+      <p class="footer-brand">Aremu Consulting Ltd</p>
+      <p class="footer-tag">Solo builder: web and app builds, workflow and CRM automation, and custom AI agents for small-to-medium businesses. All custom-scope, project-based.</p>
+    </div>
+    <nav class="footer-col" aria-label="Footer">
+      <p class="footer-head">Explore</p>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="approach.html">Approach</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <nav class="footer-col" aria-label="Legal">
+      <p class="footer-head">Legal</p>
+      <ul class="footer-links">
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms &amp; Conditions</a></li>
+        <li><a href="cookies.html">Cookie Policy</a></li>
+        <li><a href="refund.html">Refund Policy</a></li>
+      </ul>
+    </nav>
+    <div class="footer-col footer-contact">
+      <p class="footer-head">Contact</p>
+      <p class="footer-line">Bartle House, 9 Oxford Court</p>
+      <p class="footer-line">Manchester, M2 3WQ</p>
+      <p class="footer-line">Online consultations only — inquiries via the Contact page form.</p>
+    </div>
+    <div class="footer-col footer-cta">
+      <a class="btn btn-primary" href="contact.html">Book a free fit call</a>
+      <p class="footer-micro">Free 15-minute fit call, then a paid discovery credited against any build.</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Aremu Consulting Ltd · Company No. 16401865 · Registered office: Bartle House, 9 Oxford Court, Manchester, M2 3WQ.</p>
+  </div>
+</footer>
+</body>
+</html>

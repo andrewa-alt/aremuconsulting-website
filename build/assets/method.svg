@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="792" viewBox="0 0 920 792" role="img" aria-labelledby="sig-method-title sig-method-desc">
+<title id="sig-method-title">The named delivery method: Discover, Scope, Milestones, Handover</title>
+<desc id="sig-method-desc">Four drafting-sheet stages stacked on a vertical rail, each showing input, what happens, what you receive, and the handoff artifact.</desc>
+<defs><pattern id="bp" width="22" height="22" patternUnits="userSpaceOnUse"><path d="M 22 0 L 0 0 0 22" fill="none" stroke="#E7EAE9" stroke-width="1"/></pattern><marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1D6A4F"/></marker></defs>
+<line x1="34" y1="40" x2="34" y2="728" stroke="#D9DDDC" stroke-width="2"/>
+<g class="sheet">
+<rect x="29" y="54" width="10" height="10" fill="#1D6A4F"/>
+<rect x="62" y="40" width="830" height="150" fill="#FFFFFF" stroke="#D9DDDC" stroke-width="1"/>
+<rect x="62" y="40" width="830" height="150" fill="url(#bp)" opacity="0.5" pointer-events="none"/>
+<rect x="88" y="60" width="12" height="12" fill="#1D6A4F"/>
+<text x="110" y="72" font-family="Martian Mono, Cascadia Code, SF Mono, Menlo, Consolas, monospace" font-size="12" letter-spacing="2.5" fill="#1D6A4F" font-weight="600">STAGE 01 · DISCOVER</text>
+<text x="866" y="72" text-anchor="end" font-family="Martian Mono, Cascadia Code, SF Mono, Menlo, Consolas, monospace" font-size="10.5" fill="#5C6266">input: brief · current state</text>
+<text x="88" y="102" font-family="Atkinson Hyperlegible, Segoe UI, system-ui, sans-serif" font-size="15.5" font-weight="700" fill="#16181A">Understand the problem before the first fix.</text>
+<text x="88" y="132" font-family="Martian Mono, Cascadia Code, SF Mono, Menlo, Consolas, monospace" font-size="10" letter-spacing="1.2" transform="rotate(0)" fill="#5C6266">WHAT HAPPENS</text>
+<text x="198" y="132" font-family="Martian Mono, Cascadia Code, SF Mono, Menlo, Consolas, monospace" font-size="10.5" fill="#3F4448">A working session on the problem, constraints, and the systems you already run.</text>
+<text x="88" y="149" font-family="Martian Mono, Cascadia Code, SF Mono, Menlo, Consolas, monospace" font-size="10" letter-spacing="1.2" transform="rotate(0)" fill="#5C6266">YOU RECEIVE</text>
+<text x="198" y="149" font-family="Martian Mono, Cascadia Code, SF Mono, Menlo, Consolas, monospace" font-size="10.5" fill="#3F4448">written problem statement · fit assessment</text>
+<text x="88" y="166" font-family="Martian Mono, Cascadia Code, SF Mono, Menlo, Consolas, monospace" font-size="10" letter-spacing="1.2" transform="rotate(0)" fill="#5C6266">HANDOFF</text>
+<text x="198" y="166" font-family="Martian Mono, Cascadia Code, SF Mono, Menlo, Consolas, monospace" font-size="10.5" fill="#3F4448">scope brief</text>
+<line x1="461.0" y1="202.0" x2="493.0" y2="202.0" stroke="#1D6A4F" stroke-width="2" marker-end="url(#arr)"/>
+</g>
+<g class="sheet">
+<rect x="29" y="232" width="10" height="10" fill="#1D6A4F"/>
+<rect x="62" y="218" width="830" height="150" fill="#FFFFFF" stroke="#D9DDDC" stroke-width="1"/>
+<rect x="62" y="218" width="830" height="150" fill="url(#bp)" opacity="0.5" pointer-events="none"/>
+<rect x="88" y="238" width="12" height="12" fill="#1D6A4F"/>
+<text x="110" y="250" font-family="Martian Mono, Cascadia Code, SF Mono, Menlo, Consolas, monospace" font-size="12" letter-spacing="2.5" fill="#1D6A4F" font-weight="600">STAGE 02 · SCOPE</text>
+<text x="866" y="250" text-anchor="end" font-family="Martian Mono, Cascadia Code, SF Mono, Menlo, Consolas, monospace" font-size="10.5" fill="#5C6266">input: discovery outputs</text>
+<text x="88" y="280" font-family="Atkinson Hyperlegible, Segoe UI, system-ui, sans-serif" font-size="15.5" font-weight="700" fill="#16181A">Scope frozen in writing. Changes priced before done.</text>
+<text x="88" y="310" font-family="Martian Mono, Cascadia Code, SF Mono, Menlo, Consolas, monospace" font-size="10" letter-spacing="1.2" transform="rotate(0)" fill="#5C6266">WHAT HAPPENS</text>
+<text x="198" y="310" font-family="Martian Mono, Cascadia Code, SF Mono, Menlo, Consolas, monospace" font-size="10.5" fill="#3F4448">Deliverables, architecture direction, and explicit out-of-scope, written down and agreed.</text>
+<text x="88" y="327" font-family="Martian Mono, Cascadia Code, SF Mono, Menlo, Consolas, monospace" font-size="10" letter-spacing="1.2" transform="rotate(0)" fill="#5C6266">YOU RECEIVE</text>
+<text x="198" y="327" font-family="Martian Mono, Cascadia Code, SF Mono, Menlo, Consolas, monospace" font-size="10.5" fill="#3F4448">written scope · milestone map · pricing shape</text>
+<text x="88" y="344" font-family="Martian Mono, Cascadia Code, SF Mono, Menlo, Consolas, monospace" font-size="10" letter-spacing="1.2" transform="rotate(0)" fill="#5C6266">HANDOFF</text>
+<text x="198" y="344" font-family="Martian Mono, Cascadia Code, SF Mono, Menlo, Consolas, monospace" font-size="10.5" fill="#3F4448">signed scope</text>
+<line x1="461.0" y1="380.0" x2="493.0" y2="380.0" stroke="#1D6A4F" stroke-width="2" marker-end="url(#arr)"/>
+</g>
+<g class="sheet">
+<rect x="29" y="410" width="10" height="10" fill="#1D6A4F"/>
+<rect x="62" y="396" width="830" height="150" fill="#FFFFFF" stroke="#D9DDDC" stroke-width="1"/>
+<rect x="62" y="396" width="830" height="150" fill="url(#bp)" opacity="0.5" pointer-events="none"/>
+<rect x="88" y="416" width="12" height="12" fill="#1D6A4F"/>
+<text x="110" y="428" font-family="Martian Mono, Cascadia Code, SF Mono, Menlo, Consolas, monospace" font-size="12" letter-spacing="2.5" fill="#1D6A4F" font-weight="600">STAGE 03 · MILESTONES</text>
+<text x="866" y="428" text-anchor="end" font-family="Martian Mono, Cascadia Code, SF Mono, Menlo, Consolas, monospace" font-size="10.5" fill="#5C6266">input: signed scope</text>
+<text x="88" y="458" font-family="Atkinson Hyperlegible, Segoe UI, system-ui, sans-serif" font-size="15.5" font-weight="700" fill="#16181A">Fixed-price milestones. Nothing drifts.</text>
+<text x="88" y="488" font-family="Martian Mono, Cascadia Code, SF Mono, Menlo, Consolas, monospace" font-size="10" letter-spacing="1.2" transform="rotate(0)" fill="#5C6266">WHAT HAPPENS</text>
+<text x="198" y="488" font-family="Martian Mono, Cascadia Code, SF Mono, Menlo, Consolas, monospace" font-size="10.5" fill="#3F4448">The build is split into milestones with a defined done state and a review at every gate.</text>
+<text x="88" y="505" font-family="Martian Mono, Cascadia Code, SF Mono, Menlo, Consolas, monospace" font-size="10" letter-spacing="1.2" transform="rotate(0)" fill="#5C6266">YOU RECEIVE</text>
+<text x="198" y="505" font-family="Martian Mono, Cascadia Code, SF Mono, Menlo, Consolas, monospace" font-size="10.5" fill="#3F4448">milestone plan · change-pricing policy</text>
+<text x="88" y="522" font-family="Martian Mono, Cascadia Code, SF Mono, Menlo, Consolas, monospace" font-size="10" letter-spacing="1.2" transform="rotate(0)" fill="#5C6266">HANDOFF</text>
+<text x="198" y="522" font-family="Martian Mono, Cascadia Code, SF Mono, Menlo, Consolas, monospace" font-size="10.5" fill="#3F4448">accepted milestones</text>
+<line x1="461.0" y1="558.0" x2="493.0" y2="558.0" stroke="#1D6A4F" stroke-width="2" marker-end="url(#arr)"/>
+</g>
+<g class="sheet">
+<rect x="29" y="588" width="10" height="10" fill="#1D6A4F"/>
+<rect x="62" y="574" width="830" height="150" fill="#FFFFFF" stroke="#D9DDDC" stroke-width="1"/>
+<rect x="62" y="574" width="830" height="150" fill="url(#bp)" opacity="0.5" pointer-events="none"/>
+<rect x="88" y="594" width="12" height="12" fill="#1D6A4F"/>
+<text x="110" y="606" font-family="Martian Mono, Cascadia Code, SF Mono, Menlo, Consolas, monospace" font-size="12" letter-spacing="2.5" fill="#1D6A4F" font-weight="600">STAGE 04 · HANDOVER</text>
+<text x="866" y="606" text-anchor="end" font-family="Martian Mono, Cascadia Code, SF Mono, Menlo, Consolas, monospace" font-size="10.5" fill="#5C6266">input: accepted milestones</text>
+<text x="88" y="636" font-family="Atkinson Hyperlegible, Segoe UI, system-ui, sans-serif" font-size="15.5" font-weight="700" fill="#16181A">Ships as a system, not a deliverable.</text>
+<text x="88" y="666" font-family="Martian Mono, Cascadia Code, SF Mono, Menlo, Consolas, monospace" font-size="10" letter-spacing="1.2" transform="rotate(0)" fill="#5C6266">WHAT HAPPENS</text>
+<text x="198" y="666" font-family="Martian Mono, Cascadia Code, SF Mono, Menlo, Consolas, monospace" font-size="10.5" fill="#3F4448">Code, docs, tests and a handover session; maintenance offered at handover, not a squeeze.</text>
+<text x="88" y="683" font-family="Martian Mono, Cascadia Code, SF Mono, Menlo, Consolas, monospace" font-size="10" letter-spacing="1.2" transform="rotate(0)" fill="#5C6266">YOU RECEIVE</text>
+<text x="198" y="683" font-family="Martian Mono, Cascadia Code, SF Mono, Menlo, Consolas, monospace" font-size="10.5" fill="#3F4448">code · docs · tests · handover session</text>
+<text x="88" y="700" font-family="Martian Mono, Cascadia Code, SF Mono, Menlo, Consolas, monospace" font-size="10" letter-spacing="1.2" transform="rotate(0)" fill="#5C6266">HANDOFF</text>
+<text x="198" y="700" font-family="Martian Mono, Cascadia Code, SF Mono, Menlo, Consolas, monospace" font-size="10.5" fill="#3F4448">production + maintenance decision</text>
+</g>
+</svg>

@@ -1,0 +1,676 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Multi-User Google Sheets: Preventing Team Chaos</title>
+<meta name="description" content="Let&#x27;s talk about spreadsheets. Those ubiquitous digital canvases I use to track everything from my pizza orders to my company&#x27;s quarterly earnings. They&#x27;re…">
+<link rel="canonical" href="https://www.aremuconsulting.com/blog-multi-user-sheets-team-chaos-costs-smbs-30k-yearly.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Multi-User Google Sheets: Preventing Team Chaos">
+<meta property="og:description" content="Let&#x27;s talk about spreadsheets. Those ubiquitous digital canvases I use to track everything from my pizza orders to my company&#x27;s quarterly earnings. They&#x27;re…">
+<meta property="og:url" content="https://www.aremuconsulting.com/blog-multi-user-sheets-team-chaos-costs-smbs-30k-yearly.html">
+<meta name="og:site_name" content="Aremu Consulting">
+<script type="application/ld+json">[{"@context":"https://schema.org","@type":"BlogPosting","headline":"Multi-User Google Sheets: Preventing Team Chaos","description":"Let's talk about spreadsheets. Those ubiquitous digital canvases I use to track everything from my pizza orders to my company's quarterly earnings. They're…","datePublished":"2026-03-04","author":{"@type":"Person","name":"Andrew Aremu"},"publisher":{"@type":"Organization","name":"Aremu Consulting Ltd","url":"https://www.aremuconsulting.com","founder":{"@type":"Person","name":"Andrew Aremu"},"address":{"@type":"PostalAddress","addressLocality":"Manchester","addressCountry":"GB"}},"mainEntityOfPage":"https://www.aremuconsulting.com/blog-multi-user-sheets-team-chaos-costs-smbs-30k-yearly.html","articleSection":"Google Sheets"}]</script>
+<style>
+:root {
+  --paper: #F5F6F6;
+  --sheet: #FFFFFF;
+  --ink: #16181A;
+  --ink-soft: #3F4448;
+  --muted: #5C6266;
+  --rule: #D9DDDC;
+  --grid: #E7EAE9;
+  --accent: #1D6A4F;
+  --accent-strong: #14532D;
+  --accent-soft: #E6F0EA;
+  --danger: #9B3226;
+  --measure: 68ch;
+  --font-display: 'Atkinson Hyperlegible', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'Atkinson Hyperlegible', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'Martian Mono', 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace;
+}
+@font-face { font-family: 'Atkinson Hyperlegible'; font-style: normal; font-weight: 400; font-display: swap; src: url('build/assets/fonts/Atkinson_Hyperlegible-400.woff2') format('woff2'); }
+@font-face { font-family: 'Atkinson Hyperlegible'; font-style: normal; font-weight: 700; font-display: swap; src: url('build/assets/fonts/Atkinson_Hyperlegible-700.woff2') format('woff2'); }
+@font-face { font-family: 'Martian Mono'; font-style: normal; font-weight: 400; font-display: swap; src: url('build/assets/fonts/Martian_Mono-400.woff2') format('woff2'); }
+@font-face { font-family: 'Martian Mono'; font-style: normal; font-weight: 500; font-display: swap; src: url('build/assets/fonts/Martian_Mono-500.woff2') format('woff2'); }
+@font-face { font-family: 'Martian Mono'; font-style: normal; font-weight: 700; font-display: swap; src: url('build/assets/fonts/Martian_Mono-700.woff2') format('woff2'); }
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; font-family: var(--font-body); font-size: 17px; line-height: 1.6; color: var(--ink); background: var(--paper); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+img, svg { max-width: 100%; height: auto; display: block; }
+p { max-width: 68ch; }
+h1, h2, h3, h4, p, ul, ol, figure, blockquote, dl, dd { margin: 0; }
+ul, ol, dl { padding-left: 1.25rem; max-width: 68ch; }
+a { color: var(--accent); text-decoration: underline; text-underline-offset: 0.18em; text-decoration-color: var(--accent); }
+a:hover { text-decoration-thickness: 0.1em; }
+::selection { background: var(--accent); color: var(--paper); }
+:root { color-scheme: light; }
+* { caret-color: var(--accent); }
+::-webkit-scrollbar { width: 12px; height: 12px; }
+::-webkit-scrollbar-track { background: var(--paper); }
+::-webkit-scrollbar-thumb { background: var(--rule); border-radius: 6px; border: 2px solid var(--paper); }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+.skip-link {
+  position: fixed;
+  top: -70px; left: 12px;
+  z-index: 100;
+  padding: 13px 16px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  text-decoration: none;
+  border-radius: var(--radius-control);
+}
+.skip-link:focus { top: 12px; }
+.page { padding: 0 24px 72px; }
+.page-inner { max-width: 1200px; margin: 0 auto; }
+.section {
+  display: grid;
+  grid-template-columns: minmax(7rem, 9rem) 1fr;
+  gap: 18px 28px;
+  padding: 52px 24px;
+  border-bottom: 1px solid var(--rule);
+}
+.section:last-of-type { border-bottom: none; }
+.sec-label {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-top: 8px;
+}
+.sec-label::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: var(--rule);
+  margin-bottom: 12px;
+}
+.sec-body { min-width: 0; }
+.sec-body h2 {
+  font-family: var(--font-body);
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.22;
+  max-width: 24ch;
+  margin-bottom: 14px;
+}
+.sec-body .lede { color: var(--ink-soft); font-size: 1.05rem; margin-bottom: 22px; }
+.site-header { border-bottom: 1px solid var(--rule); background: var(--paper); }
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+  flex-wrap: wrap;
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--ink);
+  min-height: 44px;
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px; height: 34px;
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-control);
+  overflow: hidden;
+  flex: none;
+}
+.brand-mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+.brand-name { font-family: var(--font-mono); font-size: 0.86rem; font-weight: 700; letter-spacing: 0.02em; }
+.brand-sub { display: block; font-family: var(--font-mono); font-size: 0.66rem; color: var(--muted); letter-spacing: 0.06em; }
+.site-nav { display: flex; gap: 22px; flex-wrap: wrap; }
+.site-nav a {
+  color: var(--ink);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  padding: 13px 2px;
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  border-bottom: 2px solid transparent;
+}
+.site-nav a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+.site-nav a.active { color: var(--accent); border-bottom-color: var(--accent); }
+.btn {
+  display: inline-block;
+  padding: 12px 20px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+  text-align: center;
+  border: 2px solid transparent;
+  border-radius: var(--radius-control);
+  cursor: pointer;
+  min-height: 48px;
+}
+.btn-primary { background: var(--accent); color: var(--paper); }
+.btn-primary:hover { background: var(--accent-strong); }
+.btn-secondary { background: transparent; color: var(--ink); border-color: var(--ink); }
+.btn-secondary:hover { background: var(--ink); color: var(--paper); }
+.btn[aria-disabled="true"], .btn:disabled { opacity: 0.55; cursor: not-allowed; }
+.hero { padding: 72px 24px 60px; border-bottom: 1px solid var(--rule); }
+.hero-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 26px;
+}
+.hero h1 {
+  font-size: clamp(2.1rem, 4.4vw, 3.3rem);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  max-width: 18ch;
+}
+.hero .lede { max-width: 68ch; font-size: 1.12rem; color: var(--ink-soft); }
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 8px; }
+.hero-offer { max-width: 100%; }
+.offer-chips { display: flex; flex-wrap: wrap; gap: 12px; }
+.offer-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  padding: 10px 16px;
+}
+.offer-chip::before { content: ""; width: 7px; height: 7px; background: var(--accent); flex: none; }
+.offer-caption { margin: 16px 0 0; font-family: var(--font-mono); font-size: 0.85rem; color: var(--ink-soft); }
+.pf-rise { animation: pf-rise 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.pf-type { display: inline-block; overflow: hidden; white-space: nowrap; max-width: 36ch; vertical-align: bottom; animation: pf-type 1.4s steps(36, end) both; }
+@keyframes pf-rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pf-type { from { max-width: 0; } to { max-width: 36ch; } }
+.authority {
+  border-bottom: 1px solid var(--rule);
+  padding: 18px 24px;
+}
+.authority-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 34px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.03em;
+  color: var(--ink-soft);
+}
+.authority-inner .tick { color: var(--accent); }
+.service-row {
+  display: grid;
+  grid-template-columns: minmax(10rem, 16rem) 1fr auto;
+  gap: 22px;
+  align-items: baseline;
+  padding: 22px 12px;
+  border-top: 1px solid var(--rule);
+}
+.service-row:first-child { border-top: none; }
+.service-row h3 { font-size: 1.12rem; font-weight: 700; }
+.service-row p { color: var(--ink-soft); }
+.more { font-family: var(--font-mono); font-size: 0.82rem; white-space: nowrap; min-height: 44px; display: inline-flex; align-items: center; }
+.service-row .more { }
+.method-wrap { max-width: 1200px; margin: 0 auto; overflow-x: auto; }
+.sheet {
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 22px 24px;
+  margin: 0 0 14px;
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 22px 22px;
+  background-position: -1px -1px;
+}.sheet-stage { display: inline-flex; align-items: center; gap: 10px; }.sheet-stage .mono-code { font-family: var(--font-mono); font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; color: var(--accent); text-transform: uppercase; }.sheet h3 { font-size: 1.22rem; font-weight: 700; margin-bottom: 6px; }
+.sheet .thesis { font-size: 1.02rem; color: var(--ink-soft); margin-bottom: 14px; }.sheet-rows dt { font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); padding-top: 2px; }.sheet-rows dd.handoff { color: var(--accent); font-family: var(--font-mono); font-size: 0.82rem; }
+.case-study { border: 1px solid var(--rule); padding: 26px 24px; background: var(--sheet); }
+.case-label {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  border: 1px solid var(--rule);
+  padding: 4px 8px;
+  margin-bottom: 14px;
+}
+.cs-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 16px; }
+.cs-cols h3 { font-family: var(--font-mono); font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--accent); margin-bottom: 6px; }
+.cs-cols p { font-size: 0.95rem; color: var(--ink-soft); }
+.tradeoff-row { padding: 16px 12px; border-top: 1px solid var(--rule); }
+.tradeoff-row .who { font-family: var(--font-mono); font-size: 0.82rem; color: var(--accent); margin-bottom: 4px; }
+.tradeoff-row p { color: var(--ink-soft); }
+.price-table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 0.95rem; }
+.price-table th, .price-table td { text-align: left; padding: 10px 6px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.price-table th { font-family: var(--font-mono); font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
+.price-table td:first-child { font-weight: 700; }
+.price-table td:nth-child(2) { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.price-note { font-family: var(--font-mono); font-size: 0.85rem; color: var(--muted); margin-top: 8px; }
+.band-row { padding: 14px 12px; border-top: 1px solid var(--rule); }
+.band-row .band-label { font-family: var(--font-mono); font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--accent); margin-bottom: 4px; }
+.band-row p { color: var(--ink-soft); }
+.guarantee { border: 1px solid var(--accent); padding: 26px 24px; background: var(--accent-soft); }
+.guarantee h3 { font-size: 1.2rem; margin-bottom: 10px; }
+.guarantee ul { color: var(--ink); }
+
+.objection { padding: 20px 12px; border-top: 1px solid var(--rule); }
+.objection h3 { font-size: 1.1rem; margin-bottom: 8px; }
+.objection .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 8px; }
+.objection h4 { font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--accent); margin-bottom: 4px; }
+.objection p { color: var(--ink-soft); font-size: 0.95rem; }
+.about-grid { display: grid; grid-template-columns: 260px 1fr; gap: 30px; }
+.about-facts { font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-soft); line-height: 1.8; }
+.about-facts dt { color: var(--accent); }
+.contact-offer { background: var(--sheet); border: 1px solid var(--rule); padding: 34px 24px; margin: 40px 0; }
+.contact-offer h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; line-height: 1.15; margin-bottom: 12px; }
+.contact-offer p { color: var(--ink-soft); }
+.form-sheet { background: var(--sheet); border: 1px solid var(--rule); padding: 28px 24px; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.form-field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.form-field.full { grid-column: 1 / -1; }
+.form-field label { font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink); }
+.form-field input,
+.form-field select,
+.form-field textarea {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  padding: 12px 14px;
+  border: 2px solid var(--rule);
+  background: var(--paper);
+  color: var(--ink);
+  border-radius: var(--radius-control);
+  width: 100%;
+}
+.form-field textarea { min-height: 120px; resize: vertical; }
+.form-field input:focus, .form-field select:focus, .form-field textarea:focus { border-color: var(--accent); outline: 2px solid var(--accent); outline-offset: 2px; }
+.form-field .hint, .form-field .error { font-size: 0.82rem; color: var(--muted); }
+.form-field .error { color: var(--danger); }
+.form-field input[aria-invalid="true"], .form-field select[aria-invalid="true"], .form-field textarea[aria-invalid="true"] { border-color: var(--danger); }
+.form-actions { margin-top: 26px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+[role="status"] {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--accent);
+  border: 1px solid var(--rule);
+  padding: 10px 14px;
+}
+.steps { list-style: none; padding: 0; counter-reset: steps; max-width: 68ch; }
+.steps li { counter-increment: steps; padding: 14px 12px; border-top: 1px solid var(--rule); display: flex; gap: 18px; align-items: baseline; }
+.steps li::before { content: counter(steps, decimal-leading-zero); font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent); }
+.steps li p { color: var(--ink-soft); }
+.demo-note {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--muted);
+  border: 1px dashed var(--rule);
+  padding: 10px 14px;
+  margin-top: 18px;
+}
+.site-footer { border-top: 1px solid var(--rule); background: var(--sheet); margin-top: 48px; }
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 24px 24px;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1.4fr;
+  gap: 30px;
+}
+.footer-brand { font-family: var(--font-mono); font-weight: 700; font-size: 0.95rem; margin-bottom: 8px; }
+.footer-tag { color: var(--ink-soft); font-size: 0.9rem; max-width: 44ch; }
+.footer-head { font-family: var(--font-mono); font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--accent); margin-bottom: 10px; }
+.footer-links { list-style: none; padding: 0; }
+.footer-links li { margin-bottom: 2px; }
+.footer-links a { color: var(--ink); text-decoration: none; min-width: 44px; min-height: 44px; display: inline-flex; align-items: center; }
+.footer-links a:hover { color: var(--accent); text-decoration: underline; }
+.footer-line { color: var(--ink-soft); font-size: 0.9rem; margin-bottom: 6px; }
+.footer-placeholder { font-size: 0.8rem; }
+.footer-micro { font-size: 0.8rem; color: var(--ink-soft); margin-top: 10px; max-width: 34ch; }
+.footer-bottom { border-top: 1px solid var(--rule); padding: 16px 24px; }
+.footer-bottom p {
+  max-width: 68ch;
+  margin: 0 auto;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+@media (max-width: 860px) {
+  .cs-cols, .objection .cols, .about-grid, .form-grid { grid-template-columns: 1fr; }
+  .footer-inner { grid-template-columns: 1fr 1fr; }
+  .service-row { grid-template-columns: 1fr; gap: 6px; }
+  .hero { padding: 52px 18px 44px; }
+}
+@media (max-width: 640px) {
+  .method-wrap svg { width: 640px; max-width: none; }
+  .section { grid-template-columns: 1fr; padding: 44px 18px; gap: 4px; }
+  .sec-label { display: none; }
+  body { font-size: 16px; }
+  .page { padding: 0 18px 56px; }
+  .header-inner { padding: 14px 18px; }
+  .site-nav { gap: 14px; }
+  .footer-inner { grid-template-columns: 1fr; }
+  .sheet-rows { grid-template-columns: 1fr; }
+}
+.scroll-cue { font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); margin: 8px 0 0; display: none; }
+@media (max-width: 640px) { .method-wrap + .scroll-cue { display: inline-block; } }
+html.js .js-reveal g.sheet { transform: translateY(-22px); opacity: 0; }
+html.js .js-reveal.in g.sheet { transform: translateY(0); opacity: 1; }
+html.js .js-reveal g.sheet { transition: transform 650ms cubic-bezier(0.16, 1, 0.3, 1), opacity 650ms cubic-bezier(0.16, 1, 0.3, 1); }
+html.js .js-reveal g.sheet:nth-of-type(2) { transition-delay: 800ms; }
+html.js .js-reveal g.sheet:nth-of-type(3) { transition-delay: 1600ms; }
+html.js .js-reveal g.sheet:nth-of-type(4) { transition-delay: 2400ms; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  html.js .js-reveal g.sheet { transform: none !important; opacity: 1 !important; }
+  .skip-link { transition: none; }
+}
+/* ---- Blog + Projects content pages (gen/build_content.py) ---- */
+.post-list { list-style: none; padding: 0; max-width: 1200px; margin: 0 auto; }
+.entry { padding: 30px 24px; border-bottom: 1px solid var(--rule); }
+.entry:last-child { border-bottom: none; }
+.entry-title { font-size: clamp(1.25rem, 2.4vw, 1.6rem); font-weight: 700; line-height: 1.35; letter-spacing: -0.01em; margin: 6px 0 8px; max-width: 24ch; }
+.entry-title a {
+  color: var(--ink);
+  text-decoration: none;
+  display: inline-block;
+  padding: 10px 0;
+  margin: -10px 0;
+}
+.entry-title a:hover { color: var(--accent); text-decoration: underline; }
+.entry-excerpt { color: var(--ink-soft); max-width: 68ch; margin-top: 12px; }
+.post-meta { font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.03em; color: var(--muted); display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.post-meta .cat { color: var(--accent); }
+.post-head { padding: 40px 0 26px; }
+.post-head h1 { font-size: clamp(1.9rem, 4vw, 3rem); font-weight: 700; line-height: 1.12; letter-spacing: -0.02em; max-width: 22ch; margin: 14px 0 14px; }
+.post-head .lede { color: var(--ink-soft); font-size: 1.1rem; max-width: 68ch; }
+.prose { max-width: 68ch; padding-top: 26px; }
+.prose h2 { font-size: clamp(1.35rem, 2.4vw, 1.7rem); font-weight: 700; line-height: 1.22; letter-spacing: -0.01em; max-width: 24ch; margin: 2.1em 0 0.7em; }
+.prose h3 { font-size: 1.12rem; font-weight: 700; margin: 1.7em 0 0.5em; }
+.prose p { margin: 0 0 1.05em; color: var(--ink); }
+.prose ul, .prose ol { margin: 0 0 1.05em; }
+.prose li { margin: 0 0 0.4em; }
+.prose blockquote { margin: 1.4em 0; padding: 0 0 0 1em; border-left: 3px solid var(--accent); color: var(--ink-soft); }
+.prose hr { border: none; border-top: 1px solid var(--rule); margin: 2em 0; }
+.prose strong { font-weight: 700; }
+.prose em { font-style: italic; }
+.prose pre {
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  max-width: 100%;
+  overflow-x: auto;
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  padding: 14px 16px;
+  font-family: var(--font-mono);
+  font-size: 0.84rem;
+  line-height: 1.55;
+  margin: 1.2em 0;
+}
+.prose code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  background: var(--accent-soft);
+  padding: 1px 5px;
+  border-radius: 2px;
+  overflow-wrap: break-word;
+}
+.prose pre code { background: none; padding: 0; }
+.prose table { max-width: 100%; display: block; overflow-x: auto; }
+.case-label { display: inline-block; font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.03em; color: var(--accent); border: 1px solid var(--accent); padding: 3px 9px; margin: 0 0 14px; }
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; margin: 30px 0; max-width: 1100px; }
+.stat { background: var(--sheet); border: 1px solid var(--rule); padding: 18px 16px; }
+.stat .stat-v { font-family: var(--font-mono); font-size: 1.45rem; font-weight: 700; color: var(--accent); }
+.stat .stat-l { font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); margin-top: 6px; }
+.quote { margin: 26px 0; padding: 18px 22px; border-left: 3px solid var(--accent); background: var(--accent-soft); max-width: 68ch; }
+.quote p { font-size: 1.06rem; color: var(--ink); max-width: 68ch; margin: 0; }
+.quote-footer { font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted); margin-top: 10px; }
+.disclosure {
+  margin: 26px 0;
+  max-width: 68ch;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--muted);
+  border: 1px dashed var(--rule);
+  padding: 10px 14px;
+}
+.post-cta { margin: 34px 0 8px; }
+@media (max-width: 640px) {
+  .post-head { padding: 34px 0 22px; }
+  .entry { padding: 24px 8px; }
+  .stat-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* ---- Project screenshot gallery (right column on desktop) ---- */
+.project-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 68ch) minmax(320px, 1fr);
+  grid-template-areas: "main gallery";
+  gap: 40px;
+  align-items: start;
+  padding-top: 26px;
+}
+.project-main { grid-area: main; min-width: 0; }
+.project-gallery {
+  grid-area: gallery;
+  position: sticky;
+  top: 20px;
+}
+.gallery-head {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  margin: 0 0 10px;
+}
+.gallery { margin: 0; }
+.gallery-frame {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  width: 100%;
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  cursor: zoom-in;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  border-radius: 0;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.gallery-frame:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.gallery-zoom {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(245, 246, 246, 0.94);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+  padding: 4px 9px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-control);
+  pointer-events: none;
+}
+.gallery-frame img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+.gallery-frame img[hidden] { display: none; }
+.gallery-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+.gallery-btn {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--ink);
+  background: var(--sheet);
+  border: 2px solid var(--rule);
+  border-radius: var(--radius-control);
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 12px;
+  cursor: pointer;
+}
+.gallery-btn:hover { border-color: var(--accent); color: var(--accent); }
+.gallery-btn[disabled] { opacity: 0.4; cursor: not-allowed; }
+.gallery-counter { font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); }
+.gallery-caption {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  margin-top: 8px;
+  min-height: 1.4em;
+}
+@media (max-width: 960px) {
+  .project-layout { grid-template-columns: 1fr; grid-template-areas: "gallery" "main"; gap: 28px; }
+  .project-gallery { position: static; }
+}
+
+/* ---- Lightbox (full-size screenshot viewer) ---- */
+.lightbox { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px; }
+.lightbox[hidden] { display: none; }
+.lightbox-backdrop { position: absolute; inset: 0; background: rgba(15, 17, 18, 0.86); }
+.lightbox-panel {
+  position: relative;
+  z-index: 1;
+  width: min(1080px, 96vw);
+  max-height: 92vh;
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  display: flex;
+  flex-direction: column;
+}
+.lightbox-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 12px 8px 16px; border-bottom: 1px solid var(--rule); }
+.lightbox-status { font-family: var(--font-mono); font-size: 0.82rem; color: var(--ink-soft); }
+.lightbox-close {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  color: var(--ink);
+  background: var(--sheet);
+  border: 2px solid var(--rule);
+  border-radius: var(--radius-control);
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 10px;
+  cursor: pointer;
+}
+.lightbox-close:hover { border-color: var(--accent); color: var(--accent); }
+.lightbox-stage { background: var(--ink); display: flex; align-items: center; justify-content: center; padding: 24px; flex: 1; min-height: 0; }
+.lightbox-img { max-width: 100%; max-height: calc(92vh - 130px); object-fit: contain; }
+.lightbox-nav { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 12px 14px; border-top: 1px solid var(--rule); background: var(--sheet); }
+.lightbox-counter { font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); }
+
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html" aria-label="Aremu Consulting: home">
+      <span class="brand-mark" aria-hidden="true"><img src="build/assets/logo.png" alt="" width="34" height="34" decoding="async"></span>
+      <span class="brand-text">
+        <span class="brand-name">Aremu Consulting</span>
+        <span class="brand-sub">Ltd · Manchester, UK</span>
+      </span>
+    </a>
+    <nav class="site-nav" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="approach.html">Approach</a>
+      <a href="projects.html">Projects</a>
+      <a href="blog.html" class="active">Blog</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a class="btn btn-primary nav-cta" href="contact.html">Book a free fit call</a>
+  </div>
+</header><main id="main" class="page"><div class="page-inner"><article><header class="post-head"><p class="post-meta"><span class="cat">Google Sheets</span><span>4 Mar 2026</span><span>By Andrew Aremu</span></p><h1>Multi-User Google Sheets: Preventing Team Chaos</h1><p class="lede">Let&#x27;s talk about spreadsheets. Those ubiquitous digital canvases I use to track everything from my pizza orders to my company&#x27;s quarterly earnings. They&#x27;re powerful, flexible, and seemingly, the…</p></header><div class="prose"><div>  <p>Let's talk about spreadsheets. Those ubiquitous digital canvases I use to track everything from my pizza orders to my company's quarterly earnings. They're powerful, flexible, and seemingly, the absolute bedrock of modern business collaboration. But what if I told you that the very tools you rely on for team synergy are, in fact, subtly sabotaging your efforts, creating chaos, and draining your resources?</p> <p>I've been sold a fairy tale. The narrative peddled by spreadsheet giants like Google and Microsoft is that sharing a spreadsheet – a Google Sheet or an Excel Online file – with multiple people is practically indistinguishable from a serene, well-oiled collaborative machine. "Look! You can both edit this at the same time!" they chirped, holding up shimmering versions of their products.</p> <p>What they conveniently glossed over is that this supposed miracle of simultaneous editing is, for most SMBs, a recipe for disaster served on a gilded plate. Your "trustworthy" multi-user sheets are, in reality, a gold-plated lie, fueling team chaos and costing you precious time and money.</p> <h2>1. Root Causes: Why Collaboration Becomes Collision</h2> <p>Let's be blunt. Your “trustworthy” shared spreadsheets are a gilded cage, and your team is banging on the bars. I've all seen it, haven't I? Sarah in accounts payable is diligently updating the Q3 sales forecast in the "Master Sales Tracker" spreadsheet. At precisely the same nanosecond, Mark from sales is also in that exact same sheet, tweaking commission percentages for a fresh, game-changing deal.</p> <p>Result? Either Sarah's hard work vanishes into the digital ether, or Mark's latest genius idea gets steamrolled, leaving him scratching his head and questioning his sanity. This isn't user error; it's a fundamental flaw in how these tools are designed to "collaborate."</p> <p>The shiny allure of real-time editing masks a brutal reality: they operate on a “last-write-wins” (LWW) principle. Think of it like a high-stakes ping-pong match where only the ball that lands last counts, no matter how many fantastic shots came before. When two colleagues, bless their optimistic hearts, bump into the same cell simultaneously, the system doesn't intelligently merge their efforts. It picks a winner, and the other person's work is unceremoniously discarded. It's not a negotiation; it's a digital duel where your most recent keystroke is both your weapon and your potential downfall.</p> <p>I see this disaster play out across dozens of SMBs every month. For a typical 25-person team, that's easily 150 to 300 of these mini-catastrophes annually in critical financial and operational models. These aren't just minor hiccups; these are moments where crucial data is lost, decisions are made on faulty information, and trust erodes faster than a sandcastle in a tsunami.</p> <p>And the worst part? The supposed safety net, Google Sheets' version history, is a labyrinth. You have to manually hunt down what's changed, meticulously scrolling through endless versions, hoping you notice the exact deletion or alteration before it festers and becomes the new "truth." There are no automated alerts, no gentle nudges. Just the quiet erosion of trust and the creeping suspicion that your spreadsheet isn't a partner in your work, but an unwitting saboteur.</p> <h2>2. The "Trustworthy" Multi-User Sheets Are a Overclaim Fueling Team Chaos</h2> <p>I've been sold a fairy tale. The narrative peddled by spreadsheet giants is that sharing a Google Sheet or an Excel Online file with multiple people is practically indistinguishable from a serene, well-oiled collaborative machine. "Look! You can both edit this at the same time!" they chirped, holding up shimmering versions of their products. What they conveniently glossed over is that this supposed miracle of simultaneous editing is, for most SMBs, a recipe for disaster served on a gilded plate.</p> <p>The Achilles' heel? "Last-write-wins" (LWW). Imagine this: Sarah in accounts payable is updating the Q3 budget in cell E12. At precisely the same nanosecond, Mark from sales is also updating E12 with a crucial client projection. Who wins? The last one to save. The other person's entire, painstakingly entered data? Poof. Gone. It's not a negotiation; it's a digital duel where your most recent keystroke is both your weapon and your potential downfall.</p> <p>In a 25-person SMB, I'm talking about 150 to 300 of these mini-apocalypses every single month in core financial and operational spreadsheets. And the supposed safety net? Version history. Which, let's be honest, is about as helpful as a single-page user manual for a rocket ship when you need to find precisely what was overwritten. You're left wading through endless scrolls, manually comparing versions, hoping to unearth the ghost of data past. This isn't collaboration; it's a frantic, often fruitless, digital archaeology expedition.</p> <p>This is the fundamentally flawed architecture that underpins much of my current collaborative spreadsheet work. It's a relic of a simpler time, ill-equipped for the frenetic pace and interconnectedness of modern business operations.</p> <h2>3. The Stealthy Cost: When Collaboration Becomes a Cash Drain</h2> <p>This isn't about a missing semicolon in a Python script or a typo in an email. This is about your team's most valuable resource – their time – being systematically dismantled. It's about your actual money being spent on rework and correction. It's about your business's momentum being ground to a halt by an invisible force of data conflict.</p> <p>Let's revisit Sarah and Mark. Sarah, in accounting, is diligently updating the Q3 sales forecast in the "Master Sales Tracker" – a spreadsheet that likely dictates stocking levels, marketing spend, and resource allocation. Meanwhile, Mark in sales is also in that exact same sheet, tweaking commission percentages for a new, high-value deal. The system, bless its digital heart, can't tell which update truly reigns supreme. It picks one, discards the other, and now Sarah's meticulously built report, the one her boss is about to present to the board, is…broken.</p> <p>This isn't a one-off fluke. For a typical 25-person SMB, I'm seeing 150-300 of these "oops, overwrite!" moments every single month in critical financial and operational spreadsheets. Each conflict isn't just a minor annoyance; it's a magnet for a cascade of costly consequences:</p> <ul><li> Rework Hell: Lost hours are the most immediate and obvious cost. When a critical cell is overwritten, someone has to identify the discrepancy, figure out what was lost, and then re-enter it. This is time that could be spent on revenue-generating activities, strategic planning, or client engagement. For that 25-person SMB, those 150-300 monthly incidents translate into hundreds, if not thousands, of lost person-hours annually.</li> <li> Decision Paralysis: Imagine a sales manager making a critical hiring decision based on outdated commission figures, or a production manager ordering inventory based on an inaccurate sales forecast. When your data is unreliable, your decisions become unreliable. This leads to missed opportunities, wasted resources, and a general feeling of being “stuck” as the business can't move forward with confidence.</li> <li> Eroding Trust: This is the subtlest but perhaps most devastating cost. When team members repeatedly find their work disappearing or being overwritten, they start to distrust the tools, and worse, they start to distrust each other. "Did Sarah delete my forecast?" "Did Mark mess up the budget again?" This creates a toxic environment of suspicion and finger-pointing, which is the absolute antithesis of effective teamwork. Collaboration begins to feel more like competition for digital dominance.</li> <li> Missed Deadlines and Opportunities: In a fast-paced business environment, delays can be fatal. A corrupted spreadsheet used for project management can lead to missed milestones. An inaccurate sales forecast can lead to understocked or overstocked inventory, impacting revenue and customer satisfaction. The insidious nature of these spreadsheet conflicts means that the impact can ripple through the entire organization, causing missed deadlines and lost revenue opportunities.</li> <li> Compliance and Audit Nightmares: For businesses that need to maintain accurate financial records for audits or regulatory compliance, corrupted spreadsheet data is a ticking time bomb. Reconstructing lost data or proving the accuracy of information when your primary source is unreliable can be an incredibly time-consuming, stressful, and expensive ordeal.</li> </ul> <p>These aren't just inconveniences; they are direct drains on your bottom line. The "free" collaborative features of popular spreadsheets come with a hidden price tag, one that's paid in lost productivity, poor decisions, and damaged team morale.</p> <h2>4. The Myth of "Real-Time" Collaboration: A False Dawn</h2> <p>The promise of "real-time" collaboration in tools like Google Sheets and Excel Online is the siren song that lures businesses into the treacherous waters of data conflict. I'm told I can all work on the same document, see each other's cursors, and instantaneously update information. It sounds like a utopia of shared knowledge and instant progress.</p> <p>But let's peel back the shiny veneer. What does "real-time" truly mean in this context? It means that the system is constantly trying to reconcile changes, and in the absence of sophisticated logic to understand the intent behind those changes, it defaults to the simplest, albeit most destructive, mechanism: last-write-wins.</p> <p>Think about it this way: Imagine you and your colleague are simultaneously trying to edit the same physical document. One of you is using a red pen to correct a typo, while the other is using a blue pen to add a critical note in the margin. A human editor would naturally see both actions. They'd understand the nuance. They'd likely preserve both pieces of information, perhaps integrating the note into the corrected text.</p> <p>Now, imagine that instead of a human editor, you have a robot that can only do one thing: erase everything that comes after the last stroke of any pen and then write the last thing it saw. That's essentially what LWW is doing to your spreadsheets. It doesn't understand context. It doesn't discern importance. It simply prioritizes the most recent input.</p> <p>This means that a fleeting, accidental keystroke can overwrite hours of detailed analysis. A quick "fix" by one user can obliterate a complex formula or a crucial data entry by another. The system isn't designed to facilitate intelligent collaboration; it's designed to simply record the latest state.</p> <p>This is where the "gold-plated lie" truly manifests. The plating is the illusion of seamless, real-time interaction. The gold itself is the valuable data and the productive output of your team. And that gold is being tarnished, chipped away, and sometimes entirely lost, because the underlying mechanism is fundamentally flawed for true collaborative work.</p> <p>The problem is exacerbated by the very nature of how spreadsheets are used. They are often the final destination for data that has already been processed and refined by multiple individuals or systems. When multiple people are making changes at this crucial junction, the potential for destructive overwrites is immense.</p> <h3>Practical Takeaways: Reclaiming Your Collaboration</h3> <p>The good news is, you don't have to live in spreadsheet purgatory forever. While fully abandoning spreadsheets might not be feasible, you can certainly mitigate the risks and reclaim your team's sanity and productivity. Here are some actionable steps you can implement immediately:</p> 1. Establish Clear Ownership and "Single Source of Truth" Protocols: <p>* Designate Owners: For critical spreadsheets (e.g., the Master Sales Tracker, the Master Budget), assign clear ownership to a single individual. This person is responsible for the overall integrity of the sheet and for managing who makes what kinds of changes.</p> Define Data Entry Zones: Within a spreadsheet, create distinct sections for data input versus consolidated reporting. Communicate explicitly* which roles or individuals are allowed to make changes in specific areas. "Read-Only" for Consumption: Many spreadsheets are used for reporting. Ensure that teams that only need to view* data are granted "read-only" access. 2. Implement a "Lockdown" Schedule for Critical Sheets: <p>* Define Update Windows: For high-stakes spreadsheets, establish specific times for updates. For example, the Q3 sales forecast might only be updated between 3-5 PM on Tuesdays.</p> <p>* Communicate Widely: Ensure everyone on the team is aware of these update windows and respects them. This prevents simultaneous, conflicting edits.</p> 3. Leverage Version History… Strategically: <p>* Train Your Team: Don't just tell people version history exists; show them how to use it. Explain the process of comparing versions and restoring previous states.</p> <p>* Regularly "Save As" or Duplicate: For especially critical spreadsheets, consider establishing a practice of creating a dated backup before major updates. This is a manual safeguard but can be a lifesaver. (e.g., "Master Sales Tracker - 2023-10-27 Backup.xlsx").</p> 4. Consider Specialized Tools for Specific Workflows: <p>* Project Management Software: For tasks, timelines, and resource allocation, dedicated project management tools (like Asana, Monday.com, Trello) offer structured, auditable, and less conflict-prone ways to manage projects than shared spreadsheets.</p> <p>* Dedicated Financial Planning Tools: For budgeting and financial forecasting, specialized FP&A software can offer robust version control, workflow management, and analytical capabilities that spreadsheets simply cannot match.</p> <p>* Database Solutions: For managing large volumes of structured data, consider cloud-based database solutions that are built to handle concurrent access and data integrity much more effectively.</p> 5. Foster a Culture of Communication and Awareness: <p>* "Heads Up" Culture: Encourage team members to verbally or via chat "call out" when they are about to make significant updates to a shared, critical document. "Hey everyone, I'm about to update the Q3 forecast with the latest numbers. Please hold off on changes for the next 15 minutes."</p> <p>* Regularly Discuss Spreadsheet Pain Points: Make it a topic in team meetings. What issues are people encountering? How can processes be improved?</p> <h2>5. Beyond the Spreadsheet: Embracing True Collaboration</h2> <p>The inherent limitations of "last-write-wins" for complex co-editing are not a secret. They are a known challenge that many businesses either ignore or attempt to paper over with makeshift processes. But clinging to these flawed tools for core operational and financial data is like trying to build a skyscraper with LEGO bricks. It's not designed for the load.</p> <p>What businesses truly need are solutions that are built for collaboration, not just shared access. This means systems that:</p> <ul><li> Understand Context: They can differentiate between adding a note, correcting an error, or updating a final value without overwriting preceding, valuable information.</li> <li> Offer Granular Permissions: Beyond read-only or edit, they allow for more nuanced control over specific cells, rows, or columns.</li> <li> Provide Robust Audit Trails: Every change is not just logged, but its purpose and origin are clear, making it easy to trace back data evolution.</li> </ul> Facilitate Merging and Conflict Resolution: When conflicts do* arise, they provide tools to intelligently merge changes or present clear options for resolution, rather than simply discarding data. <p>The shift away from exclusively relying on multi-user spreadsheets for critical functions is not just a technological upgrade; it's a strategic imperative for businesses serious about efficiency, accuracy, and team synergy. It's about moving from a system that fosters accidental conflict to one that actively promotes collaboration and protects your most valuable assets: your data and your people.</p> <h2>Are You Drowning in Spreadsheet Chaos?</h2> <p>If the scenarios described in this post resonate with you – if your team is battling with overwrites, struggling with data integrity, and wasting precious hours on rework – then it's time to acknowledge that your current tools are holding you back. The "gold-plated lie" of multi-user spreadsheets is a costly one, and the chaos it fuels can stifle your growth.</p> <p>At Aremu Consulting, I specialize in helping SMBs navigate these complex operational challenges. I understand the pitfalls of traditional spreadsheet collaboration and can guide you towards more effective, integrated solutions that equip your team, protect your data, and drive your business forward.</p> Don't let inefficient collaboration drain your resources and erode your team's morale any longer. Book a consultation with Aremu Consulting today and let's chart a course towards genuine, chaos-free collaboration. I'll help you identify the right tools and strategies to simplify your workflows and ensure your data works for you, not against you. <p>[Link to Consultation Booking Page]</p> </div> <div> <div> <div> <span></div><p class="disclosure">This article references illustrative cost figures — estimates for a typical business, not audited client results.</p><div class="post-cta"><a class="btn btn-primary" href="contact.html">Schedule Your Project Consultation</a></div></article></div></main><footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col footer-about">
+      <p class="footer-brand">Aremu Consulting Ltd</p>
+      <p class="footer-tag">Solo builder: web and app builds, workflow and CRM automation, and custom AI agents for small-to-medium businesses. All custom-scope, project-based.</p>
+    </div>
+    <nav class="footer-col" aria-label="Footer">
+      <p class="footer-head">Explore</p>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="approach.html">Approach</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <nav class="footer-col" aria-label="Legal">
+      <p class="footer-head">Legal</p>
+      <ul class="footer-links">
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms &amp; Conditions</a></li>
+        <li><a href="cookies.html">Cookie Policy</a></li>
+        <li><a href="refund.html">Refund Policy</a></li>
+      </ul>
+    </nav>
+    <div class="footer-col footer-contact">
+      <p class="footer-head">Contact</p>
+      <p class="footer-line">Bartle House, 9 Oxford Court</p>
+      <p class="footer-line">Manchester, M2 3WQ</p>
+      <p class="footer-line">Online consultations only — inquiries via the Contact page form.</p>
+    </div>
+    <div class="footer-col footer-cta">
+      <a class="btn btn-primary" href="contact.html">Book a free fit call</a>
+      <p class="footer-micro">Free 15-minute fit call, then a paid discovery credited against any build.</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Aremu Consulting Ltd · Company No. 16401865 · Registered office: Bartle House, 9 Oxford Court, Manchester, M2 3WQ.</p>
+  </div>
+</footer>
+</body>
+</html>

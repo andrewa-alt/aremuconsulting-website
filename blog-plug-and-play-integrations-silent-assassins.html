@@ -1,0 +1,676 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Integration Drift: The Real Cost of &#x27;Plug-and-Play&#x27; Connectors</title>
+<meta name="description" content="You deploy a shiny new integration, feeling like a tech wizard, only to watch it morph into a data-munching gremlin over time. Yeah, I&#x27;ve seen it. Those…">
+<link rel="canonical" href="https://www.aremuconsulting.com/blog-plug-and-play-integrations-silent-assassins.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Integration Drift: The Real Cost of &#x27;Plug-and-Play&#x27; Connectors">
+<meta property="og:description" content="You deploy a shiny new integration, feeling like a tech wizard, only to watch it morph into a data-munching gremlin over time. Yeah, I&#x27;ve seen it. Those…">
+<meta property="og:url" content="https://www.aremuconsulting.com/blog-plug-and-play-integrations-silent-assassins.html">
+<meta name="og:site_name" content="Aremu Consulting">
+<script type="application/ld+json">[{"@context":"https://schema.org","@type":"BlogPosting","headline":"Integration Drift: The Real Cost of 'Plug-and-Play' Connectors","description":"You deploy a shiny new integration, feeling like a tech wizard, only to watch it morph into a data-munching gremlin over time. Yeah, I've seen it. Those…","datePublished":"2026-03-23","author":{"@type":"Person","name":"Andrew Aremu"},"publisher":{"@type":"Organization","name":"Aremu Consulting Ltd","url":"https://www.aremuconsulting.com","founder":{"@type":"Person","name":"Andrew Aremu"},"address":{"@type":"PostalAddress","addressLocality":"Manchester","addressCountry":"GB"}},"mainEntityOfPage":"https://www.aremuconsulting.com/blog-plug-and-play-integrations-silent-assassins.html","articleSection":"Automation"}]</script>
+<style>
+:root {
+  --paper: #F5F6F6;
+  --sheet: #FFFFFF;
+  --ink: #16181A;
+  --ink-soft: #3F4448;
+  --muted: #5C6266;
+  --rule: #D9DDDC;
+  --grid: #E7EAE9;
+  --accent: #1D6A4F;
+  --accent-strong: #14532D;
+  --accent-soft: #E6F0EA;
+  --danger: #9B3226;
+  --measure: 68ch;
+  --font-display: 'Atkinson Hyperlegible', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'Atkinson Hyperlegible', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'Martian Mono', 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace;
+}
+@font-face { font-family: 'Atkinson Hyperlegible'; font-style: normal; font-weight: 400; font-display: swap; src: url('build/assets/fonts/Atkinson_Hyperlegible-400.woff2') format('woff2'); }
+@font-face { font-family: 'Atkinson Hyperlegible'; font-style: normal; font-weight: 700; font-display: swap; src: url('build/assets/fonts/Atkinson_Hyperlegible-700.woff2') format('woff2'); }
+@font-face { font-family: 'Martian Mono'; font-style: normal; font-weight: 400; font-display: swap; src: url('build/assets/fonts/Martian_Mono-400.woff2') format('woff2'); }
+@font-face { font-family: 'Martian Mono'; font-style: normal; font-weight: 500; font-display: swap; src: url('build/assets/fonts/Martian_Mono-500.woff2') format('woff2'); }
+@font-face { font-family: 'Martian Mono'; font-style: normal; font-weight: 700; font-display: swap; src: url('build/assets/fonts/Martian_Mono-700.woff2') format('woff2'); }
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; font-family: var(--font-body); font-size: 17px; line-height: 1.6; color: var(--ink); background: var(--paper); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+img, svg { max-width: 100%; height: auto; display: block; }
+p { max-width: 68ch; }
+h1, h2, h3, h4, p, ul, ol, figure, blockquote, dl, dd { margin: 0; }
+ul, ol, dl { padding-left: 1.25rem; max-width: 68ch; }
+a { color: var(--accent); text-decoration: underline; text-underline-offset: 0.18em; text-decoration-color: var(--accent); }
+a:hover { text-decoration-thickness: 0.1em; }
+::selection { background: var(--accent); color: var(--paper); }
+:root { color-scheme: light; }
+* { caret-color: var(--accent); }
+::-webkit-scrollbar { width: 12px; height: 12px; }
+::-webkit-scrollbar-track { background: var(--paper); }
+::-webkit-scrollbar-thumb { background: var(--rule); border-radius: 6px; border: 2px solid var(--paper); }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+.skip-link {
+  position: fixed;
+  top: -70px; left: 12px;
+  z-index: 100;
+  padding: 13px 16px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  text-decoration: none;
+  border-radius: var(--radius-control);
+}
+.skip-link:focus { top: 12px; }
+.page { padding: 0 24px 72px; }
+.page-inner { max-width: 1200px; margin: 0 auto; }
+.section {
+  display: grid;
+  grid-template-columns: minmax(7rem, 9rem) 1fr;
+  gap: 18px 28px;
+  padding: 52px 24px;
+  border-bottom: 1px solid var(--rule);
+}
+.section:last-of-type { border-bottom: none; }
+.sec-label {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-top: 8px;
+}
+.sec-label::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: var(--rule);
+  margin-bottom: 12px;
+}
+.sec-body { min-width: 0; }
+.sec-body h2 {
+  font-family: var(--font-body);
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.22;
+  max-width: 24ch;
+  margin-bottom: 14px;
+}
+.sec-body .lede { color: var(--ink-soft); font-size: 1.05rem; margin-bottom: 22px; }
+.site-header { border-bottom: 1px solid var(--rule); background: var(--paper); }
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+  flex-wrap: wrap;
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--ink);
+  min-height: 44px;
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px; height: 34px;
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-control);
+  overflow: hidden;
+  flex: none;
+}
+.brand-mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+.brand-name { font-family: var(--font-mono); font-size: 0.86rem; font-weight: 700; letter-spacing: 0.02em; }
+.brand-sub { display: block; font-family: var(--font-mono); font-size: 0.66rem; color: var(--muted); letter-spacing: 0.06em; }
+.site-nav { display: flex; gap: 22px; flex-wrap: wrap; }
+.site-nav a {
+  color: var(--ink);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  padding: 13px 2px;
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  border-bottom: 2px solid transparent;
+}
+.site-nav a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+.site-nav a.active { color: var(--accent); border-bottom-color: var(--accent); }
+.btn {
+  display: inline-block;
+  padding: 12px 20px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+  text-align: center;
+  border: 2px solid transparent;
+  border-radius: var(--radius-control);
+  cursor: pointer;
+  min-height: 48px;
+}
+.btn-primary { background: var(--accent); color: var(--paper); }
+.btn-primary:hover { background: var(--accent-strong); }
+.btn-secondary { background: transparent; color: var(--ink); border-color: var(--ink); }
+.btn-secondary:hover { background: var(--ink); color: var(--paper); }
+.btn[aria-disabled="true"], .btn:disabled { opacity: 0.55; cursor: not-allowed; }
+.hero { padding: 72px 24px 60px; border-bottom: 1px solid var(--rule); }
+.hero-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 26px;
+}
+.hero h1 {
+  font-size: clamp(2.1rem, 4.4vw, 3.3rem);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  max-width: 18ch;
+}
+.hero .lede { max-width: 68ch; font-size: 1.12rem; color: var(--ink-soft); }
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 8px; }
+.hero-offer { max-width: 100%; }
+.offer-chips { display: flex; flex-wrap: wrap; gap: 12px; }
+.offer-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  padding: 10px 16px;
+}
+.offer-chip::before { content: ""; width: 7px; height: 7px; background: var(--accent); flex: none; }
+.offer-caption { margin: 16px 0 0; font-family: var(--font-mono); font-size: 0.85rem; color: var(--ink-soft); }
+.pf-rise { animation: pf-rise 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.pf-type { display: inline-block; overflow: hidden; white-space: nowrap; max-width: 36ch; vertical-align: bottom; animation: pf-type 1.4s steps(36, end) both; }
+@keyframes pf-rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pf-type { from { max-width: 0; } to { max-width: 36ch; } }
+.authority {
+  border-bottom: 1px solid var(--rule);
+  padding: 18px 24px;
+}
+.authority-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 34px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.03em;
+  color: var(--ink-soft);
+}
+.authority-inner .tick { color: var(--accent); }
+.service-row {
+  display: grid;
+  grid-template-columns: minmax(10rem, 16rem) 1fr auto;
+  gap: 22px;
+  align-items: baseline;
+  padding: 22px 12px;
+  border-top: 1px solid var(--rule);
+}
+.service-row:first-child { border-top: none; }
+.service-row h3 { font-size: 1.12rem; font-weight: 700; }
+.service-row p { color: var(--ink-soft); }
+.more { font-family: var(--font-mono); font-size: 0.82rem; white-space: nowrap; min-height: 44px; display: inline-flex; align-items: center; }
+.service-row .more { }
+.method-wrap { max-width: 1200px; margin: 0 auto; overflow-x: auto; }
+.sheet {
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 22px 24px;
+  margin: 0 0 14px;
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 22px 22px;
+  background-position: -1px -1px;
+}.sheet-stage { display: inline-flex; align-items: center; gap: 10px; }.sheet-stage .mono-code { font-family: var(--font-mono); font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; color: var(--accent); text-transform: uppercase; }.sheet h3 { font-size: 1.22rem; font-weight: 700; margin-bottom: 6px; }
+.sheet .thesis { font-size: 1.02rem; color: var(--ink-soft); margin-bottom: 14px; }.sheet-rows dt { font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); padding-top: 2px; }.sheet-rows dd.handoff { color: var(--accent); font-family: var(--font-mono); font-size: 0.82rem; }
+.case-study { border: 1px solid var(--rule); padding: 26px 24px; background: var(--sheet); }
+.case-label {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  border: 1px solid var(--rule);
+  padding: 4px 8px;
+  margin-bottom: 14px;
+}
+.cs-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 16px; }
+.cs-cols h3 { font-family: var(--font-mono); font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--accent); margin-bottom: 6px; }
+.cs-cols p { font-size: 0.95rem; color: var(--ink-soft); }
+.tradeoff-row { padding: 16px 12px; border-top: 1px solid var(--rule); }
+.tradeoff-row .who { font-family: var(--font-mono); font-size: 0.82rem; color: var(--accent); margin-bottom: 4px; }
+.tradeoff-row p { color: var(--ink-soft); }
+.price-table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 0.95rem; }
+.price-table th, .price-table td { text-align: left; padding: 10px 6px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.price-table th { font-family: var(--font-mono); font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
+.price-table td:first-child { font-weight: 700; }
+.price-table td:nth-child(2) { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.price-note { font-family: var(--font-mono); font-size: 0.85rem; color: var(--muted); margin-top: 8px; }
+.band-row { padding: 14px 12px; border-top: 1px solid var(--rule); }
+.band-row .band-label { font-family: var(--font-mono); font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--accent); margin-bottom: 4px; }
+.band-row p { color: var(--ink-soft); }
+.guarantee { border: 1px solid var(--accent); padding: 26px 24px; background: var(--accent-soft); }
+.guarantee h3 { font-size: 1.2rem; margin-bottom: 10px; }
+.guarantee ul { color: var(--ink); }
+
+.objection { padding: 20px 12px; border-top: 1px solid var(--rule); }
+.objection h3 { font-size: 1.1rem; margin-bottom: 8px; }
+.objection .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 8px; }
+.objection h4 { font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--accent); margin-bottom: 4px; }
+.objection p { color: var(--ink-soft); font-size: 0.95rem; }
+.about-grid { display: grid; grid-template-columns: 260px 1fr; gap: 30px; }
+.about-facts { font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-soft); line-height: 1.8; }
+.about-facts dt { color: var(--accent); }
+.contact-offer { background: var(--sheet); border: 1px solid var(--rule); padding: 34px 24px; margin: 40px 0; }
+.contact-offer h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; line-height: 1.15; margin-bottom: 12px; }
+.contact-offer p { color: var(--ink-soft); }
+.form-sheet { background: var(--sheet); border: 1px solid var(--rule); padding: 28px 24px; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.form-field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.form-field.full { grid-column: 1 / -1; }
+.form-field label { font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink); }
+.form-field input,
+.form-field select,
+.form-field textarea {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  padding: 12px 14px;
+  border: 2px solid var(--rule);
+  background: var(--paper);
+  color: var(--ink);
+  border-radius: var(--radius-control);
+  width: 100%;
+}
+.form-field textarea { min-height: 120px; resize: vertical; }
+.form-field input:focus, .form-field select:focus, .form-field textarea:focus { border-color: var(--accent); outline: 2px solid var(--accent); outline-offset: 2px; }
+.form-field .hint, .form-field .error { font-size: 0.82rem; color: var(--muted); }
+.form-field .error { color: var(--danger); }
+.form-field input[aria-invalid="true"], .form-field select[aria-invalid="true"], .form-field textarea[aria-invalid="true"] { border-color: var(--danger); }
+.form-actions { margin-top: 26px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+[role="status"] {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--accent);
+  border: 1px solid var(--rule);
+  padding: 10px 14px;
+}
+.steps { list-style: none; padding: 0; counter-reset: steps; max-width: 68ch; }
+.steps li { counter-increment: steps; padding: 14px 12px; border-top: 1px solid var(--rule); display: flex; gap: 18px; align-items: baseline; }
+.steps li::before { content: counter(steps, decimal-leading-zero); font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent); }
+.steps li p { color: var(--ink-soft); }
+.demo-note {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--muted);
+  border: 1px dashed var(--rule);
+  padding: 10px 14px;
+  margin-top: 18px;
+}
+.site-footer { border-top: 1px solid var(--rule); background: var(--sheet); margin-top: 48px; }
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 24px 24px;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1.4fr;
+  gap: 30px;
+}
+.footer-brand { font-family: var(--font-mono); font-weight: 700; font-size: 0.95rem; margin-bottom: 8px; }
+.footer-tag { color: var(--ink-soft); font-size: 0.9rem; max-width: 44ch; }
+.footer-head { font-family: var(--font-mono); font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--accent); margin-bottom: 10px; }
+.footer-links { list-style: none; padding: 0; }
+.footer-links li { margin-bottom: 2px; }
+.footer-links a { color: var(--ink); text-decoration: none; min-width: 44px; min-height: 44px; display: inline-flex; align-items: center; }
+.footer-links a:hover { color: var(--accent); text-decoration: underline; }
+.footer-line { color: var(--ink-soft); font-size: 0.9rem; margin-bottom: 6px; }
+.footer-placeholder { font-size: 0.8rem; }
+.footer-micro { font-size: 0.8rem; color: var(--ink-soft); margin-top: 10px; max-width: 34ch; }
+.footer-bottom { border-top: 1px solid var(--rule); padding: 16px 24px; }
+.footer-bottom p {
+  max-width: 68ch;
+  margin: 0 auto;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+@media (max-width: 860px) {
+  .cs-cols, .objection .cols, .about-grid, .form-grid { grid-template-columns: 1fr; }
+  .footer-inner { grid-template-columns: 1fr 1fr; }
+  .service-row { grid-template-columns: 1fr; gap: 6px; }
+  .hero { padding: 52px 18px 44px; }
+}
+@media (max-width: 640px) {
+  .method-wrap svg { width: 640px; max-width: none; }
+  .section { grid-template-columns: 1fr; padding: 44px 18px; gap: 4px; }
+  .sec-label { display: none; }
+  body { font-size: 16px; }
+  .page { padding: 0 18px 56px; }
+  .header-inner { padding: 14px 18px; }
+  .site-nav { gap: 14px; }
+  .footer-inner { grid-template-columns: 1fr; }
+  .sheet-rows { grid-template-columns: 1fr; }
+}
+.scroll-cue { font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); margin: 8px 0 0; display: none; }
+@media (max-width: 640px) { .method-wrap + .scroll-cue { display: inline-block; } }
+html.js .js-reveal g.sheet { transform: translateY(-22px); opacity: 0; }
+html.js .js-reveal.in g.sheet { transform: translateY(0); opacity: 1; }
+html.js .js-reveal g.sheet { transition: transform 650ms cubic-bezier(0.16, 1, 0.3, 1), opacity 650ms cubic-bezier(0.16, 1, 0.3, 1); }
+html.js .js-reveal g.sheet:nth-of-type(2) { transition-delay: 800ms; }
+html.js .js-reveal g.sheet:nth-of-type(3) { transition-delay: 1600ms; }
+html.js .js-reveal g.sheet:nth-of-type(4) { transition-delay: 2400ms; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  html.js .js-reveal g.sheet { transform: none !important; opacity: 1 !important; }
+  .skip-link { transition: none; }
+}
+/* ---- Blog + Projects content pages (gen/build_content.py) ---- */
+.post-list { list-style: none; padding: 0; max-width: 1200px; margin: 0 auto; }
+.entry { padding: 30px 24px; border-bottom: 1px solid var(--rule); }
+.entry:last-child { border-bottom: none; }
+.entry-title { font-size: clamp(1.25rem, 2.4vw, 1.6rem); font-weight: 700; line-height: 1.35; letter-spacing: -0.01em; margin: 6px 0 8px; max-width: 24ch; }
+.entry-title a {
+  color: var(--ink);
+  text-decoration: none;
+  display: inline-block;
+  padding: 10px 0;
+  margin: -10px 0;
+}
+.entry-title a:hover { color: var(--accent); text-decoration: underline; }
+.entry-excerpt { color: var(--ink-soft); max-width: 68ch; margin-top: 12px; }
+.post-meta { font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.03em; color: var(--muted); display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.post-meta .cat { color: var(--accent); }
+.post-head { padding: 40px 0 26px; }
+.post-head h1 { font-size: clamp(1.9rem, 4vw, 3rem); font-weight: 700; line-height: 1.12; letter-spacing: -0.02em; max-width: 22ch; margin: 14px 0 14px; }
+.post-head .lede { color: var(--ink-soft); font-size: 1.1rem; max-width: 68ch; }
+.prose { max-width: 68ch; padding-top: 26px; }
+.prose h2 { font-size: clamp(1.35rem, 2.4vw, 1.7rem); font-weight: 700; line-height: 1.22; letter-spacing: -0.01em; max-width: 24ch; margin: 2.1em 0 0.7em; }
+.prose h3 { font-size: 1.12rem; font-weight: 700; margin: 1.7em 0 0.5em; }
+.prose p { margin: 0 0 1.05em; color: var(--ink); }
+.prose ul, .prose ol { margin: 0 0 1.05em; }
+.prose li { margin: 0 0 0.4em; }
+.prose blockquote { margin: 1.4em 0; padding: 0 0 0 1em; border-left: 3px solid var(--accent); color: var(--ink-soft); }
+.prose hr { border: none; border-top: 1px solid var(--rule); margin: 2em 0; }
+.prose strong { font-weight: 700; }
+.prose em { font-style: italic; }
+.prose pre {
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  max-width: 100%;
+  overflow-x: auto;
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  padding: 14px 16px;
+  font-family: var(--font-mono);
+  font-size: 0.84rem;
+  line-height: 1.55;
+  margin: 1.2em 0;
+}
+.prose code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  background: var(--accent-soft);
+  padding: 1px 5px;
+  border-radius: 2px;
+  overflow-wrap: break-word;
+}
+.prose pre code { background: none; padding: 0; }
+.prose table { max-width: 100%; display: block; overflow-x: auto; }
+.case-label { display: inline-block; font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.03em; color: var(--accent); border: 1px solid var(--accent); padding: 3px 9px; margin: 0 0 14px; }
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; margin: 30px 0; max-width: 1100px; }
+.stat { background: var(--sheet); border: 1px solid var(--rule); padding: 18px 16px; }
+.stat .stat-v { font-family: var(--font-mono); font-size: 1.45rem; font-weight: 700; color: var(--accent); }
+.stat .stat-l { font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); margin-top: 6px; }
+.quote { margin: 26px 0; padding: 18px 22px; border-left: 3px solid var(--accent); background: var(--accent-soft); max-width: 68ch; }
+.quote p { font-size: 1.06rem; color: var(--ink); max-width: 68ch; margin: 0; }
+.quote-footer { font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted); margin-top: 10px; }
+.disclosure {
+  margin: 26px 0;
+  max-width: 68ch;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--muted);
+  border: 1px dashed var(--rule);
+  padding: 10px 14px;
+}
+.post-cta { margin: 34px 0 8px; }
+@media (max-width: 640px) {
+  .post-head { padding: 34px 0 22px; }
+  .entry { padding: 24px 8px; }
+  .stat-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* ---- Project screenshot gallery (right column on desktop) ---- */
+.project-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 68ch) minmax(320px, 1fr);
+  grid-template-areas: "main gallery";
+  gap: 40px;
+  align-items: start;
+  padding-top: 26px;
+}
+.project-main { grid-area: main; min-width: 0; }
+.project-gallery {
+  grid-area: gallery;
+  position: sticky;
+  top: 20px;
+}
+.gallery-head {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  margin: 0 0 10px;
+}
+.gallery { margin: 0; }
+.gallery-frame {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  width: 100%;
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  cursor: zoom-in;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  border-radius: 0;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.gallery-frame:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.gallery-zoom {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(245, 246, 246, 0.94);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+  padding: 4px 9px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-control);
+  pointer-events: none;
+}
+.gallery-frame img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+.gallery-frame img[hidden] { display: none; }
+.gallery-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+.gallery-btn {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--ink);
+  background: var(--sheet);
+  border: 2px solid var(--rule);
+  border-radius: var(--radius-control);
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 12px;
+  cursor: pointer;
+}
+.gallery-btn:hover { border-color: var(--accent); color: var(--accent); }
+.gallery-btn[disabled] { opacity: 0.4; cursor: not-allowed; }
+.gallery-counter { font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); }
+.gallery-caption {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  margin-top: 8px;
+  min-height: 1.4em;
+}
+@media (max-width: 960px) {
+  .project-layout { grid-template-columns: 1fr; grid-template-areas: "gallery" "main"; gap: 28px; }
+  .project-gallery { position: static; }
+}
+
+/* ---- Lightbox (full-size screenshot viewer) ---- */
+.lightbox { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px; }
+.lightbox[hidden] { display: none; }
+.lightbox-backdrop { position: absolute; inset: 0; background: rgba(15, 17, 18, 0.86); }
+.lightbox-panel {
+  position: relative;
+  z-index: 1;
+  width: min(1080px, 96vw);
+  max-height: 92vh;
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  display: flex;
+  flex-direction: column;
+}
+.lightbox-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 12px 8px 16px; border-bottom: 1px solid var(--rule); }
+.lightbox-status { font-family: var(--font-mono); font-size: 0.82rem; color: var(--ink-soft); }
+.lightbox-close {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  color: var(--ink);
+  background: var(--sheet);
+  border: 2px solid var(--rule);
+  border-radius: var(--radius-control);
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 10px;
+  cursor: pointer;
+}
+.lightbox-close:hover { border-color: var(--accent); color: var(--accent); }
+.lightbox-stage { background: var(--ink); display: flex; align-items: center; justify-content: center; padding: 24px; flex: 1; min-height: 0; }
+.lightbox-img { max-width: 100%; max-height: calc(92vh - 130px); object-fit: contain; }
+.lightbox-nav { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 12px 14px; border-top: 1px solid var(--rule); background: var(--sheet); }
+.lightbox-counter { font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); }
+
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html" aria-label="Aremu Consulting: home">
+      <span class="brand-mark" aria-hidden="true"><img src="build/assets/logo.png" alt="" width="34" height="34" decoding="async"></span>
+      <span class="brand-text">
+        <span class="brand-name">Aremu Consulting</span>
+        <span class="brand-sub">Ltd · Manchester, UK</span>
+      </span>
+    </a>
+    <nav class="site-nav" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="approach.html">Approach</a>
+      <a href="projects.html">Projects</a>
+      <a href="blog.html" class="active">Blog</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a class="btn btn-primary nav-cta" href="contact.html">Book a free fit call</a>
+  </div>
+</header><main id="main" class="page"><div class="page-inner"><article><header class="post-head"><p class="post-meta"><span class="cat">Automation</span><span>23 Mar 2026</span><span>By Andrew Aremu</span></p><h1>Integration Drift: The Real Cost of &#x27;Plug-and-Play&#x27; Connectors</h1><p class="lede">You deploy a shiny new integration, feeling like a tech wizard, only to watch it morph into a data-munching gremlin over time. Yeah, I&#x27;ve seen it. Those &quot;plug-and-play&quot; connectors, so slick at first…</p></header><div class="prose"><div> <p>You deploy a shiny new integration, feeling like a tech wizard, only to watch it morph into a data-munching gremlin over time. Yeah, I've seen it. Those "plug-and-play" connectors, so slick at first, are often the silent assassins of your data's integrity. And the blame game? It's rarely just one villain.</p> <p>The truth is, the very tools designed to simplify your business operations can, over time, become the architects of chaos. They appear effortless, designed for immediate gratification, but beneath the surface, a subtle degradation begins. This "data rot," as I call it, isn't a dramatic system crash; it's a slow, insidious decay that drains your resources, distorts your insights, and ultimately, costs you a substantial amount of money. For many Small and Medium-sized Businesses (SMBs), this silent drain can amount to a staggering £28,000 per year, bleeding out of your business in unnoticed inefficiencies and outright errors.</p> <p>In this post, I'm pulling back the curtain on these seemingly innocuous connectors, exploring the root causes of their inevitable drift, quantifying the financial black hole they create, and most importantly, showing you how to inoculate them before they sink your ship.</p> <h2>1. Root Causes: Unpacking the Genesis of Integration Drift</h2> <p>Ever deployed a sparkly new integration, feeling like a tech wizard, only to watch it morph into a data-munching gremlin over time? Yeah, I've seen it. Those "plug-and-play" connectors, so slick at first, are often the silent assassins of your data's integrity. And the blame game? It's rarely just one villain. The truth is, a confluence of factors conspires to degrade these seemingly robust connections, turning them from productivity boosters into efficiency killers.</p> <h3>1.1 The Tech Gremlins in the Machine: The API's Identity Crisis</h3> <p>The biggest saboteur? API versioning mismatches. Think of it like this: your integration speaks an older dialect of a language. The software vendor, meanwhile, has just released a shiny new translator packed with exciting features and bug fixes. If they haven't sent you the memo (and they rarely do proactively, especially for SMBs who aren't on their premium support tier), your integration starts stammering, sending gibberish, or just plain stops talking.</p> <p>Here's a classic scenario: your trusty Point of Sale (POS) system chirps out order data to your accounting software via an API. It's been a dream since day one, seamless and reliable. But then, the POS vendor rolls out an update. Maybe they change how a "customer ID" is formatted, deprecate a field entirely, or introduce a new requirement for a previously optional parameter. Suddenly, your accounting software is receiving… well, who knows what. A sale might appear with no customer, or worse, get miscategorized, impacting your revenue tracking and tax reporting. This isn't a glitch; it's the integration beginning its slow, agonizing decay. And the cost? That £28k annual rot starts right here, with a simple version incompatibility that was never flagged.</p> <p>Beyond versioning, other technical culprits lurk:</p> <ul> <li>Schema Changes: The structure of the data being sent isn't maintained. A field that was once a number might become a string, or a required field might suddenly become optional (or vice-versa). Your integration, built for the old structure, can't parse the new data, leading to errors.</li> <li>Deprecation of Endpoints: Software vendors sometimes retire old API endpoints that your integration relies on. When this happens without a compatible replacement or an update to your integration, the connection simply breaks.</li> <li>Rate Limiting: Many APIs have limits on how many requests you can make in a given time period. As your business grows and your transaction volume increases, you might inadvertently exceed these limits, causing your integration to be temporarily (or permanently) blocked.</li> <li>Authentication and Authorization Issues: Permissions can change, API keys can expire or be revoked, and security protocols can be updated. Any hiccup in the authentication process will sever the connection, often without an immediate, obvious alert.</li> </ul> <p>These technical underpinnings are the bedrock of your integrations. When that bedrock erodes, the entire structure becomes unstable, leading to the data rot I'll discuss next.</p> <h3>1.2 The Human Factor: Complacency and the Illusion of "Set and Forget"</h3> <p>While technical issues are undeniable drivers of integration drift, the human element often plays a crucial, albeit less obvious, role. The very allure of "plug-and-play" integrations is their promise of minimal oversight. This can inadvertently foster a dangerous sense of complacency.</p> <ul> <li>The "It's Working, So It's Fine" Mentality: When an integration is deployed and appears to be functioning, the natural inclination is to move on to the next pressing task. The assumption is that it will continue to work indefinitely without human intervention. This is a flawed premise. Software ecosystems are dynamic. Updates happen, vendor roadmaps shift, and business processes evolve.</li> <li>Lack of Ownership and Documentation: Who owns the integration once it's live? Often, it's a vague responsibility. The original implementer might have left the company, or the task was handed off without thorough documentation. Without a clear owner and a comprehensive record of the integration's setup, logic, and dependencies, troubleshooting and updating become a Herculean effort.</li> <li>Data Silos and Miscommunication: Different departments might rely on different aspects of the data flowing through an integration. If one department makes a change to a process or data field that impacts the integration, but fails to communicate this to the team responsible for maintaining it, the integration is doomed to break. For instance, marketing might decide to change how they capture lead source in the CRM, unaware that this simple change will cause the sales integration to fail if not updated accordingly.</li> <li>Ignoring Subtle Errors: Business users might notice small discrepancies in reports but dismiss them as minor errors or anomalies, not realizing they are early symptoms of a much larger integration problem. They might re-key data manually to make reports look right, effectively masking the problem while the underlying rot continues.</li> </ul> <p>This combination of technological vulnerabilities and human oversight creates a perfect storm for integration decay. The shiny new tool I adopted to save time and enhance efficiency slowly becomes a hidden drain on my resources and accuracy.</p> <h2>2. The £28K Hidden Cost: Where Your Integration's Money Goes to Die</h2> <p>Let's talk numbers, because the "free" or low-cost integrations you've slapped onto your core systems are quietly costing you more than you think. I'm not talking about a few quid here and there. Think a minimum of £28,000 – conservatively – bleeding out of your business every single year. This isn't money disappearing into the ether; it's actively rotting your data, leading to tangible financial losses and crippling inefficiencies.</p> <p>Where does it go? It's not disappearing into the digital abyss; it's creating a cascade of problems that directly impact your bottom line.</p> <h3>The Symptoms: Tangible Costs of Data Rot</h3> <ul> <li>Duplicate Customers & Contacts (£10k+ Annually): Your sales team sees one version of "John Smith" in the CRM, with his latest interaction. Accounting sees another, perhaps an older entry with outdated contact information. Result? Wasted time reconciling these disparate records, missed upsell and cross-sell opportunities because sales doesn't have the full picture, and a CRM that's essentially a digital junkyard. For a typical SMB with a few sales reps and account managers, the sheer hours spent sifting through duplicate or incomplete customer data can easily translate to over £10,000 annually in lost productivity. This is time that could be spent closing deals or nurturing client relationships.</li> <li>Incorrect Invoices & Orders (£5k-£15k Annually): Imagine orders not quite matching up between your e-commerce platform and your accounting software. A product price changes in your POS, but the integration doesn't catch it. Suddenly, you're undercharging clients, or worse, charging them the wrong amount which necessitates manual invoice adjustments and customer service calls. That's direct revenue loss. If you're only eating a 1% error on your sales transactions, for a business with £500k-£1.5M in annual sales, that's a £5k-£15k hit. Beyond direct revenue loss, the administrative burden of correcting these errors is a significant drain.</li> <li>Inventory Nightmares & Lost Sales (£5k+ Annually): Your stock levels become a nebulous concept. What you think you have in your warehouse (based on outdated integration data) doesn't match what you actually have. This leads to customers ordering out-of-stock items, resulting in cancelled orders, negative reviews, and lost sales. Conversely, you might be over-ordering based on incorrect data, tying up capital in excess inventory. The cost of dealing with stockouts, managing backorders, and the opportunity cost of lost sales can easily add another £5,000 or more to your annual drain.</li> <li>Compliance Headaches & Increased Accounting Fees (£3k+ Annually): Tax season rolls around, and your financial books are a chaotic mess. You're spending hours manually digging through spreadsheets, cross-referencing disparate systems, praying everything matches for HMRC. This isn't just about stress; it's about potential fines for inaccurate reporting and a bill from your accountant that makes your eyes water. The time your finance team (or your external bookkeeper) spends wrestling with data that should have been integrate cleanlyd can add significantly to your overheads, easily £3,000+ annually, not including the potential penalties.</li> <li>Poor Decision-Making & Missed Strategic Opportunities (Incalculable): Perhaps the most significant, yet hardest to quantify, cost is the impact on your strategic decision-making. When your data is unreliable, your reports are inaccurate. You can't trust your sales forecasts, your customer behaviour analysis, or your operational efficiency metrics. This leads to faulty decisions, missed growth opportunities, and an inability to respond effectively to market changes. This "invisible" cost can be the most damaging of all.</li> </ul> <p>These aren't hypothetical issues based on theoretical problems. For SMBs with lean teams and tight margins, every wasted hour, every incorrect transaction, every missed insight is a direct hit to your bottom line. Your "plug-and-play" integrations have become silent saboteurs, and it's time to flip the script.</p> <h2>3. Flipping the Script: Turning Your Integrations from Saboteurs to Saviours</h2> <p>The realization that your integrate cleanlyd systems are quietly draining your resources can be unsettling. But the good news is that this isn't an irreversible problem. The key lies in shifting your approach from a passive "set and forget" mentality to an active, strategic one. Just as you wouldn't leave a vital piece of machinery to rust without maintenance, your integrations require ongoing attention.</p> <h3>3.1 Proactive Integration Management: Building a Robust Ecosystem</h3> <p>Think of your integrations as a living, breathing part of your business. They need care and attention to thrive. Here's how to build a more resilient system:</p> <ul> <li>Establish Clear Ownership: Assign a dedicated person or team responsible for overseeing your integrations. This individual or group should understand the purpose, flow, and dependencies of each integration. Their role includes monitoring, troubleshooting, and planning for updates.</li> <li>Document Everything: For every integration, maintain detailed documentation. This should include: <ul> <li>The systems involved and their versions.</li> <li>The purpose of the integration and the data it synchronizes.</li> <li>The API endpoints utilized and any specific configurations.</li> <li>Credentials and authentication methods.</li> <li>Known issues, workarounds, and past troubleshooting steps.</li> <li>A clear change log of updates made.</li> </ul> </li> <li>Implement Robust Monitoring: Don't wait for users to complain about missing data. Set up automated monitoring for your integrations. This can include: <ul> <li>Success/Failure Alerts: Receive immediate notifications when an integration run fails.</li> <li>Data Validation Checks: Implement checks to ensure data integrity. For example, if your sales data integration fails to push a certain number of orders for a period, this should trigger an alert.</li> <li>Performance Metrics: Track integration speed and volume to identify potential bottlenecks before they become critical issues.</li> </ul> </li> <li>Schedule Regular Health Checks: Just like a car needs regular servicing, your integrations need periodic "health checks." This involves: <ul> <li>Reviewing logs and error reports.</li> <li>Verifying data accuracy across connected systems.</li> <li>Checking for available updates on the connected software's APIs and your integration tools.</li> <li>Testing critical data flows.</li> </ul> </li> <li>Prioritize API Version Management: Stay informed about your vendors' API roadmaps. Subscribe to their developer newsletters, join their forums, and actively inquire about upcoming changes. When an update is announced, assess its impact on your integrations and plan for necessary modifications well in advance of the deprecation of older versions.</li> </ul> <h3>3.2 Choosing the Right Tools for the Job: Beyond "Plug-and-Play"</h3> <p>While the allure of quick wins with out-of-the-box connectors is strong, sometimes they are simply not built for the long haul or the unique complexities of your business. When considering new integrations, or evaluating existing ones, ask these critical questions:</p> <ul> <li>Scalability: Can this integration handle my projected growth? What are its limitations regarding data volume and transaction speed?</li> <li>Customization and Flexibility: Does it offer enough configuration options to adapt to my specific workflows and data structures? Or are I forced into a generic one-size-fits-all approach?</li> <li>Vendor Support and Roadmap: Does the integration provider offer proactive support and a clear roadmap for future development? Are they responsive to bug reports and feature requests?</li> <li>Security: Does it meet my security requirements for data transfer and storage?</li> <li>Total Cost of Ownership: Beyond the initial purchase price, what are the ongoing costs of maintenance, support, and potential necessary customizations?</li> </ul> <p>For many businesses, especially those with critical or complex data flows, relying solely on basic plug-and-play solutions can be a false economy. Investing in more robust integration platforms, custom-built connectors, or engaging with integration specialists can often prove far more cost-effective in the long run by preventing the £28k annual data rot.</p> <h3>3.3 When to Call in the Experts: Leveraging Specialized Skills</h3> <p>You wouldn't try to perform complex surgery on yourself. Similarly, when your business's critical data flows are at stake, it often makes sense to leverage the expertise of integration specialists.</p> <ul> <li>Diagnostic Services: If you suspect data rot but can't pinpoint the source, experts can perform a thorough audit of your existing integrations, identifying the pain points and providing a clear roadmap for remediation.</li> <li>Custom Integration Development: For unique business needs or when off-the-shelf solutions fall short, specialists can build bespoke integrations tailored precisely to your requirements, ensuring long-term stability and efficiency.</li> <li>Integration Strategy and Architecture: Beyond fixing immediate problems, experts can help you design a robust, scalable integration architecture that supports your long-term business goals.</li> <li>Ongoing Maintenance and Support: Free up your internal resources by outsourcing the complex task of integration monitoring and maintenance to a team that specializes in it.</li> </ul> <p>By proactively managing your integrations and understanding when to seek expert help, you can transform these systems from silent assassins into powerful engines that drive efficiency, accuracy, and sustainable growth.</p> <h2>Ready to Stop the Bleed?</h2> <p>The estimated £28,000 annual drain from unnoticed data rot is a significant figure, but more importantly, it represents lost productivity, missed opportunities, and a significant impediment to informed decision-making. Your business deserves better.</p> <p>At Aremu Consulting, I understand the intricate dance of business systems and the costly consequences of a discordant integration. I help businesses like yours move beyond the illusion of "plug-and-play" to build robust, reliable, and scalable integration strategies.</p> <p>Don't let unnoticed data rot continue to erode your bottom line.</p> <p>Book a FREE consultation with my integration experts today. Let's identify the silent assassins within your systems and build a foundation for data integrity and operational excellence.</p> </div> <div> <h3></div><p class="disclosure">This article references illustrative cost figures — estimates for a typical business, not audited client results.</p><div class="post-cta"><a class="btn btn-primary" href="contact.html">Schedule Your Project Consultation</a></div></article></div></main><footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col footer-about">
+      <p class="footer-brand">Aremu Consulting Ltd</p>
+      <p class="footer-tag">Solo builder: web and app builds, workflow and CRM automation, and custom AI agents for small-to-medium businesses. All custom-scope, project-based.</p>
+    </div>
+    <nav class="footer-col" aria-label="Footer">
+      <p class="footer-head">Explore</p>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="approach.html">Approach</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <nav class="footer-col" aria-label="Legal">
+      <p class="footer-head">Legal</p>
+      <ul class="footer-links">
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms &amp; Conditions</a></li>
+        <li><a href="cookies.html">Cookie Policy</a></li>
+        <li><a href="refund.html">Refund Policy</a></li>
+      </ul>
+    </nav>
+    <div class="footer-col footer-contact">
+      <p class="footer-head">Contact</p>
+      <p class="footer-line">Bartle House, 9 Oxford Court</p>
+      <p class="footer-line">Manchester, M2 3WQ</p>
+      <p class="footer-line">Online consultations only — inquiries via the Contact page form.</p>
+    </div>
+    <div class="footer-col footer-cta">
+      <a class="btn btn-primary" href="contact.html">Book a free fit call</a>
+      <p class="footer-micro">Free 15-minute fit call, then a paid discovery credited against any build.</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Aremu Consulting Ltd · Company No. 16401865 · Registered office: Bartle House, 9 Oxford Court, Manchester, M2 3WQ.</p>
+  </div>
+</footer>
+</body>
+</html>

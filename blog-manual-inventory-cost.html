@@ -1,0 +1,676 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Real Cost of Manual Inventory Tracking</title>
+<meta name="description" content="Manual inventory management, often viewed through the lens of initial cost-saving and simplicity, is a deceptive siren song for many small to medium-sized…">
+<link rel="canonical" href="https://www.aremuconsulting.com/blog-manual-inventory-cost.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Real Cost of Manual Inventory Tracking">
+<meta property="og:description" content="Manual inventory management, often viewed through the lens of initial cost-saving and simplicity, is a deceptive siren song for many small to medium-sized…">
+<meta property="og:url" content="https://www.aremuconsulting.com/blog-manual-inventory-cost.html">
+<meta name="og:site_name" content="Aremu Consulting">
+<script type="application/ld+json">[{"@context":"https://schema.org","@type":"BlogPosting","headline":"The Real Cost of Manual Inventory Tracking","description":"Manual inventory management, often viewed through the lens of initial cost-saving and simplicity, is a deceptive siren song for many small to medium-sized…","datePublished":"2026-02-25","author":{"@type":"Person","name":"Andrew Aremu"},"publisher":{"@type":"Organization","name":"Aremu Consulting Ltd","url":"https://www.aremuconsulting.com","founder":{"@type":"Person","name":"Andrew Aremu"},"address":{"@type":"PostalAddress","addressLocality":"Manchester","addressCountry":"GB"}},"mainEntityOfPage":"https://www.aremuconsulting.com/blog-manual-inventory-cost.html","articleSection":"Automation"}]</script>
+<style>
+:root {
+  --paper: #F5F6F6;
+  --sheet: #FFFFFF;
+  --ink: #16181A;
+  --ink-soft: #3F4448;
+  --muted: #5C6266;
+  --rule: #D9DDDC;
+  --grid: #E7EAE9;
+  --accent: #1D6A4F;
+  --accent-strong: #14532D;
+  --accent-soft: #E6F0EA;
+  --danger: #9B3226;
+  --measure: 68ch;
+  --font-display: 'Atkinson Hyperlegible', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'Atkinson Hyperlegible', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'Martian Mono', 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace;
+}
+@font-face { font-family: 'Atkinson Hyperlegible'; font-style: normal; font-weight: 400; font-display: swap; src: url('build/assets/fonts/Atkinson_Hyperlegible-400.woff2') format('woff2'); }
+@font-face { font-family: 'Atkinson Hyperlegible'; font-style: normal; font-weight: 700; font-display: swap; src: url('build/assets/fonts/Atkinson_Hyperlegible-700.woff2') format('woff2'); }
+@font-face { font-family: 'Martian Mono'; font-style: normal; font-weight: 400; font-display: swap; src: url('build/assets/fonts/Martian_Mono-400.woff2') format('woff2'); }
+@font-face { font-family: 'Martian Mono'; font-style: normal; font-weight: 500; font-display: swap; src: url('build/assets/fonts/Martian_Mono-500.woff2') format('woff2'); }
+@font-face { font-family: 'Martian Mono'; font-style: normal; font-weight: 700; font-display: swap; src: url('build/assets/fonts/Martian_Mono-700.woff2') format('woff2'); }
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; font-family: var(--font-body); font-size: 17px; line-height: 1.6; color: var(--ink); background: var(--paper); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+img, svg { max-width: 100%; height: auto; display: block; }
+p { max-width: 68ch; }
+h1, h2, h3, h4, p, ul, ol, figure, blockquote, dl, dd { margin: 0; }
+ul, ol, dl { padding-left: 1.25rem; max-width: 68ch; }
+a { color: var(--accent); text-decoration: underline; text-underline-offset: 0.18em; text-decoration-color: var(--accent); }
+a:hover { text-decoration-thickness: 0.1em; }
+::selection { background: var(--accent); color: var(--paper); }
+:root { color-scheme: light; }
+* { caret-color: var(--accent); }
+::-webkit-scrollbar { width: 12px; height: 12px; }
+::-webkit-scrollbar-track { background: var(--paper); }
+::-webkit-scrollbar-thumb { background: var(--rule); border-radius: 6px; border: 2px solid var(--paper); }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+.skip-link {
+  position: fixed;
+  top: -70px; left: 12px;
+  z-index: 100;
+  padding: 13px 16px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  text-decoration: none;
+  border-radius: var(--radius-control);
+}
+.skip-link:focus { top: 12px; }
+.page { padding: 0 24px 72px; }
+.page-inner { max-width: 1200px; margin: 0 auto; }
+.section {
+  display: grid;
+  grid-template-columns: minmax(7rem, 9rem) 1fr;
+  gap: 18px 28px;
+  padding: 52px 24px;
+  border-bottom: 1px solid var(--rule);
+}
+.section:last-of-type { border-bottom: none; }
+.sec-label {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-top: 8px;
+}
+.sec-label::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: var(--rule);
+  margin-bottom: 12px;
+}
+.sec-body { min-width: 0; }
+.sec-body h2 {
+  font-family: var(--font-body);
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.22;
+  max-width: 24ch;
+  margin-bottom: 14px;
+}
+.sec-body .lede { color: var(--ink-soft); font-size: 1.05rem; margin-bottom: 22px; }
+.site-header { border-bottom: 1px solid var(--rule); background: var(--paper); }
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+  flex-wrap: wrap;
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--ink);
+  min-height: 44px;
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px; height: 34px;
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-control);
+  overflow: hidden;
+  flex: none;
+}
+.brand-mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+.brand-name { font-family: var(--font-mono); font-size: 0.86rem; font-weight: 700; letter-spacing: 0.02em; }
+.brand-sub { display: block; font-family: var(--font-mono); font-size: 0.66rem; color: var(--muted); letter-spacing: 0.06em; }
+.site-nav { display: flex; gap: 22px; flex-wrap: wrap; }
+.site-nav a {
+  color: var(--ink);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  padding: 13px 2px;
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  border-bottom: 2px solid transparent;
+}
+.site-nav a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+.site-nav a.active { color: var(--accent); border-bottom-color: var(--accent); }
+.btn {
+  display: inline-block;
+  padding: 12px 20px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+  text-align: center;
+  border: 2px solid transparent;
+  border-radius: var(--radius-control);
+  cursor: pointer;
+  min-height: 48px;
+}
+.btn-primary { background: var(--accent); color: var(--paper); }
+.btn-primary:hover { background: var(--accent-strong); }
+.btn-secondary { background: transparent; color: var(--ink); border-color: var(--ink); }
+.btn-secondary:hover { background: var(--ink); color: var(--paper); }
+.btn[aria-disabled="true"], .btn:disabled { opacity: 0.55; cursor: not-allowed; }
+.hero { padding: 72px 24px 60px; border-bottom: 1px solid var(--rule); }
+.hero-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 26px;
+}
+.hero h1 {
+  font-size: clamp(2.1rem, 4.4vw, 3.3rem);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  max-width: 18ch;
+}
+.hero .lede { max-width: 68ch; font-size: 1.12rem; color: var(--ink-soft); }
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 8px; }
+.hero-offer { max-width: 100%; }
+.offer-chips { display: flex; flex-wrap: wrap; gap: 12px; }
+.offer-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  padding: 10px 16px;
+}
+.offer-chip::before { content: ""; width: 7px; height: 7px; background: var(--accent); flex: none; }
+.offer-caption { margin: 16px 0 0; font-family: var(--font-mono); font-size: 0.85rem; color: var(--ink-soft); }
+.pf-rise { animation: pf-rise 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.pf-type { display: inline-block; overflow: hidden; white-space: nowrap; max-width: 36ch; vertical-align: bottom; animation: pf-type 1.4s steps(36, end) both; }
+@keyframes pf-rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pf-type { from { max-width: 0; } to { max-width: 36ch; } }
+.authority {
+  border-bottom: 1px solid var(--rule);
+  padding: 18px 24px;
+}
+.authority-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 34px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.03em;
+  color: var(--ink-soft);
+}
+.authority-inner .tick { color: var(--accent); }
+.service-row {
+  display: grid;
+  grid-template-columns: minmax(10rem, 16rem) 1fr auto;
+  gap: 22px;
+  align-items: baseline;
+  padding: 22px 12px;
+  border-top: 1px solid var(--rule);
+}
+.service-row:first-child { border-top: none; }
+.service-row h3 { font-size: 1.12rem; font-weight: 700; }
+.service-row p { color: var(--ink-soft); }
+.more { font-family: var(--font-mono); font-size: 0.82rem; white-space: nowrap; min-height: 44px; display: inline-flex; align-items: center; }
+.service-row .more { }
+.method-wrap { max-width: 1200px; margin: 0 auto; overflow-x: auto; }
+.sheet {
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 22px 24px;
+  margin: 0 0 14px;
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 22px 22px;
+  background-position: -1px -1px;
+}.sheet-stage { display: inline-flex; align-items: center; gap: 10px; }.sheet-stage .mono-code { font-family: var(--font-mono); font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; color: var(--accent); text-transform: uppercase; }.sheet h3 { font-size: 1.22rem; font-weight: 700; margin-bottom: 6px; }
+.sheet .thesis { font-size: 1.02rem; color: var(--ink-soft); margin-bottom: 14px; }.sheet-rows dt { font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); padding-top: 2px; }.sheet-rows dd.handoff { color: var(--accent); font-family: var(--font-mono); font-size: 0.82rem; }
+.case-study { border: 1px solid var(--rule); padding: 26px 24px; background: var(--sheet); }
+.case-label {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  border: 1px solid var(--rule);
+  padding: 4px 8px;
+  margin-bottom: 14px;
+}
+.cs-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 16px; }
+.cs-cols h3 { font-family: var(--font-mono); font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--accent); margin-bottom: 6px; }
+.cs-cols p { font-size: 0.95rem; color: var(--ink-soft); }
+.tradeoff-row { padding: 16px 12px; border-top: 1px solid var(--rule); }
+.tradeoff-row .who { font-family: var(--font-mono); font-size: 0.82rem; color: var(--accent); margin-bottom: 4px; }
+.tradeoff-row p { color: var(--ink-soft); }
+.price-table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 0.95rem; }
+.price-table th, .price-table td { text-align: left; padding: 10px 6px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.price-table th { font-family: var(--font-mono); font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
+.price-table td:first-child { font-weight: 700; }
+.price-table td:nth-child(2) { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.price-note { font-family: var(--font-mono); font-size: 0.85rem; color: var(--muted); margin-top: 8px; }
+.band-row { padding: 14px 12px; border-top: 1px solid var(--rule); }
+.band-row .band-label { font-family: var(--font-mono); font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--accent); margin-bottom: 4px; }
+.band-row p { color: var(--ink-soft); }
+.guarantee { border: 1px solid var(--accent); padding: 26px 24px; background: var(--accent-soft); }
+.guarantee h3 { font-size: 1.2rem; margin-bottom: 10px; }
+.guarantee ul { color: var(--ink); }
+
+.objection { padding: 20px 12px; border-top: 1px solid var(--rule); }
+.objection h3 { font-size: 1.1rem; margin-bottom: 8px; }
+.objection .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 8px; }
+.objection h4 { font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--accent); margin-bottom: 4px; }
+.objection p { color: var(--ink-soft); font-size: 0.95rem; }
+.about-grid { display: grid; grid-template-columns: 260px 1fr; gap: 30px; }
+.about-facts { font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-soft); line-height: 1.8; }
+.about-facts dt { color: var(--accent); }
+.contact-offer { background: var(--sheet); border: 1px solid var(--rule); padding: 34px 24px; margin: 40px 0; }
+.contact-offer h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; line-height: 1.15; margin-bottom: 12px; }
+.contact-offer p { color: var(--ink-soft); }
+.form-sheet { background: var(--sheet); border: 1px solid var(--rule); padding: 28px 24px; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.form-field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.form-field.full { grid-column: 1 / -1; }
+.form-field label { font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink); }
+.form-field input,
+.form-field select,
+.form-field textarea {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  padding: 12px 14px;
+  border: 2px solid var(--rule);
+  background: var(--paper);
+  color: var(--ink);
+  border-radius: var(--radius-control);
+  width: 100%;
+}
+.form-field textarea { min-height: 120px; resize: vertical; }
+.form-field input:focus, .form-field select:focus, .form-field textarea:focus { border-color: var(--accent); outline: 2px solid var(--accent); outline-offset: 2px; }
+.form-field .hint, .form-field .error { font-size: 0.82rem; color: var(--muted); }
+.form-field .error { color: var(--danger); }
+.form-field input[aria-invalid="true"], .form-field select[aria-invalid="true"], .form-field textarea[aria-invalid="true"] { border-color: var(--danger); }
+.form-actions { margin-top: 26px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+[role="status"] {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--accent);
+  border: 1px solid var(--rule);
+  padding: 10px 14px;
+}
+.steps { list-style: none; padding: 0; counter-reset: steps; max-width: 68ch; }
+.steps li { counter-increment: steps; padding: 14px 12px; border-top: 1px solid var(--rule); display: flex; gap: 18px; align-items: baseline; }
+.steps li::before { content: counter(steps, decimal-leading-zero); font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent); }
+.steps li p { color: var(--ink-soft); }
+.demo-note {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--muted);
+  border: 1px dashed var(--rule);
+  padding: 10px 14px;
+  margin-top: 18px;
+}
+.site-footer { border-top: 1px solid var(--rule); background: var(--sheet); margin-top: 48px; }
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 24px 24px;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1.4fr;
+  gap: 30px;
+}
+.footer-brand { font-family: var(--font-mono); font-weight: 700; font-size: 0.95rem; margin-bottom: 8px; }
+.footer-tag { color: var(--ink-soft); font-size: 0.9rem; max-width: 44ch; }
+.footer-head { font-family: var(--font-mono); font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--accent); margin-bottom: 10px; }
+.footer-links { list-style: none; padding: 0; }
+.footer-links li { margin-bottom: 2px; }
+.footer-links a { color: var(--ink); text-decoration: none; min-width: 44px; min-height: 44px; display: inline-flex; align-items: center; }
+.footer-links a:hover { color: var(--accent); text-decoration: underline; }
+.footer-line { color: var(--ink-soft); font-size: 0.9rem; margin-bottom: 6px; }
+.footer-placeholder { font-size: 0.8rem; }
+.footer-micro { font-size: 0.8rem; color: var(--ink-soft); margin-top: 10px; max-width: 34ch; }
+.footer-bottom { border-top: 1px solid var(--rule); padding: 16px 24px; }
+.footer-bottom p {
+  max-width: 68ch;
+  margin: 0 auto;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+@media (max-width: 860px) {
+  .cs-cols, .objection .cols, .about-grid, .form-grid { grid-template-columns: 1fr; }
+  .footer-inner { grid-template-columns: 1fr 1fr; }
+  .service-row { grid-template-columns: 1fr; gap: 6px; }
+  .hero { padding: 52px 18px 44px; }
+}
+@media (max-width: 640px) {
+  .method-wrap svg { width: 640px; max-width: none; }
+  .section { grid-template-columns: 1fr; padding: 44px 18px; gap: 4px; }
+  .sec-label { display: none; }
+  body { font-size: 16px; }
+  .page { padding: 0 18px 56px; }
+  .header-inner { padding: 14px 18px; }
+  .site-nav { gap: 14px; }
+  .footer-inner { grid-template-columns: 1fr; }
+  .sheet-rows { grid-template-columns: 1fr; }
+}
+.scroll-cue { font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); margin: 8px 0 0; display: none; }
+@media (max-width: 640px) { .method-wrap + .scroll-cue { display: inline-block; } }
+html.js .js-reveal g.sheet { transform: translateY(-22px); opacity: 0; }
+html.js .js-reveal.in g.sheet { transform: translateY(0); opacity: 1; }
+html.js .js-reveal g.sheet { transition: transform 650ms cubic-bezier(0.16, 1, 0.3, 1), opacity 650ms cubic-bezier(0.16, 1, 0.3, 1); }
+html.js .js-reveal g.sheet:nth-of-type(2) { transition-delay: 800ms; }
+html.js .js-reveal g.sheet:nth-of-type(3) { transition-delay: 1600ms; }
+html.js .js-reveal g.sheet:nth-of-type(4) { transition-delay: 2400ms; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  html.js .js-reveal g.sheet { transform: none !important; opacity: 1 !important; }
+  .skip-link { transition: none; }
+}
+/* ---- Blog + Projects content pages (gen/build_content.py) ---- */
+.post-list { list-style: none; padding: 0; max-width: 1200px; margin: 0 auto; }
+.entry { padding: 30px 24px; border-bottom: 1px solid var(--rule); }
+.entry:last-child { border-bottom: none; }
+.entry-title { font-size: clamp(1.25rem, 2.4vw, 1.6rem); font-weight: 700; line-height: 1.35; letter-spacing: -0.01em; margin: 6px 0 8px; max-width: 24ch; }
+.entry-title a {
+  color: var(--ink);
+  text-decoration: none;
+  display: inline-block;
+  padding: 10px 0;
+  margin: -10px 0;
+}
+.entry-title a:hover { color: var(--accent); text-decoration: underline; }
+.entry-excerpt { color: var(--ink-soft); max-width: 68ch; margin-top: 12px; }
+.post-meta { font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.03em; color: var(--muted); display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.post-meta .cat { color: var(--accent); }
+.post-head { padding: 40px 0 26px; }
+.post-head h1 { font-size: clamp(1.9rem, 4vw, 3rem); font-weight: 700; line-height: 1.12; letter-spacing: -0.02em; max-width: 22ch; margin: 14px 0 14px; }
+.post-head .lede { color: var(--ink-soft); font-size: 1.1rem; max-width: 68ch; }
+.prose { max-width: 68ch; padding-top: 26px; }
+.prose h2 { font-size: clamp(1.35rem, 2.4vw, 1.7rem); font-weight: 700; line-height: 1.22; letter-spacing: -0.01em; max-width: 24ch; margin: 2.1em 0 0.7em; }
+.prose h3 { font-size: 1.12rem; font-weight: 700; margin: 1.7em 0 0.5em; }
+.prose p { margin: 0 0 1.05em; color: var(--ink); }
+.prose ul, .prose ol { margin: 0 0 1.05em; }
+.prose li { margin: 0 0 0.4em; }
+.prose blockquote { margin: 1.4em 0; padding: 0 0 0 1em; border-left: 3px solid var(--accent); color: var(--ink-soft); }
+.prose hr { border: none; border-top: 1px solid var(--rule); margin: 2em 0; }
+.prose strong { font-weight: 700; }
+.prose em { font-style: italic; }
+.prose pre {
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  max-width: 100%;
+  overflow-x: auto;
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  padding: 14px 16px;
+  font-family: var(--font-mono);
+  font-size: 0.84rem;
+  line-height: 1.55;
+  margin: 1.2em 0;
+}
+.prose code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  background: var(--accent-soft);
+  padding: 1px 5px;
+  border-radius: 2px;
+  overflow-wrap: break-word;
+}
+.prose pre code { background: none; padding: 0; }
+.prose table { max-width: 100%; display: block; overflow-x: auto; }
+.case-label { display: inline-block; font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.03em; color: var(--accent); border: 1px solid var(--accent); padding: 3px 9px; margin: 0 0 14px; }
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; margin: 30px 0; max-width: 1100px; }
+.stat { background: var(--sheet); border: 1px solid var(--rule); padding: 18px 16px; }
+.stat .stat-v { font-family: var(--font-mono); font-size: 1.45rem; font-weight: 700; color: var(--accent); }
+.stat .stat-l { font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); margin-top: 6px; }
+.quote { margin: 26px 0; padding: 18px 22px; border-left: 3px solid var(--accent); background: var(--accent-soft); max-width: 68ch; }
+.quote p { font-size: 1.06rem; color: var(--ink); max-width: 68ch; margin: 0; }
+.quote-footer { font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted); margin-top: 10px; }
+.disclosure {
+  margin: 26px 0;
+  max-width: 68ch;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--muted);
+  border: 1px dashed var(--rule);
+  padding: 10px 14px;
+}
+.post-cta { margin: 34px 0 8px; }
+@media (max-width: 640px) {
+  .post-head { padding: 34px 0 22px; }
+  .entry { padding: 24px 8px; }
+  .stat-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* ---- Project screenshot gallery (right column on desktop) ---- */
+.project-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 68ch) minmax(320px, 1fr);
+  grid-template-areas: "main gallery";
+  gap: 40px;
+  align-items: start;
+  padding-top: 26px;
+}
+.project-main { grid-area: main; min-width: 0; }
+.project-gallery {
+  grid-area: gallery;
+  position: sticky;
+  top: 20px;
+}
+.gallery-head {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  margin: 0 0 10px;
+}
+.gallery { margin: 0; }
+.gallery-frame {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  width: 100%;
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  cursor: zoom-in;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  border-radius: 0;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.gallery-frame:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.gallery-zoom {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(245, 246, 246, 0.94);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+  padding: 4px 9px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-control);
+  pointer-events: none;
+}
+.gallery-frame img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+.gallery-frame img[hidden] { display: none; }
+.gallery-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+.gallery-btn {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--ink);
+  background: var(--sheet);
+  border: 2px solid var(--rule);
+  border-radius: var(--radius-control);
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 12px;
+  cursor: pointer;
+}
+.gallery-btn:hover { border-color: var(--accent); color: var(--accent); }
+.gallery-btn[disabled] { opacity: 0.4; cursor: not-allowed; }
+.gallery-counter { font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); }
+.gallery-caption {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  margin-top: 8px;
+  min-height: 1.4em;
+}
+@media (max-width: 960px) {
+  .project-layout { grid-template-columns: 1fr; grid-template-areas: "gallery" "main"; gap: 28px; }
+  .project-gallery { position: static; }
+}
+
+/* ---- Lightbox (full-size screenshot viewer) ---- */
+.lightbox { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px; }
+.lightbox[hidden] { display: none; }
+.lightbox-backdrop { position: absolute; inset: 0; background: rgba(15, 17, 18, 0.86); }
+.lightbox-panel {
+  position: relative;
+  z-index: 1;
+  width: min(1080px, 96vw);
+  max-height: 92vh;
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  display: flex;
+  flex-direction: column;
+}
+.lightbox-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 12px 8px 16px; border-bottom: 1px solid var(--rule); }
+.lightbox-status { font-family: var(--font-mono); font-size: 0.82rem; color: var(--ink-soft); }
+.lightbox-close {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  color: var(--ink);
+  background: var(--sheet);
+  border: 2px solid var(--rule);
+  border-radius: var(--radius-control);
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 10px;
+  cursor: pointer;
+}
+.lightbox-close:hover { border-color: var(--accent); color: var(--accent); }
+.lightbox-stage { background: var(--ink); display: flex; align-items: center; justify-content: center; padding: 24px; flex: 1; min-height: 0; }
+.lightbox-img { max-width: 100%; max-height: calc(92vh - 130px); object-fit: contain; }
+.lightbox-nav { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 12px 14px; border-top: 1px solid var(--rule); background: var(--sheet); }
+.lightbox-counter { font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); }
+
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html" aria-label="Aremu Consulting: home">
+      <span class="brand-mark" aria-hidden="true"><img src="build/assets/logo.png" alt="" width="34" height="34" decoding="async"></span>
+      <span class="brand-text">
+        <span class="brand-name">Aremu Consulting</span>
+        <span class="brand-sub">Ltd · Manchester, UK</span>
+      </span>
+    </a>
+    <nav class="site-nav" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="approach.html">Approach</a>
+      <a href="projects.html">Projects</a>
+      <a href="blog.html" class="active">Blog</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a class="btn btn-primary nav-cta" href="contact.html">Book a free fit call</a>
+  </div>
+</header><main id="main" class="page"><div class="page-inner"><article><header class="post-head"><p class="post-meta"><span class="cat">Automation</span><span>25 Feb 2026</span><span>By Andrew Aremu</span></p><h1>The Real Cost of Manual Inventory Tracking</h1><p class="lede">Manual inventory management, often viewed through the lens of initial cost-saving and simplicity, is a deceptive siren song for many small to medium-sized businesses (SMBs). What appears to be a…</p></header><div class="prose"><div>  <p>Manual inventory management, often viewed through the lens of initial cost-saving and simplicity, is a deceptive siren song for many small to medium-sized businesses (SMBs). What appears to be a pragmatic, hands-on approach to tracking stock is, in reality, a significant drain on your business's resources, characterized by pervasive inefficiencies and substantial lost revenue. For businesses ranging from 5 to 50 employees, the annual financial burden stemming from manual processes and spreadsheet reliance can easily range from £15,000 to upwards of £50,000. This substantial cost isn't a single, easily identifiable expense but a cumulative effect of interconnected operational pitfalls.</p> <p>At the heart of this hidden cost lies the pervasive overreliance on spreadsheets. While seemingly inexpensive and approachable, spreadsheets are inherently susceptible to the most basic yet impactful error: human data entry mistakes. A single miskeyed quantity, an overlooked update, or a misplaced formula can cascade into significant stock discrepancies. This renders the entire exercise of accurate inventory counts increasingly futile, consuming valuable time and effort for diminishing returns. The consequence is wasted labor. Employees can find themselves dedicating an estimated 10 to 20 hours per week solely to the repetitive and often tedious tasks of manual counting, verification, and data reconciliation. This is time that could, and should, be allocated to more strategic, revenue-generating, or growth-oriented activities that directly contribute to the business's forward momentum.</p> <p>Furthermore, the fragmented nature of disconnected systems is another critical flaw. From the point-of-sale (POS) terminals where transactions occur to the accounting software that tracks financial health, these systems often operate in silos. This lack of integration prevents the establishment of real-time visibility across the entire inventory lifecycle. The result? You never truly possess an accurate or up-to-the-minute understanding of what you have in stock, where it's located, or its current condition. This persistent lack of insight directly feeds into the insidious problem of overstocking. Capital becomes unnecessarily tied up in inventory that is not actively moving, a situation that often consumes 20% to 30% of your total inventory's value in stagnant goods. Conversely, the direct byproduct of inaccurate data – understocking – leads to tangible lost sales. When customers cannot find the items they desire, an estimated 5% to 10% of potential annual revenue can evaporate as these customers seek alternatives elsewhere. These compounding issues create a vicious cycle of inefficiency, directly and detrimentally impacting your business's profitability.</p> <h2>Quantifying the Annual Financial Drag: The True Unseen Cost of Manual Inventory</h2> <p>The operational reliance on manual inventory processes, so often anchored by the ubiquitous spreadsheet, represents a substantial, albeit frequently overlooked, annual drain on the financial health of small to medium-sized businesses. These systems, sometimes lauded for their perceived simplicity and low upfront cost, create a silent but significant erosion of profitability, manifesting across several critical, quantifiable areas.</p> <p>The most immediate and perhaps most apparent impact is on labor costs. When the tally is made, employees dedicate an average of £40,000 to £60,000 per year to tasks that are inherently redundant and easily automated. This includes the painstaking manual counting of every item, the repetitive nature of data entry into spreadsheets, and the subsequent reconciliation efforts required to align discrepancies. This substantial portion of employee time could be far more productively deployed on revenue-generating activities, customer engagement, or strategic initiatives that drive business growth and innovation.</p> <p>Beyond the direct allocation of labor, errors are an almost inevitable consequence of manual data handling. Any process involving manual input is susceptible to human error, regardless of the diligence of the staff involved. These inaccuracies inevitably lead to write-offs of stock that becomes spoiled, outdated, lost, or damaged due to poor tracking. Such irrecoverable losses, the direct result of flawed inventory management, can amount to a significant annual figure, estimated between £15,000 and £25,000.</p> <p>The financial ramifications extend beyond direct loss of product. Stockouts represent a significant and direct loss of potential revenue. When customers arrive with the intention to purchase, only to find that the desired items are unavailable, the immediate consequence is often a lost sale. In a competitive market, these customers are frequently compelled to turn to competitors. For an SMB, this can translate into forfeited sales, estimated to range between £20,000 and £30,000 per year. Conversely, the diametrically opposed issue, excess inventory, proves equally detrimental. Holding more stock than is necessary ties up valuable working capital, which could be deployed elsewhere for growth or investment. Furthermore, excess inventory incurs ongoing carrying costs, including storage fees, insurance premiums, and the ever-present risk of obsolescence or depreciation. These carrying costs typically range from £10,000 to £20,000 annually. Finally, the indirect yet potent impact of opportunity costs cannot be overlooked. Poor inventory visibility, a hallmark of manual systems, often leads to suboptimal purchasing decisions, inefficient stock allocation across different locations, or missed opportunities for bulk discounts. These strategic missteps can add another £5,000 to £10,000 to the annual financial burden, representing lost potential savings or increased expenditure.</p> <p>Collectively, these quantifiable losses paint a stark picture. They highlight the considerable, often underestimated, financial drag that manual and spreadsheet-dependent inventory systems impose on the operational efficiency and profitability of SMBs.</p> <h2>Case Studies of Manual Management Problems: When Simplicity Leads to Ruin</h2> <p>The allure of manual inventory processes, often lauded for their perceived simplicity and low barrier to entry, can insidiously lead to devastating financial consequences for businesses of all sizes. This reliance on spreadsheets, manual count sheets, and disconnected tracking methods creates a fertile ground for errors, stockouts, and the costliest of all outcomes: excessive overstocking. While individual incidents might seem minor, their cumulative effect can cripple a business.</p> <p>Consider the case of a mid-sized retail operation that specialized in artisanal home goods. Their inventory management consisted solely of a meticulously maintained, yet ultimately vulnerable, spreadsheet. At the start of a peak sales season, the owner noticed discrepancies between what was recorded on the spreadsheet and the actual stock levels on the shelves. Believing it to be a minor oversight, they initiated a comprehensive manual stock take. This process, which took three full days and involved four employees working overtime, revealed that a large batch of a popular seasonal product had been mistakenly entered into the system at double its actual quantity. The consequence? The business had actively promoted and sold items that were not physically present, leading to a wave of customer complaints and a significant number of backorders. While they were able to partially rectify the situation by expediting a new order, the expedited shipping costs were substantial, more than doubling the original purchase price for those items. Furthermore, the negative customer experiences led to a noticeable dip in repeat business during that crucial period. The cost of the stock take, the expedited shipping, and the lost goodwill far exceeded the perceived 'cost' of a more robust inventory system.</p> <p>Another example involves a small manufacturing firm producing custom electronic components. Their system relied on handwritten order forms and a central spreadsheet updated weekly. During a period of rapidly increasing demand, a critical component was consistently miscounted on the spreadsheet as being readily available. This mistake went unnoticed for several weeks. As a result, the manufacturing team began production runs based on this false assumption, using up their limited stock of a crucial raw material. When the actual stock count was finally performed, it revealed a severe deficit of this essential component. The company was forced to halt production for nearly two weeks, unable to fulfill crucial orders for their clients. The direct costs included lost production time, the need to pay employees for idle periods, and the significant financial penalties incurred for failing to meet contracted delivery dates. The reputational damage from being unreliable also had long-term implications. The firm ultimately had to invest in a rush order of the raw material at a substantially inflated price, further compounding their losses.</p> <p>A third scenario illustrates the pitfalls of disconnected systems. A small e-commerce business utilized a basic inventory spreadsheet to track items sold across their online store and a single physical retail location. When a customer in the physical store purchased the last unit of a popular handbag, the sales associate marked it as sold on a paper log. However, this information was not immediately updated in the central spreadsheet. Later that day, an online customer placed an order for the same handbag. The system, unaware of the in-store sale, confirmed the order and prompted the fulfillment team to pick and pack the item. The inevitable outcome was a stockout. The business had to cancel the online order, issue a full refund, and offer a discount on a future purchase as an apology. While seemingly a small incident, these occurrences, when repeated, erode customer trust and lead to an increase in the cost of customer service, as each issue requires individual attention and resolution. The repeated cycle of stockouts, cancellations, and apologies incurred not only direct financial costs in terms of refunds and discounts but also significantly damaged the brand's reputation for reliability.</p> <p>These are not isolated incidents but representative examples of how the seemingly innocuous practice of manual inventory management can lead to substantial, and often preventable, financial and operational catastrophes.</p> <h2>The Price of Ignorance: Deeper Dives into Financial Losses</h2> <p>The cumulative financial burden imposed by manual inventory management systems is a complex web of direct costs and indirect consequences. While the initial perception might be one of cost-saving, the reality is a constant erosion of profitability driven by a lack of accurate data and operational efficiency.</p> Labor Costs: The Direct Deduction of Time <p>As previously highlighted, employee time is a business's most valuable asset. When an average of 10-20 hours per employee per week is dedicated to manual counting, data entry, and reconciliation, this translates into a significant financial deduction from your operational budget. For a business with 20 employees, each earning an average hourly wage of £15, this could mean an annual expense of £312,000 to £624,000 solely for these manual tasks. Even with more conservative wage estimates, the figure remains substantial, representing a direct drain that could otherwise fuel investment in growth. This is not merely an expense; it is the cost of taking productive hours away from revenue-generating activities.</p> Errors and Write-Offs: The Tangible Loss of Stock <p>The inherent susceptibility of manual systems to human error means that stock discrepancies are not a matter of ‘if,' but ‘when' and ‘how often.' These errors lead directly to write-offs of inventory that is expired, damaged, lost, or simply no longer accounted for. For a business with an annual inventory turnover of £500,000, a conservative estimate of 2-5% in inventory write-offs due to manual errors translates to an annual loss of £10,000 to £25,000. This is the cost of buying goods that are ultimately discarded without generating any return.</p> Stockouts and Lost Sales: The Revenue That Gets Away <p>When a customer intends to purchase an item that is out of stock, the immediate consequence is a lost sale. For a business with a moderate volume of transactions, the cumulative impact of these stockouts can be significant. If just 5% of monthly sales are lost due to stockouts, and the average sale value is £50, this could represent £15,000 to £30,000 in lost revenue per year for a business with 50-100 transactions per day. This lost revenue also means lost profit margin, impacting the bottom line even more severely.</p> Excess Inventory and Capital Tie-Up: The Cost of Stagnation <p>Holding excessive inventory is akin to letting cash sit idle, depreciating in value. Consider a business that typically holds £200,000 worth of inventory. If 20% of this is considered excess, the tied-up capital amounts to £40,000. The carrying costs associated with this excess – warehousing, insurance, potential obsolescence, and the opportunity cost of not investing this capital elsewhere – can easily amount to 15-25% of the excess inventory's value annually. This translates to an annual cost of £6,000 to £10,000 simply for holding goods that are not moving. The longer inventory sits, the higher these costs become.</p> Opportunity Costs: The Strategic Slippage <p>Perhaps the most elusive yet significant cost is that of opportunity. Poor inventory visibility means missed opportunities for bulk purchase discounts, inability to strategically allocate stock to meet peak demand in specific locations, or delays in recognizing trends that could be capitalized upon. If these missed opportunities, even conservatively estimated, lead to just a 1% reduction in potential profit margin across the entire inventory value, this can equate to £5,000 to £10,000 annually in lost potential.</p> The Overarching Financial Picture <p>When these figures are aggregated, the annual financial drain of manual inventory management becomes alarmingly clear. The sum of these costs, even using conservative estimates across a range of SMBs, consistently pushes the annual expense into the tens of thousands of pounds, easily reaching and exceeding £120,000 for larger SMEs or those with more complex supply chains and higher inventory values. This figure represents not mere inefficiency, but a direct attack on a company's profitability and growth potential.</p> <h2>Conclusion: The Inescapable Truth – Efficiency Demands Modernity</h2> <p>The persistent reliance on manual inventory methods, predominantly through spreadsheets, is a strategic misstep that carries a significant and quantifiable financial penalty. While the initial appeal of low cost and perceived simplicity is understandable, this approach ultimately paralyzes growth, stifles efficiency, and directly erodes profitability. The hidden costs – from excessive labor allocations and costly errors to lost sales and the financial drag of excess stock – collectively amount to a substantial annual drain, easily reaching the £120,000 mark for many small to medium-sized businesses.</p> <p>These are not abstract figures; they represent tangible resources that could be reinvested in product development, customer acquisition, market expansion, or staff training. The case studies demonstrate that the consequences extend beyond financial losses to include damaged customer relationships and a compromised market reputation.</p> <p>In today's competitive landscape, where agility and informed decision-making are paramount, clinging to outdated manual processes is no longer a viable option for sustainable growth. The evidence is overwhelming: an 'efficient' manual inventory system is a misnomer. True efficiency, the kind that fosters profitability and enables strategic advancement, can only be achieved through the adoption of modern, integrated inventory management solutions. The investment in such systems is not an expense; it is a critical strategic imperative that pays for itself many times over by eliminating these substantial, recurring costs and unlocking the full potential of your business. The time to transition away from the spreadsheet and embrace the future of inventory management is now.</p> </div> <div> <h3></div><p class="disclosure">This article references illustrative cost figures — estimates for a typical business, not audited client results.</p><div class="post-cta"><a class="btn btn-primary" href="contact.html">Schedule Your Project Consultation</a></div></article></div></main><footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col footer-about">
+      <p class="footer-brand">Aremu Consulting Ltd</p>
+      <p class="footer-tag">Solo builder: web and app builds, workflow and CRM automation, and custom AI agents for small-to-medium businesses. All custom-scope, project-based.</p>
+    </div>
+    <nav class="footer-col" aria-label="Footer">
+      <p class="footer-head">Explore</p>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="approach.html">Approach</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <nav class="footer-col" aria-label="Legal">
+      <p class="footer-head">Legal</p>
+      <ul class="footer-links">
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms &amp; Conditions</a></li>
+        <li><a href="cookies.html">Cookie Policy</a></li>
+        <li><a href="refund.html">Refund Policy</a></li>
+      </ul>
+    </nav>
+    <div class="footer-col footer-contact">
+      <p class="footer-head">Contact</p>
+      <p class="footer-line">Bartle House, 9 Oxford Court</p>
+      <p class="footer-line">Manchester, M2 3WQ</p>
+      <p class="footer-line">Online consultations only — inquiries via the Contact page form.</p>
+    </div>
+    <div class="footer-col footer-cta">
+      <a class="btn btn-primary" href="contact.html">Book a free fit call</a>
+      <p class="footer-micro">Free 15-minute fit call, then a paid discovery credited against any build.</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Aremu Consulting Ltd · Company No. 16401865 · Registered office: Bartle House, 9 Oxford Court, Manchester, M2 3WQ.</p>
+  </div>
+</footer>
+</body>
+</html>

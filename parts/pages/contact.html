@@ -1,0 +1,190 @@
+<main id="main" class="page">
+  <section class="hero">
+    <div class="hero-inner">
+      <h1>Book a free 15-minute fit call.</h1>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#intake">Request your fit call</a>
+      </div>
+      <p class="lede">Start with a free 15-minute call, no obligation. If it's a fit, a paid discovery/audit follows, credited against any signed build.</p>
+    </div>
+  </section>
+
+  <section class="contact-offer" aria-label="The consultation offer">
+    <div class="page-inner">
+      <h2>How it works</h2>
+      <p>Inquiry → qualification → fit call. Send the intake below. Segun reviews and qualifies every inquiry first, replying within one working day to confirm whether it's worth a call. If it is, we book a free 15-minute fit call with Andrew — no charge, no obligation, and no scope work.</p>
+      <p>If the fit call goes well, the next step is the scoping consultation: a working session that produces a defined problem statement, a proposed architecture direction, a scope and milestone sketch, and a pricing shape. That is the product you are buying first; everything after it is a decision you make with that information in writing.</p>
+      <p style="margin-top:12px;"><strong>The scoping consultation is a fixed-scope discovery/audit:</strong> £500-£2,500 depending on depth, credited back against any signed build of £3,000+.</p>
+      <p style="margin-top:12px;"><strong>After handover (optional):</strong> care plans and pass-through running costs, described at handover and never sold as a squeeze in the consultation.</p>
+    </div>
+  </section>
+
+  <section class="section" id="intake" aria-label="Project intake form">
+    <div class="sec-label">Intake</div>
+    <div class="sec-body">
+      <h2>Book your free fit call</h2>
+      <p class="lede">Tell us what you're working toward. Segun will review your inquiry and reply within one working day to qualify the fit, then we'll book the 15-minute call with Andrew.</p>
+      <form id="intake-form" class="form-sheet form-grid" action="https://formsubmit.co/segun.a@aremuconsulting.com" method="POST" novalidate>
+        <input type="hidden" name="_subject" value="New Lead: Aremu Consulting Website">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="https://www.aremuconsulting.com/contact.html?sent=true">
+        <div class="form-field">
+          <label for="f-name">Name</label>
+          <input id="f-name" name="name" type="text" autocomplete="name" required aria-describedby="f-name-hint">
+          <span class="hint" id="f-name-hint">Your full name.</span>
+          <span class="error" id="f-name-error" hidden></span>
+        </div>
+        <div class="form-field">
+          <label for="f-email">Email</label>
+          <input id="f-email" name="email" type="email" autocomplete="email" required aria-describedby="f-email-hint">
+          <span class="hint" id="f-email-hint">Where Segun will reply within one working day.</span>
+          <span class="error" id="f-email-error" hidden></span>
+        </div>
+        <div class="form-field">
+          <label for="f-company">Company</label>
+          <input id="f-company" name="company" type="text" autocomplete="organization" required aria-describedby="f-company-hint">
+          <span class="hint" id="f-company-hint">Organisation or project name.</span>
+          <span class="error" id="f-company-error" hidden></span>
+        </div>
+        <div class="form-field">
+          <label for="f-service">Service line</label>
+          <select id="f-service" name="service" required aria-describedby="f-service-hint">
+            <option value="">Choose a service line…</option>
+            <option value="websites">Website &amp; Custom Application Building</option>
+            <option value="automation">Workflow &amp; CRM Automation (n8n + your existing tools)</option>
+            <option value="agents">Custom AI Agent Development</option>
+            <option value="unsure">Not sure yet; needs scoping</option>
+          </select>
+          <span class="hint" id="f-service-hint">The line that best fits.</span>
+          <span class="error" id="f-service-error" hidden></span>
+        </div>
+        <div class="form-field full">
+          <label for="f-brief">Brief description</label>
+          <textarea id="f-brief" name="brief" required aria-describedby="f-brief-hint"></textarea>
+          <span class="hint" id="f-brief-hint">What you are trying to achieve, in a few sentences.</span>
+          <span class="error" id="f-brief-error" hidden></span>
+        </div>
+        <div class="form-field full">
+          <label for="f-source">How did you hear about me? <span class="hint">(optional)</span></label>
+          <input id="f-source" name="source" type="text" aria-describedby="f-source-hint">
+          <span class="hint" id="f-source-hint">Optional; helps me understand what brought you here.</span>
+        </div>
+        <div class="form-field full">
+          <div style="display:flex; gap:12px; align-items:flex-start;">
+            <input type="checkbox" id="f-consent" name="consent" required aria-describedby="f-consent-error" style="width:24px; height:24px; flex:none; margin:2px 0 0; accent-color:var(--accent);">
+            <label for="f-consent" style="font-family:var(--font-body); font-size:0.92rem; cursor:pointer;">I consent to Aremu Consulting Ltd processing the personal data I have provided to respond to this enquiry, as described in the <a href="privacy.html">Privacy Policy</a>.</label>
+          </div>
+          <span class="error" id="f-consent-error" hidden></span>
+        </div>
+        <div class="form-field full form-actions">
+          <button class="btn btn-primary" type="submit">Request your free fit call</button>
+          <div role="status" id="form-status" aria-live="polite"></div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Location and hours">
+    <div class="sec-label">Location</div>
+    <div class="sec-body">
+      <h2>Manchester, UK</h2>
+      <div class="band-row">
+        <span class="band-label">Where</span>
+        <p>Bartle House, 9 Oxford Court, Manchester, M2 3WQ. No storefront — online consultations only.</p>
+      </div>
+      <div class="band-row">
+        <span class="band-label">Hours &amp; contact</span>
+        <p>To keep the inbox free of spam, there is no public phone number or email address. All inquiries come through the form above and are qualified before a call is booked.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="What happens next">
+    <div class="sec-label">Next</div>
+    <div class="sec-body">
+      <h2>What happens next</h2>
+      <ol class="steps">
+        <li><p><strong>Inquiry &amp; qualification.</strong> Send the intake; Segun reviews it and replies within one working day to confirm whether it's worth a call.</p></li>
+        <li><p><strong>Free 15-minute fit call with Andrew.</strong> No charge, no obligation; we decide if there's a fit and a clear next step.</p></li>
+        <li><p><strong>Paid discovery/audit.</strong> £500-£2,500, credited back against a signed build of £3,000+.</p></li>
+        <li><p><strong>Written scope.</strong> Deliverables, a milestone map, and a pricing shape, in writing, before any build decision.</p></li>
+      </ol>
+    </div>
+  </section>
+</main>
+
+<script>
+(function () {
+  "use strict";
+  var form = document.getElementById("intake-form");
+  var status = document.getElementById("form-status");
+  var fields = [
+    { input: document.getElementById("f-name"), error: document.getElementById("f-name-error"), message: "Please enter your name." },
+    { input: document.getElementById("f-email"), error: document.getElementById("f-email-error"), message: "Please enter a valid email address.", validate: function (v) {
+        return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v);
+    } },
+    { input: document.getElementById("f-company"), error: document.getElementById("f-company-error"), message: "Please enter your company or project name." },
+    { input: document.getElementById("f-service"), error: document.getElementById("f-service-error"), message: "Please choose a service line." },
+    { input: document.getElementById("f-brief"), error: document.getElementById("f-brief-error"), message: "Please add a brief description." },
+    { input: document.getElementById("f-consent"), error: document.getElementById("f-consent-error"), message: "Please confirm you consent to how your data is used.", validate: function () {
+        return document.getElementById("f-consent").checked;
+    } }
+  ];
+
+  function setValidity(entry, valid) {
+    var input = entry.input;
+    if (valid) {
+      input.removeAttribute("aria-invalid");
+      input.setAttribute("aria-describedby", input.id + "-hint");
+      entry.error.hidden = true;
+      entry.error.textContent = "";
+    } else {
+      input.setAttribute("aria-invalid", "true");
+      input.setAttribute("aria-describedby", input.id + "-hint " + entry.error.id);
+      entry.error.textContent = entry.message;
+      entry.error.hidden = false;
+    }
+    return valid;
+  }
+
+  function validateAll() {
+    var firstInvalid = null;
+    fields.forEach(function (entry) {
+      var value = entry.input.value.trim();
+      var valid = value !== "";
+      if (valid && entry.validate) { valid = entry.validate(value); }
+      if (!valid && !firstInvalid) { firstInvalid = entry.input; }
+      setValidity(entry, valid);
+    });
+    return firstInvalid;
+  }
+
+  form.addEventListener("submit", function (event) {
+    var firstInvalid = validateAll();
+    if (firstInvalid) {
+      event.preventDefault();
+      status.textContent = "";
+      firstInvalid.focus();
+      firstInvalid.scrollIntoView({ behavior: "smooth", block: "center" });
+    } else {
+      status.setAttribute("role", "status");
+      status.textContent = "Sending…";
+      // Valid: allow the native POST to FormSubmit, which returns us to ?sent=true.
+    }
+  });
+
+  if (window.location.search.indexOf("sent=true") !== -1) {
+    status.setAttribute("role", "status");
+    status.textContent = "Sent. Segun will review and reply within one working day.";
+  }
+
+  fields.forEach(function (entry) {
+    entry.input.addEventListener("input", function () {
+      if (entry.input.getAttribute("aria-invalid") === "true") {
+        setValidity(entry, entry.input.value.trim() !== "");
+      }
+    });
+  });
+})();
+</script>
