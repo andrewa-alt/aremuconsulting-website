@@ -488,8 +488,6 @@ def write_vercel(blog, projects):
         {"source": "/case-studies", "destination": "/projects.html", "statusCode": 308},
         {"source": "/lab", "destination": "/blog.html", "statusCode": 308},
         {"source": "/consultation", "destination": "/contact.html", "statusCode": 308},
-        {"source": "/services", "destination": "/services.html", "statusCode": 308},
-        {"source": "/approach", "destination": "/approach.html", "statusCode": 308},
     ]
     cfg = {"cleanUrls": True, "trailingSlash": False, "redirects": redirects}
     with open(os.path.join(ROOT, "vercel.json"), "w", encoding="utf-8") as fh:

@@ -31,16 +31,6 @@
       "source": "/consultation",
       "destination": "/contact.html",
       "statusCode": 308
-    },
-    {
-      "source": "/services",
-      "destination": "/services.html",
-      "statusCode": 308
-    },
-    {
-      "source": "/approach",
-      "destination": "/approach.html",
-      "statusCode": 308
     }
   ]
 }
