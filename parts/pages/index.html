@@ -6,6 +6,7 @@
         <a class="btn btn-primary" href="contact.html">Book a free fit call</a>
         <a class="btn btn-secondary" href="services.html">Explore services</a>
       </div>
+      <p class="hero-pricing">Fixed prices, published up front. Entry work from &pound;2,200. <a href="services.html">See the tiers →</a></p>
       <p class="lede">I'm a solo builder, not an agency. Web and app builds, workflow and CRM automation, and custom AI agents for small-to-medium businesses. Every project ships with code, docs, and a handover. Manchester, UK.</p>
       <div class="hero-offer" aria-label="What you leave the consultation with">
         <div class="offer-chips">
@@ -34,17 +35,26 @@
       <p class="lede">I cover the whole build-to-automate journey myself, which keeps the price honest. Each line is custom-scope; every project runs through the same named method.</p>
       <div class="service-row">
         <h3>Website &amp; App Build</h3>
-        <p>Bespoke web applications and tailored digital platforms for small-to-medium organisations. Developer-driven front-ends, tested and documented.</p>
+        <div class="service-copy">
+          <p class="service-outcome">A custom application that fits how your business actually works, not a template forced onto your process.</p>
+          <p class="service-how">React/Next.js front-ends and PostgreSQL backends, developer-built, tested, and documented for portals, member systems, and internal tools.</p>
+        </div>
         <a class="more" href="services.html#websites">See Services →</a>
       </div>
       <div class="service-row">
         <h3>Workflow &amp; CRM Automation</h3>
-        <p>Automating manual busywork and multi-step workflows by connecting the tools you already use (Zoho, Google Workspace, your CRM, email) with n8n, so your systems work together without copy-paste.</p>
+        <div class="service-copy">
+          <p class="service-outcome">Stop copying data between systems. Connect Zoho, Google Workspace, and your CRM so leads, orders, and reports move themselves.</p>
+          <p class="service-how">Custom n8n workflows, Deluge scripts, and webhooks that run your busywork automatically: no copy-paste, no missed steps.</p>
+        </div>
         <a class="more" href="services.html#automation">See Services →</a>
       </div>
       <div class="service-row">
         <h3>AI Agent Development</h3>
-        <p>Specialised autonomous AI agents on advanced harnesses (pi.dev, OpenClaw), built for a named workflow with guardrails and logged behaviour.</p>
+        <div class="service-copy">
+          <p class="service-outcome">Autonomous AI workers trained on your own documents to qualify leads, triage inquiries around the clock, and log to your CRM with no human copy-paste.</p>
+          <p class="service-how">Built for a named workflow on advanced harnesses (pi.dev, OpenClaw, Agent Zero), with guardrails and logged behaviour.</p>
+        </div>
         <a class="more" href="services.html#agents">See Services →</a>
       </div>
     </div>
@@ -57,14 +67,21 @@
       <p class="lede">The named delivery method, published so you can judge predictability before you commit. One &ldquo;you receive&rdquo; line per stage; the full spec is on the Approach page.</p>
       <div class="method-wrap">{{METHOD}}</div>
       <p class="scroll-cue">→ scroll →</p>
+      <ol class="risk-list">
+        <li><strong>Discover:</strong> you leave with a defined problem statement. <em>Why it protects you:</em> we agree what &ldquo;done&rdquo; means before any pricing.</li>
+        <li><strong>Scope:</strong> a written scope, milestone map, and pricing shape. <em>Why it protects you:</em> scope is frozen in writing, so costs don&rsquo;t creep.</li>
+        <li><strong>Milestones:</strong> each stage gates the next. <em>Why it protects you:</em> you approve and pay in stages, never all up front.</li>
+        <li><strong>Handover:</strong> code, docs, tests, and a walkthrough. <em>Why it protects you:</em> you can run it without me; a care plan is optional.</li>
+      </ol>
       <p style="margin-top:18px;"><a class="more" href="approach.html">See the full method on the Approach page →</a></p>
     </div>
   </section>
 
-  <section class="section" aria-label="Case study placeholder">
-    <div class="sec-label">Case study</div>
+  <section class="section" aria-label="Results and proof">
+    <div class="sec-label">Proof</div>
     <div class="sec-body">
-      <h2>A case study, in depth</h2>
+      <h2>Results, across three different operations</h2>
+      <p class="lede">The same method, applied to three different industries. Full breakdowns (stack, trade-offs, and what the client runs today) are on the Projects page.</p>
       <div class="case-study">
         <span class="case-label">// case study — Accident Claims Intelligent Automator</span>
         <div class="cs-cols">
@@ -86,26 +103,50 @@
           </div>
         </div>
       </div>
+      <div class="proof-list">
+        <div class="proof-row">
+          <span class="proof-tag">Food operations</span>
+          <div>
+            <h3>MealPrep.exe</h3>
+            <p>Replaced spreadsheets, WhatsApp, and notebooks with one local-first app: menus, online ordering, batch counts, shopping lists, and delivery routes. <a class="more" href="project-mealprep.html">Read the case study →</a></p>
+          </div>
+        </div>
+        <div class="proof-row">
+          <span class="proof-tag">Contact centre</span>
+          <div>
+            <h3>Connex-One Data Bridge</h3>
+            <p>Watches the dialler inbox 24/7 and writes clean call, campaign, and agent data into one dashboard, reclaiming the 30–60 minutes supervisors lost each morning. <a class="more" href="project-connex-one-data-bridge.html">Read the case study →</a></p>
+          </div>
+        </div>
+      </div>
+      <p style="margin-top:16px;"><a class="more" href="projects.html">See all five project breakdowns →</a></p>
     </div>
   </section>
 
-  <section class="section" aria-label="When not to hire">
+  <section class="section" aria-label="Is this a fit">
     <div class="sec-label">Fit</div>
     <div class="sec-body">
-      <h2>When not to hire Aremu</h2>
-      <p class="lede">A vendor who turns away unsuitable work is trusted with the work they accept. A custom build is not always the right answer.</p>
-      <div class="tradeoff-row">
-        <span class="who">You want a template, fast</span>
-        <p>If a Wix site or an off-the-shelf theme genuinely covers the case, that is the honest recommendation. A custom build only starts when a template would force the wrong architecture.</p>
+      <h2>Who Aremu is built for</h2>
+      <p class="lede">If you want a churning dev shop with junior account managers, that's not us. If you want one senior builder who owns the architecture from end to end, let's talk.</p>
+      <div class="fit-grid">
+        <div class="fit-col fit-for">
+          <h3>Built for</h3>
+          <ul>
+            <li>Owners who want manual busywork turned into systems that run themselves.</li>
+            <li>Operations where spreadsheets and templates have stopped being enough.</li>
+            <li>Buyers who want one accountable person, not a hand-off chain.</li>
+          </ul>
+        </div>
+        <div class="fit-col fit-not">
+          <h3>Not a fit</h3>
+          <ul>
+            <li>A cheap template, fast. If that honestly covers it, that's the recommendation.</li>
+            <li>A 24/7 managed-service desk: work is handed over, not round-the-clock.</li>
+            <li>A full product squad: there's a ceiling to one builder.</li>
+          </ul>
+        </div>
       </div>
-      <div class="tradeoff-row">
-        <span class="who">You want a 24/7 managed-service floor</span>
-        <p>Work is handed over with code, docs, tests, and a session; maintenance is available as an option. But this is a one-person shop, not a round-the-clock support desk. If you need that, hire for it directly.</p>
-      </div>
-      <div class="tradeoff-row">
-        <span class="who">You need a team, not a person</span>
-        <p>I'm one builder, so there's a ceiling on how much I can take on and how quickly I can be everywhere at once. If you need a full product squad or round-the-clock coverage, a larger outfit is the right fit.</p>
-      </div>
+      <p style="margin-top:20px;"><a class="btn btn-primary" href="contact.html">Book a free fit call</a></p>
     </div>
   </section>
 </main>

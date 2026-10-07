@@ -271,6 +271,30 @@ a:hover { text-decoration-thickness: 0.1em; }
 .tradeoff-row { padding: 16px 12px; border-top: 1px solid var(--rule); }
 .tradeoff-row .who { font-family: var(--font-mono); font-size: 0.82rem; color: var(--accent); margin-bottom: 4px; }
 .tradeoff-row p { color: var(--ink-soft); }
+.service-copy { display: grid; gap: 4px; }
+.service-outcome { color: var(--ink); font-weight: 600; }
+.service-how { color: var(--ink-soft); font-size: 0.95rem; }
+.hero-pricing { margin: 2px 0 0; font-family: var(--font-mono); font-size: 0.85rem; color: var(--ink-soft); }
+.hero-pricing a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; display: inline-block; min-height: 44px; line-height: 44px; }
+.risk-list { list-style: none; margin: 18px 0 0; padding: 0; }
+.risk-list li { position: relative; padding: 13px 14px 13px 34px; border-top: 1px solid var(--rule); color: var(--ink-soft); font-size: 0.95rem; }
+.risk-list li:last-child { border-bottom: 1px solid var(--rule); }
+.risk-list li::before { content: "✓"; position: absolute; left: 14px; top: 13px; color: var(--accent); font-family: var(--font-mono); }
+.risk-list strong { font-family: var(--font-mono); color: var(--ink); }
+.risk-list em { font-style: normal; color: var(--accent); }
+.proof-list { margin-top: 18px; border-top: 1px solid var(--rule); }
+.proof-row { display: grid; grid-template-columns: minmax(8rem, 12rem) 1fr; gap: 18px; padding: 18px 12px; border-bottom: 1px solid var(--rule); }
+.proof-tag { font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); padding-top: 4px; }
+.proof-row h3 { font-size: 1.05rem; font-weight: 700; margin: 0 0 4px; }
+.proof-row p { color: var(--ink-soft); font-size: 0.95rem; margin: 0; }
+.proof-row .more { margin-top: 8px; }
+.fit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 10px; }
+.fit-col { border: 1px solid var(--rule); padding: 20px 22px; background: var(--sheet); }
+.fit-col h3 { font-family: var(--font-mono); font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--accent); margin: 0 0 12px; }
+.fit-col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.fit-col li { position: relative; padding-left: 26px; color: var(--ink-soft); font-size: 0.95rem; }
+.fit-col.fit-for li::before { content: "→"; position: absolute; left: 0; color: var(--accent); font-family: var(--font-mono); }
+.fit-col.fit-not li::before { content: "✕"; position: absolute; left: 0; color: var(--danger); font-family: var(--font-mono); }
 .price-table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 0.95rem; }
 .price-table th, .price-table td { text-align: left; padding: 10px 6px; border-bottom: 1px solid var(--rule); vertical-align: top; }
 .price-table th { font-family: var(--font-mono); font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
@@ -368,6 +392,7 @@ a:hover { text-decoration-thickness: 0.1em; }
   .cs-cols, .objection .cols, .about-grid, .form-grid { grid-template-columns: 1fr; }
   .footer-inner { grid-template-columns: 1fr 1fr; }
   .service-row { grid-template-columns: 1fr; gap: 6px; }
+  .proof-row, .fit-grid { grid-template-columns: 1fr; }
   .hero { padding: 52px 18px 44px; }
 }
 @media (max-width: 640px) {
@@ -634,6 +659,7 @@ html.js .js-reveal g.sheet:nth-of-type(4) { transition-delay: 2400ms; }
         <a class="btn btn-primary" href="contact.html">Book a free fit call</a>
         <a class="btn btn-secondary" href="services.html">Explore services</a>
       </div>
+      <p class="hero-pricing">Fixed prices, published up front. Entry work from &pound;2,200. <a href="services.html">See the tiers →</a></p>
       <p class="lede">I'm a solo builder, not an agency. Web and app builds, workflow and CRM automation, and custom AI agents for small-to-medium businesses. Every project ships with code, docs, and a handover. Manchester, UK.</p>
       <div class="hero-offer" aria-label="What you leave the consultation with">
         <div class="offer-chips">
@@ -662,17 +688,26 @@ html.js .js-reveal g.sheet:nth-of-type(4) { transition-delay: 2400ms; }
       <p class="lede">I cover the whole build-to-automate journey myself, which keeps the price honest. Each line is custom-scope; every project runs through the same named method.</p>
       <div class="service-row">
         <h3>Website &amp; App Build</h3>
-        <p>Bespoke web applications and tailored digital platforms for small-to-medium organisations. Developer-driven front-ends, tested and documented.</p>
+        <div class="service-copy">
+          <p class="service-outcome">A custom application that fits how your business actually works, not a template forced onto your process.</p>
+          <p class="service-how">React/Next.js front-ends and PostgreSQL backends, developer-built, tested, and documented for portals, member systems, and internal tools.</p>
+        </div>
         <a class="more" href="services.html#websites">See Services →</a>
       </div>
       <div class="service-row">
         <h3>Workflow &amp; CRM Automation</h3>
-        <p>Automating manual busywork and multi-step workflows by connecting the tools you already use (Zoho, Google Workspace, your CRM, email) with n8n, so your systems work together without copy-paste.</p>
+        <div class="service-copy">
+          <p class="service-outcome">Stop copying data between systems. Connect Zoho, Google Workspace, and your CRM so leads, orders, and reports move themselves.</p>
+          <p class="service-how">Custom n8n workflows, Deluge scripts, and webhooks that run your busywork automatically: no copy-paste, no missed steps.</p>
+        </div>
         <a class="more" href="services.html#automation">See Services →</a>
       </div>
       <div class="service-row">
         <h3>AI Agent Development</h3>
-        <p>Specialised autonomous AI agents on advanced harnesses (pi.dev, OpenClaw), built for a named workflow with guardrails and logged behaviour.</p>
+        <div class="service-copy">
+          <p class="service-outcome">Autonomous AI workers trained on your own documents to qualify leads, triage inquiries around the clock, and log to your CRM with no human copy-paste.</p>
+          <p class="service-how">Built for a named workflow on advanced harnesses (pi.dev, OpenClaw, Agent Zero), with guardrails and logged behaviour.</p>
+        </div>
         <a class="more" href="services.html#agents">See Services →</a>
       </div>
     </div>
@@ -753,14 +788,21 @@ html.js .js-reveal g.sheet:nth-of-type(4) { transition-delay: 2400ms; }
 </g>
 </svg></div>
       <p class="scroll-cue">→ scroll →</p>
+      <ol class="risk-list">
+        <li><strong>Discover:</strong> you leave with a defined problem statement. <em>Why it protects you:</em> we agree what &ldquo;done&rdquo; means before any pricing.</li>
+        <li><strong>Scope:</strong> a written scope, milestone map, and pricing shape. <em>Why it protects you:</em> scope is frozen in writing, so costs don&rsquo;t creep.</li>
+        <li><strong>Milestones:</strong> each stage gates the next. <em>Why it protects you:</em> you approve and pay in stages, never all up front.</li>
+        <li><strong>Handover:</strong> code, docs, tests, and a walkthrough. <em>Why it protects you:</em> you can run it without me; a care plan is optional.</li>
+      </ol>
       <p style="margin-top:18px;"><a class="more" href="approach.html">See the full method on the Approach page →</a></p>
     </div>
   </section>
 
-  <section class="section" aria-label="Case study placeholder">
-    <div class="sec-label">Case study</div>
+  <section class="section" aria-label="Results and proof">
+    <div class="sec-label">Proof</div>
     <div class="sec-body">
-      <h2>A case study, in depth</h2>
+      <h2>Results, across three different operations</h2>
+      <p class="lede">The same method, applied to three different industries. Full breakdowns (stack, trade-offs, and what the client runs today) are on the Projects page.</p>
       <div class="case-study">
         <span class="case-label">// case study — Accident Claims Intelligent Automator</span>
         <div class="cs-cols">
@@ -782,26 +824,50 @@ html.js .js-reveal g.sheet:nth-of-type(4) { transition-delay: 2400ms; }
           </div>
         </div>
       </div>
+      <div class="proof-list">
+        <div class="proof-row">
+          <span class="proof-tag">Food operations</span>
+          <div>
+            <h3>MealPrep.exe</h3>
+            <p>Replaced spreadsheets, WhatsApp, and notebooks with one local-first app: menus, online ordering, batch counts, shopping lists, and delivery routes. <a class="more" href="project-mealprep.html">Read the case study →</a></p>
+          </div>
+        </div>
+        <div class="proof-row">
+          <span class="proof-tag">Contact centre</span>
+          <div>
+            <h3>Connex-One Data Bridge</h3>
+            <p>Watches the dialler inbox 24/7 and writes clean call, campaign, and agent data into one dashboard, reclaiming the 30–60 minutes supervisors lost each morning. <a class="more" href="project-connex-one-data-bridge.html">Read the case study →</a></p>
+          </div>
+        </div>
+      </div>
+      <p style="margin-top:16px;"><a class="more" href="projects.html">See all five project breakdowns →</a></p>
     </div>
   </section>
 
-  <section class="section" aria-label="When not to hire">
+  <section class="section" aria-label="Is this a fit">
     <div class="sec-label">Fit</div>
     <div class="sec-body">
-      <h2>When not to hire Aremu</h2>
-      <p class="lede">A vendor who turns away unsuitable work is trusted with the work they accept. A custom build is not always the right answer.</p>
-      <div class="tradeoff-row">
-        <span class="who">You want a template, fast</span>
-        <p>If a Wix site or an off-the-shelf theme genuinely covers the case, that is the honest recommendation. A custom build only starts when a template would force the wrong architecture.</p>
+      <h2>Who Aremu is built for</h2>
+      <p class="lede">If you want a churning dev shop with junior account managers, that's not us. If you want one senior builder who owns the architecture from end to end, let's talk.</p>
+      <div class="fit-grid">
+        <div class="fit-col fit-for">
+          <h3>Built for</h3>
+          <ul>
+            <li>Owners who want manual busywork turned into systems that run themselves.</li>
+            <li>Operations where spreadsheets and templates have stopped being enough.</li>
+            <li>Buyers who want one accountable person, not a hand-off chain.</li>
+          </ul>
+        </div>
+        <div class="fit-col fit-not">
+          <h3>Not a fit</h3>
+          <ul>
+            <li>A cheap template, fast. If that honestly covers it, that's the recommendation.</li>
+            <li>A 24/7 managed-service desk: work is handed over, not round-the-clock.</li>
+            <li>A full product squad: there's a ceiling to one builder.</li>
+          </ul>
+        </div>
       </div>
-      <div class="tradeoff-row">
-        <span class="who">You want a 24/7 managed-service floor</span>
-        <p>Work is handed over with code, docs, tests, and a session; maintenance is available as an option. But this is a one-person shop, not a round-the-clock support desk. If you need that, hire for it directly.</p>
-      </div>
-      <div class="tradeoff-row">
-        <span class="who">You need a team, not a person</span>
-        <p>I'm one builder, so there's a ceiling on how much I can take on and how quickly I can be everywhere at once. If you need a full product squad or round-the-clock coverage, a larger outfit is the right fit.</p>
-      </div>
+      <p style="margin-top:20px;"><a class="btn btn-primary" href="contact.html">Book a free fit call</a></p>
     </div>
   </section>
 </main><footer class="site-footer">

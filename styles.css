@@ -262,6 +262,30 @@ a:hover { text-decoration-thickness: 0.1em; }
 .tradeoff-row { padding: 16px 12px; border-top: 1px solid var(--rule); }
 .tradeoff-row .who { font-family: var(--font-mono); font-size: 0.82rem; color: var(--accent); margin-bottom: 4px; }
 .tradeoff-row p { color: var(--ink-soft); }
+.service-copy { display: grid; gap: 4px; }
+.service-outcome { color: var(--ink); font-weight: 600; }
+.service-how { color: var(--ink-soft); font-size: 0.95rem; }
+.hero-pricing { margin: 2px 0 0; font-family: var(--font-mono); font-size: 0.85rem; color: var(--ink-soft); }
+.hero-pricing a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; display: inline-block; min-height: 44px; line-height: 44px; }
+.risk-list { list-style: none; margin: 18px 0 0; padding: 0; }
+.risk-list li { position: relative; padding: 13px 14px 13px 34px; border-top: 1px solid var(--rule); color: var(--ink-soft); font-size: 0.95rem; }
+.risk-list li:last-child { border-bottom: 1px solid var(--rule); }
+.risk-list li::before { content: "✓"; position: absolute; left: 14px; top: 13px; color: var(--accent); font-family: var(--font-mono); }
+.risk-list strong { font-family: var(--font-mono); color: var(--ink); }
+.risk-list em { font-style: normal; color: var(--accent); }
+.proof-list { margin-top: 18px; border-top: 1px solid var(--rule); }
+.proof-row { display: grid; grid-template-columns: minmax(8rem, 12rem) 1fr; gap: 18px; padding: 18px 12px; border-bottom: 1px solid var(--rule); }
+.proof-tag { font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); padding-top: 4px; }
+.proof-row h3 { font-size: 1.05rem; font-weight: 700; margin: 0 0 4px; }
+.proof-row p { color: var(--ink-soft); font-size: 0.95rem; margin: 0; }
+.proof-row .more { margin-top: 8px; }
+.fit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 10px; }
+.fit-col { border: 1px solid var(--rule); padding: 20px 22px; background: var(--sheet); }
+.fit-col h3 { font-family: var(--font-mono); font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--accent); margin: 0 0 12px; }
+.fit-col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.fit-col li { position: relative; padding-left: 26px; color: var(--ink-soft); font-size: 0.95rem; }
+.fit-col.fit-for li::before { content: "→"; position: absolute; left: 0; color: var(--accent); font-family: var(--font-mono); }
+.fit-col.fit-not li::before { content: "✕"; position: absolute; left: 0; color: var(--danger); font-family: var(--font-mono); }
 .price-table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 0.95rem; }
 .price-table th, .price-table td { text-align: left; padding: 10px 6px; border-bottom: 1px solid var(--rule); vertical-align: top; }
 .price-table th { font-family: var(--font-mono); font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
@@ -359,6 +383,7 @@ a:hover { text-decoration-thickness: 0.1em; }
   .cs-cols, .objection .cols, .about-grid, .form-grid { grid-template-columns: 1fr; }
   .footer-inner { grid-template-columns: 1fr 1fr; }
   .service-row { grid-template-columns: 1fr; gap: 6px; }
+  .proof-row, .fit-grid { grid-template-columns: 1fr; }
   .hero { padding: 52px 18px 44px; }
 }
 @media (max-width: 640px) {
