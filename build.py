@@ -20,6 +20,8 @@ Usage: python3 build.py
 import json
 import os
 
+from gen.seo import SITE_META, head_substitutions
+
 ROOT = os.path.dirname(os.path.abspath(__file__))
 PARTS = os.path.join(ROOT, "parts")
 PAGE_DIR = os.path.join(PARTS, "pages")
@@ -28,50 +30,6 @@ ASSETS = os.path.join(ROOT, "build", "assets")
 FONTS = os.path.join(ASSETS, "fonts")
 
 PAGES = ["index", "services", "approach", "contact", "privacy", "terms", "cookies", "refund"]
-
-PAGE_META = {
-    "index": (
-        "Aremu Consulting — bespoke web builds, workflow + CRM automation, custom AI agents (Manchester)",
-        "A solo builder in Manchester, UK, building tools, systems, and processes for "
-        "small-to-medium businesses: web and app builds, workflow and CRM automation, "
-        "and custom AI agents. Named method, written scope, and every project ships with code, docs, and tests.",
-    ),
-    "services": (
-        "Services — Aremu Consulting",
-        "Three custom-scope lines: website and app building, workflow and CRM automation "
-        "(n8n + your existing tools), and custom AI agent development. Three fixed-price tiers per line.",
-    ),
-    "approach": (
-        "Approach — Discover → Scope → Milestones → Handover",
-        "A named delivery method, published: scope frozen in writing before a line of code, "
-        "changes priced before they are done, and every project ships with code, docs, tests, "
-        "and a handover session.",
-    ),
-    "contact": (
-        "Contact — Book a Free Fit Call",
-        "Book a free 15-minute fit call, then a paid discovery/audit credited against any build. "
-        "You leave with a written scope, a milestone map, and a pricing shape. Reply within one working day.",
-    ),
-    "privacy": (
-        "Privacy Policy — Aremu Consulting",
-        "How Aremu Consulting Ltd collects, uses and protects your personal data, and the rights "
-        "you hold under UK data-protection law.",
-    ),
-    "terms": (
-        "Terms and Conditions — Aremu Consulting",
-        "The terms that govern use of this website and the engagement of Aremu Consulting Ltd "
-        "services.",
-    ),
-    "cookies": (
-        "Cookie Policy — Aremu Consulting",
-        "Which cookies and browser storage this site uses — and that it currently sets no "
-        "non-essential or advertising cookies.",
-    ),
-    "refund": (
-        "Refund Policy — Aremu Consulting",
-        "How refunds and cancellations work for scoping consultations and milestone-based project work.",
-    ),
-}
 
 
 def read(path):
@@ -136,13 +94,10 @@ def assemble(page_name):
     footer = read(os.path.join(PARTIAL_DIR, "footer.html"))
     page = read(os.path.join(PAGE_DIR, page_name + ".html"))
 
-    title, description = PAGE_META[page_name]
     nav_classes = {p: "" for p in PAGES}
     nav_classes[page_name] = ' class="active"'
 
     substitutions = {
-        "{{TITLE}}": title,
-        "{{DESCRIPTION}}": description,
         "{{CSS}}": full_css,
         "{{ACTIVE_INDEX}}": nav_classes["index"],
         "{{ACTIVE_SERVICES}}": nav_classes["services"],
@@ -152,6 +107,7 @@ def assemble(page_name):
         "{{ACTIVE_CONTACT}}": nav_classes["contact"],
         "{{YEAR}}": "2026",
     }
+    substitutions.update(head_substitutions(SITE_META[page_name], page_name + ".html"))
     # Inject generated SVGs (inline by file read).
     for key, value in svg_assets().items():
         substitutions.setdefault(key, value)

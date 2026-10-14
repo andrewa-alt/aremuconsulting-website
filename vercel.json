@@ -4,32 +4,32 @@
   "redirects": [
     {
       "source": "/blog/:slug((?!\\.html$).*)",
-      "destination": "/blog-:slug.html",
+      "destination": "/blog-:slug",
       "statusCode": 308
     },
     {
       "source": "/case-studies/:slug((?!\\.html$).*)",
-      "destination": "/project-:slug.html",
+      "destination": "/project-:slug",
       "statusCode": 308
     },
     {
       "source": "/lab/:path*",
-      "destination": "/blog.html",
+      "destination": "/blog",
       "statusCode": 308
     },
     {
       "source": "/case-studies",
-      "destination": "/projects.html",
+      "destination": "/projects",
       "statusCode": 308
     },
     {
       "source": "/lab",
-      "destination": "/blog.html",
+      "destination": "/blog",
       "statusCode": 308
     },
     {
       "source": "/consultation",
-      "destination": "/contact.html",
+      "destination": "/contact",
       "statusCode": 308
     }
   ]

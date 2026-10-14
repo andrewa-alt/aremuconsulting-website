@@ -3,15 +3,27 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Shopify Inventory Sync: Preventing Oversells</title>
-<meta name="description" content="Let&#x27;s be brutally honest. You think your Shopify inventory sync is humming along, a well-oiled machine keeping your stock levels looking pristine. You pat…">
-<link rel="canonical" href="https://www.aremuconsulting.com/blog-shopify-inventory-sync-oversell-nightmare.html">
+<script>document.documentElement.classList.add("js");</script>
+<title>Shopify Inventory Sync: Preventing Oversells | Aremu Consulting</title>
+<meta name="description" content="Explore why Shopify inventory sync can lead to oversells, and how SKU consistency, webhook updates and reconciliation help maintain accurate stock.">
+<link rel="canonical" href="https://www.aremuconsulting.com/blog-shopify-inventory-sync-oversell-nightmare">
 <meta property="og:type" content="article">
+<meta property="og:site_name" content="Aremu Consulting">
+<meta property="og:locale" content="en_GB">
 <meta property="og:title" content="Shopify Inventory Sync: Preventing Oversells">
-<meta property="og:description" content="Let&#x27;s be brutally honest. You think your Shopify inventory sync is humming along, a well-oiled machine keeping your stock levels looking pristine. You pat…">
-<meta property="og:url" content="https://www.aremuconsulting.com/blog-shopify-inventory-sync-oversell-nightmare.html">
-<meta name="og:site_name" content="Aremu Consulting">
-<script type="application/ld+json">[{"@context":"https://schema.org","@type":"BlogPosting","headline":"Shopify Inventory Sync: Preventing Oversells","description":"Let's be brutally honest. You think your Shopify inventory sync is humming along, a well-oiled machine keeping your stock levels looking pristine. You pat…","datePublished":"2026-03-18","author":{"@type":"Person","name":"Andrew Aremu"},"publisher":{"@type":"Organization","name":"Aremu Consulting Ltd","url":"https://www.aremuconsulting.com","founder":{"@type":"Person","name":"Andrew Aremu"},"address":{"@type":"PostalAddress","addressLocality":"Manchester","addressCountry":"GB"}},"mainEntityOfPage":"https://www.aremuconsulting.com/blog-shopify-inventory-sync-oversell-nightmare.html","articleSection":"Automation"}]</script>
+<meta property="og:description" content="Explore why Shopify inventory sync can lead to oversells, and how SKU consistency, webhook updates and reconciliation help maintain accurate stock.">
+<meta property="og:url" content="https://www.aremuconsulting.com/blog-shopify-inventory-sync-oversell-nightmare">
+<meta property="og:image" content="https://www.aremuconsulting.com/build/assets/logo.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="160">
+<meta property="og:image:height" content="160">
+<meta property="og:image:alt" content="Aremu Consulting logo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Shopify Inventory Sync: Preventing Oversells">
+<meta name="twitter:description" content="Explore why Shopify inventory sync can lead to oversells, and how SKU consistency, webhook updates and reconciliation help maintain accurate stock.">
+<meta name="twitter:image" content="https://www.aremuconsulting.com/build/assets/logo.png">
+<meta name="twitter:image:alt" content="Aremu Consulting logo">
+<script type="application/ld+json">[{"@context":"https://schema.org","@type":"LocalBusiness","@id":"https://www.aremuconsulting.com/#business","name":"Aremu Consulting Ltd","url":"https://www.aremuconsulting.com/","description":"Solo-builder consultancy in Manchester, UK, providing custom website and app builds, workflow and CRM automation, and custom AI agent development.","founder":{"@type":"Person","name":"Andrew Aremu"},"address":{"@type":"PostalAddress","addressLocality":"Manchester","addressCountry":"GB"}},{"@context":"https://schema.org","@type":"BlogPosting","headline":"Shopify Inventory Sync: Preventing Oversells","description":"Explore why Shopify inventory sync can lead to oversells, and how SKU consistency, webhook updates and reconciliation help maintain accurate stock.","datePublished":"2026-03-18","author":{"@type":"Person","name":"Andrew Aremu"},"publisher":{"@id":"https://www.aremuconsulting.com/#business"},"mainEntityOfPage":"https://www.aremuconsulting.com/blog-shopify-inventory-sync-oversell-nightmare","articleSection":"Automation"}]</script>
 <style>
 :root {
   --paper: #F5F6F6;
@@ -26,7 +38,7 @@
   --accent-soft: #E6F0EA;
   --danger: #9B3226;
   --measure: 68ch;
-  --font-display: 'Atkinson Hyperlegible', 'Segoe UI', system-ui, sans-serif;
+  --font-display: 'Syne', 'Atkinson Hyperlegible', 'Segoe UI', system-ui, sans-serif;
   --font-body: 'Atkinson Hyperlegible', 'Segoe UI', system-ui, sans-serif;
   --font-mono: 'Martian Mono', 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace;
 }
@@ -35,6 +47,8 @@
 @font-face { font-family: 'Martian Mono'; font-style: normal; font-weight: 400; font-display: swap; src: url('build/assets/fonts/Martian_Mono-400.woff2') format('woff2'); }
 @font-face { font-family: 'Martian Mono'; font-style: normal; font-weight: 500; font-display: swap; src: url('build/assets/fonts/Martian_Mono-500.woff2') format('woff2'); }
 @font-face { font-family: 'Martian Mono'; font-style: normal; font-weight: 700; font-display: swap; src: url('build/assets/fonts/Martian_Mono-700.woff2') format('woff2'); }
+
+@font-face { font-family: 'Syne'; font-style: normal; font-weight: 700; font-display: swap; src: url('build/assets/fonts/Syne-700.woff2') format('woff2'); }
 
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -178,36 +192,173 @@ a:hover { text-decoration-thickness: 0.1em; }
 .btn-secondary { background: transparent; color: var(--ink); border-color: var(--ink); }
 .btn-secondary:hover { background: var(--ink); color: var(--paper); }
 .btn[aria-disabled="true"], .btn:disabled { opacity: 0.55; cursor: not-allowed; }
-.hero { padding: 72px 24px 60px; border-bottom: 1px solid var(--rule); }
+.hero { padding: 56px 24px 52px; border-bottom: 1px solid var(--rule); }
 .hero-inner {
   max-width: 1200px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 26px;
+  gap: 30px;
 }
-.hero h1 {
+/* Display H1 — Syne Bold, index hero only */
+.h1-display {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 5.2vw, 4rem);
+  font-weight: 700;
+  line-height: 1.06;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  max-width: 16ch;
+  margin: 0 0 18px;
+}
+/* Standard hero H1 (services/approach/contact pages) */
+.hero h1:not(.h1-display) {
   font-size: clamp(2.1rem, 4.4vw, 3.3rem);
   font-weight: 700;
   line-height: 1.12;
   letter-spacing: -0.02em;
-  max-width: 18ch;
+  max-width: 22ch;
 }
-.hero .lede { max-width: 68ch; font-size: 1.12rem; color: var(--ink-soft); }
-.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 8px; }
-.hero-offer { max-width: 100%; }
-.offer-chips { display: flex; flex-wrap: wrap; gap: 12px; }
-.offer-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  letter-spacing: 0.02em;
-  color: var(--ink);
+.hero .lede { max-width: 65ch; font-size: 1.07rem; color: var(--ink-soft); }
+.hero-text { max-width: 680px; }
+/* Two-column bottom area: CTAs left, terminal demo right */
+.hero-bottom {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 32px 48px;
+  align-items: start;
+}
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+.hero-pricing { margin: 10px 0 0; font-family: var(--font-mono); font-size: 0.85rem; color: var(--ink-soft); }
+.hero-pricing a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; display: inline-block; min-height: 44px; line-height: 44px; }
+/* Pipeline diagram container */
+.pipeline-wrap {
+  width: calc(100% + 0px);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.pipeline-wrap::-webkit-scrollbar { height: 4px; }
+.pipeline-wrap::-webkit-scrollbar-track { background: transparent; }
+.pipeline-wrap::-webkit-scrollbar-thumb { background: var(--rule); }
+/* ---- Pipeline diagram SVG styles ---- */
+.pipeline-diagram {
+  display: block;
+  min-width: 640px;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.pd-grid-line-pat { stroke: var(--grid); stroke-width: 0.5; }
+.pd-grid-bg { fill: var(--sheet); }
+.pd-frame { stroke: var(--rule); stroke-width: 0.5; fill: none; }
+.pd-reg { stroke: var(--rule); stroke-width: 0.5; fill: none; }
+.pd-conn-line { stroke: var(--rule); stroke-width: 1; }
+.pd-conn-arrow { fill: none; stroke: var(--rule); stroke-width: 1; stroke-linecap: butt; stroke-linejoin: miter; }
+.pd-artifact { font-family: var(--font-mono); font-size: 8px; fill: var(--muted); letter-spacing: 0.02em; }
+.pd-box-fill { fill: var(--sheet); }
+.pd-box-border { fill: none; stroke: var(--rule); stroke-width: 1; }
+.pd-divider { stroke: var(--grid); stroke-width: 0.5; }
+.pd-stage-num { font-family: var(--font-mono); font-size: 9px; fill: var(--muted); letter-spacing: 0.1em; }
+.pd-stage-name { font-family: var(--font-mono); font-size: 11px; font-weight: 500; fill: var(--ink); letter-spacing: 0.06em; }
+.pd-stage-out { font-family: var(--font-mono); font-size: 8px; fill: var(--muted); }
+.pd-node-static { fill: var(--paper); stroke: var(--rule); stroke-width: 1; }
+.pd-meta-label { font-family: var(--font-mono); font-size: 7.5px; fill: var(--muted); letter-spacing: 0.06em; opacity: 0.7; }
+/* Green animated overlays */
+.pd-green-conn { stroke: var(--accent); stroke-width: 2; fill: none; opacity: 0; }
+.pd-green-arrow { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; opacity: 0; }
+.pd-green-node { fill: var(--accent); opacity: 0; }
+.pd-green-box { fill: none; stroke: var(--accent); stroke-width: 1.5; opacity: 0; }
+/* Stage animations — 6s cycle */
+.pd-anim-s1 { animation: pd-s1 6s linear infinite; }
+.pd-anim-c1 { animation: pd-c1 6s linear infinite; }
+.pd-anim-s2 { animation: pd-s2 6s linear infinite; }
+.pd-anim-c2 { animation: pd-c2 6s linear infinite; }
+.pd-anim-s3 { animation: pd-s3 6s linear infinite; }
+.pd-anim-c3 { animation: pd-c3 6s linear infinite; }
+.pd-anim-s4 { animation: pd-s4 6s linear infinite; }
+@keyframes pd-s1 {
+  0%, 5% { opacity: 0; }
+  8%, 26% { opacity: 1; }
+  30%, 100% { opacity: 0; }
+}
+@keyframes pd-c1 {
+  0%, 22% { opacity: 0; }
+  25%, 33% { opacity: 1; }
+  37%, 100% { opacity: 0; }
+}
+@keyframes pd-s2 {
+  0%, 27% { opacity: 0; }
+  30%, 47% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+@keyframes pd-c2 {
+  0%, 43% { opacity: 0; }
+  46%, 54% { opacity: 1; }
+  58%, 100% { opacity: 0; }
+}
+@keyframes pd-s3 {
+  0%, 48% { opacity: 0; }
+  51%, 68% { opacity: 1; }
+  72%, 100% { opacity: 0; }
+}
+@keyframes pd-c3 {
+  0%, 64% { opacity: 0; }
+  67%, 75% { opacity: 1; }
+  79%, 100% { opacity: 0; }
+}
+@keyframes pd-s4 {
+  0%, 69% { opacity: 0; }
+  72%, 89% { opacity: 1; }
+  93%, 100% { opacity: 0; }
+}
+/* ---- Terminal demo ---- */
+.terminal-demo {
   background: var(--sheet);
   border: 1px solid var(--rule);
-  padding: 10px 16px;
+  font-family: var(--font-mono);
+  max-width: 520px;
+  min-width: 280px;
+}
+.td-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 9px 16px;
+  border-bottom: 1px solid var(--rule);
+}
+.td-title { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.03em; }
+.td-badge {
+  font-size: 0.70rem;
+  color: var(--muted);
+  border: 1px solid var(--rule);
+  padding: 2px 7px;
+  white-space: nowrap;
+  flex: none;
+}
+.td-body { padding: 12px 16px; display: grid; gap: 3px; }
+.td-line { font-size: 0.80rem; line-height: 1.55; white-space: pre; }
+.td-prompt { color: var(--ink); }
+.td-prompt::before { content: "$ "; color: var(--accent); }
+.td-out { color: var(--ink-soft); padding-left: 2ch; }
+.td-ok { color: var(--accent); }
+/* Sequential line reveal — one-shot, on page load */
+html.js .td-line { opacity: 0; animation: td-appear 0.25s ease forwards; }
+html.js .td-l1 { animation-delay: 0.3s; }
+html.js .td-l2 { animation-delay: 1.0s; }
+html.js .td-l3 { animation-delay: 1.5s; }
+html.js .td-l4 { animation-delay: 2.0s; }
+html.js .td-l5 { animation-delay: 2.6s; }
+html.js .td-l6 { animation-delay: 3.3s; }
+html.js .td-l7 { animation-delay: 4.0s; }
+@keyframes td-appear { from { opacity: 0; } to { opacity: 1; } }
+/* Button transitions */
+.btn { transition: background 0.12s ease, border-color 0.12s ease, color 0.12s ease; }
+/* Offer chips (legacy — keep for if reused) */
+.offer-chips { display: flex; flex-wrap: wrap; gap: 12px; }
+.offer-chip {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--font-mono); font-size: 0.85rem; letter-spacing: 0.02em;
+  color: var(--ink); background: var(--sheet); border: 1px solid var(--rule); padding: 10px 16px;
 }
 .offer-chip::before { content: ""; width: 7px; height: 7px; background: var(--accent); flex: none; }
 .offer-caption { margin: 16px 0 0; font-family: var(--font-mono); font-size: 0.85rem; color: var(--ink-soft); }
@@ -397,7 +548,9 @@ a:hover { text-decoration-thickness: 0.1em; }
   .footer-inner { grid-template-columns: 1fr 1fr; }
   .service-row { grid-template-columns: 1fr; gap: 6px; }
   .proof-row, .fit-grid { grid-template-columns: 1fr; }
-  .hero { padding: 52px 18px 44px; }
+  .hero { padding: 48px 18px 40px; }
+  .hero-bottom { grid-template-columns: 1fr; gap: 20px; }
+  .terminal-demo { max-width: 100%; }
 }
 @media (max-width: 640px) {
   .method-wrap svg { width: 640px; max-width: none; }
@@ -423,6 +576,11 @@ html.js .js-reveal g.sheet:nth-of-type(4) { transition-delay: 2400ms; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   html.js .js-reveal g.sheet { transform: none !important; opacity: 1 !important; }
   .skip-link { transition: none; }
+  /* Pipeline: show completed-state (all connectors green, stages gray) */
+  .pd-green-conn, .pd-green-arrow, .pd-green-node { opacity: 1 !important; }
+  .pd-green-box { opacity: 0 !important; }
+  /* Terminal demo: show all lines immediately */
+  html.js .td-line { opacity: 1 !important; }
 }
 /* ---- Blog + Projects content pages (gen/build_content.py) ---- */
 .post-list { list-style: none; padding: 0; max-width: 1200px; margin: 0 auto; }
@@ -656,7 +814,7 @@ html.js .js-reveal g.sheet:nth-of-type(4) { transition-delay: 2400ms; }
     </nav>
     <a class="btn btn-primary nav-cta" href="contact.html">Book a free fit call</a>
   </div>
-</header><main id="main" class="page"><div class="page-inner"><article><header class="post-head"><p class="post-meta"><span class="cat">Automation</span><span>18 Mar 2026</span><span>By Andrew Aremu</span></p><h1>Shopify Inventory Sync: Preventing Oversells</h1><p class="lede">Let&#x27;s be brutally honest. You think your Shopify inventory sync is humming along, a well-oiled machine keeping your stock levels looking pristine. You pat yourself on the back for avoiding the…</p></header><div class="prose"><div> <p>Let's be brutally honest. You think your Shopify inventory sync is humming along, a well-oiled machine keeping your stock levels looking pristine. You pat yourself on the back for avoiding the obvious oversell blunders. But here's the gut-punch: that "reliable" system is quietly bleeding your business dry, likely costing you a cool £40,000+ a year before you even realize it.</p> <p>This isn't about a single, catastrophic mistake. This is a silent, insidious drain. It's the cumulative effect of small delays, miscommunications between your Shopify store and your internal systems, and the sheer stubbornness of how SKUs are handled. Think of it as death by a thousand papercuts, each one chipping away at your profits and customer loyalty.</p> <h2>The Hidden Cost: How a "Reliable" Sync Becomes Your £40K Oversell Problem</h2> <p>So, you think your Shopify inventory sync is as reliable as a Grimace shake during a heatwave? Think again. For a lot of you running lean SMBs, that "reliable" sync is actually a ticking time bomb, quietly bleeding pounds from your bottom line like a leaky faucet. I'm talking about the kind of pain that adds up, to the tune of £40,000 a year, or more, if you're unlucky (or just haven't noticed yet).</p> <p>How does this financial disaster strike? It's a two-pronged attack, or more accurately, a three-headed hydra that sneaks up on unsuspecting businesses.</p> <h3>1. The Shopify API Queue: The Waiting Game (That Costs You Money)</h3> <p>Shopify, bless its scalable heart, doesn't update inventory in real-time for everyone. When multiple updates ping their servers at once – a common occurrence during a flash sale or a Black Friday frenzy – they get shuffled into a queue. Your sync tool might be sending the update saying "Item X is now out of stock," but Shopify's API hasn't processed it yet. It's like trying to send a telegram in the age of instant messaging.</p> <p>Imagine this: a customer snags the last "Crimson Fury" t-shirt at 10:00 AM. Brilliant. Your internal system, your warehouse management system (WMS), or your Enterprise Resource Planning (ERP) system knows it's gone. But while Shopify's API is still playing catch-up, stuck in a digital traffic jam, your website is blissfully unaware. By 10:05 AM, another eager buyer sees it available and clicks "buy." Boom. Oversell.</p> <p>And it's not just about overselling. This same sluggishness and rigidity means when you do get those crucial restocking updates processed, they're often delayed. Suddenly, you're out of stock on a product that, according to your website, you have plenty of. Cue frustrated customers, cancelled orders, and hit-or-miss reviews. This isn't just bad luck; it's a fundamental disconnect between your operational reality and your digital storefront, and it's costing you.</p> <h3>2. The SKU Tangled Web: When Your "Unique" Becomes Generic</h3> <p>This is where things get truly insidious. Your "reliable" sync tool is likely trying to match products across systems using SKU codes. But here's the kicker: most sync tools treat SKUs as simple strings. "SKU-123" matches "SKU-123" perfectly, right? Wrong. When Shopify adds variants or your ERP changes formatting, suddenly "sku-123" doesn't match "SKU-123" anymore.</p> <p>This mismatch creates phantom inventory. Your sync thinks it has 50 units. Shopify shows 50 units. But they're looking at different products. When an order comes in, your warehouse ships the wrong item, or you ship nothing at all because your sync doesn't realize it needs to decrement stock.</p> <h3>3. The Buffer Zone Blunder: Over-Compensating with Safety Stock</h3> <p>Here's the thing about safety stock: it's supposed to be a buffer, not a permanent fixture. But when your sync is unreliable, you start padding numbers. "Let's keep 20 extra units just in case." Multiply that across 200 SKUs, and suddenly you have £40,000 tied up in inventory that's just sitting there, waiting for a disaster that may never come.</p> <p>That's not inventory management. That's inventory anxiety.</p> <h2>The Fix: Real-Time Visibility with n8n Webhooks</h2> <p>The solution isn't more safety stock or a "better" sync tool. It's real-time inventory visibility that doesn't depend on polling intervals or API queues.</p> <p>What I built for a client:</p> <ul> <li>n8n webhook triggered on every Shopify order</li> <li>Instant inventory check against their database (not Shopify's cached value)</li> <li>Dynamic buffer calculation based on sales velocity</li> <li>SMS alert if stock drops below threshold</li> <li>Auto-hold on checkout if inventory is uncertain</li> </ul> <p>Result: Zero oversells in 6 months. Safety stock reduced by 35%. Customer complaints dropped from 12/month to 1.</p> <h2>Ready to Fix Your Shopify Inventory Sync?</h2> <p>Stop letting inventory sync errors cost you £40K+ yearly.  to see how real-time inventory management can eliminate oversells and reduce safety stock requirements.</p> </div> <div> <h3></div><p class="disclosure">This article references illustrative cost figures — estimates for a typical business, not audited client results.</p><div class="post-cta"><a class="btn btn-primary" href="contact.html">Schedule Your Project Consultation</a></div></article></div></main><footer class="site-footer">
+</header><main id="main" class="page"><div class="page-inner"><article><header class="post-head"><p class="post-meta"><span class="cat">Automation</span><span>18 Mar 2026</span><span>By Andrew Aremu</span></p><h1>Shopify Inventory Sync: Preventing Oversells</h1><p class="lede">Let&#x27;s be brutally honest. You think your Shopify inventory sync is humming along, a well-oiled machine keeping your stock levels looking pristine. You pat yourself on the back for avoiding the…</p></header><div class="prose"><p>Let's be brutally honest. You think your Shopify inventory sync is humming along, a well-oiled machine keeping your stock levels looking pristine. You pat yourself on the back for avoiding the obvious oversell blunders. But here's the gut-punch: that "reliable" system is quietly bleeding your business dry, likely costing you a cool £40,000+ a year before you even realize it.</p> <p>This isn't about a single, catastrophic mistake. This is a silent, insidious drain. It's the cumulative effect of small delays, miscommunications between your Shopify store and your internal systems, and the sheer stubbornness of how SKUs are handled. Think of it as death by a thousand papercuts, each one chipping away at your profits and customer loyalty.</p> <h2>The Hidden Cost: How a "Reliable" Sync Becomes Your £40K Oversell Problem</h2> <p>So, you think your Shopify inventory sync is as reliable as a Grimace shake during a heatwave? Think again. For a lot of you running lean SMBs, that "reliable" sync is actually a ticking time bomb, quietly bleeding pounds from your bottom line like a leaky faucet. I'm talking about the kind of pain that adds up, to the tune of £40,000 a year, or more, if you're unlucky (or just haven't noticed yet).</p> <p>How does this financial disaster strike? It's a two-pronged attack, or more accurately, a three-headed hydra that sneaks up on unsuspecting businesses.</p> <h3>1. The Shopify API Queue: The Waiting Game (That Costs You Money)</h3> <p>Shopify, bless its scalable heart, doesn't update inventory in real-time for everyone. When multiple updates ping their servers at once – a common occurrence during a flash sale or a Black Friday frenzy – they get shuffled into a queue. Your sync tool might be sending the update saying "Item X is now out of stock," but Shopify's API hasn't processed it yet. It's like trying to send a telegram in the age of instant messaging.</p> <p>Imagine this: a customer snags the last "Crimson Fury" t-shirt at 10:00 AM. Brilliant. Your internal system, your warehouse management system (WMS), or your Enterprise Resource Planning (ERP) system knows it's gone. But while Shopify's API is still playing catch-up, stuck in a digital traffic jam, your website is blissfully unaware. By 10:05 AM, another eager buyer sees it available and clicks "buy." Boom. Oversell.</p> <p>And it's not just about overselling. This same sluggishness and rigidity means when you do get those crucial restocking updates processed, they're often delayed. Suddenly, you're out of stock on a product that, according to your website, you have plenty of. Cue frustrated customers, cancelled orders, and hit-or-miss reviews. This isn't just bad luck; it's a fundamental disconnect between your operational reality and your digital storefront, and it's costing you.</p> <h3>2. The SKU Tangled Web: When Your "Unique" Becomes Generic</h3> <p>This is where things get truly insidious. Your "reliable" sync tool is likely trying to match products across systems using SKU codes. But here's the kicker: most sync tools treat SKUs as simple strings. "SKU-123" matches "SKU-123" perfectly, right? Wrong. When Shopify adds variants or your ERP changes formatting, suddenly "sku-123" doesn't match "SKU-123" anymore.</p> <p>This mismatch creates phantom inventory. Your sync thinks it has 50 units. Shopify shows 50 units. But they're looking at different products. When an order comes in, your warehouse ships the wrong item, or you ship nothing at all because your sync doesn't realize it needs to decrement stock.</p> <h3>3. The Buffer Zone Blunder: Over-Compensating with Safety Stock</h3> <p>Here's the thing about safety stock: it's supposed to be a buffer, not a permanent fixture. But when your sync is unreliable, you start padding numbers. "Let's keep 20 extra units just in case." Multiply that across 200 SKUs, and suddenly you have £40,000 tied up in inventory that's just sitting there, waiting for a disaster that may never come.</p> <p>That's not inventory management. That's inventory anxiety.</p> <h2>The Fix: Real-Time Visibility with n8n Webhooks</h2> <p>The solution isn't more safety stock or a "better" sync tool. It's real-time inventory visibility that doesn't depend on polling intervals or API queues.</p> <p>What I built for a client:</p> <ul> <li>n8n webhook triggered on every Shopify order</li> <li>Instant inventory check against their database (not Shopify's cached value)</li> <li>Dynamic buffer calculation based on sales velocity</li> <li>SMS alert if stock drops below threshold</li> <li>Auto-hold on checkout if inventory is uncertain</li> </ul> <p>Result: Zero oversells in 6 months. Safety stock reduced by 35%. Customer complaints dropped from 12/month to 1.</p> <h2>Ready to Fix Your Shopify Inventory Sync?</h2> <p>Stop letting inventory sync errors cost you £40K+ yearly.  to see how real-time inventory management can eliminate oversells and reduce safety stock requirements.</p></div><p class="disclosure">This article references illustrative cost figures — estimates for a typical business, not audited client results.</p><div class="post-cta"><a class="btn btn-primary" href="contact">Schedule Your Project Consultation</a></div></article></div></main><footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-col footer-about">
       <p class="footer-brand">Aremu Consulting Ltd</p>

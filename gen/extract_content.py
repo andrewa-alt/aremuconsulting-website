@@ -296,6 +296,10 @@ def load_blog_bodies():
 
 
 def build_blog_json():
+    # Preserve reviewed search/share copy when refreshing legacy article bodies.
+    path = os.path.join(OUT, "blog.json")
+    existing = json.loads(open(path, encoding="utf-8").read()) if os.path.exists(path) else []
+    seo_by_slug = {p["slug"]: p["seo"] for p in existing if "seo" in p}
     meta = load_blog_meta()
     bodies = load_blog_bodies()
     posts = []
@@ -310,6 +314,10 @@ def build_blog_json():
         body_html = apply_buzzword_fixes(body_html)
         body_html = apply_aphorism_fixes(body_html)
         body_html = first_person(body_html)
+        # The JSX extraction includes the next section's unfinished wrappers.
+        body_html, removed_wrappers = re.subn(r'</div>(?:\s*<(?:div|span|h3)>)+\s*$', '', body_html)
+        if removed_wrappers and body_html.startswith('<div>'):
+            body_html = body_html[5:].strip()
         posts.append({
             "slug": slug,
             "title": H.unescape(title),
@@ -319,6 +327,10 @@ def build_blog_json():
             "author": "Andrew Aremu",
             "body": body_html.strip(),
             "words": len(re.sub(r"<[^>]+>", " ", body_html).split()),
+            "seo": seo_by_slug.get(slug, {
+                "title": H.unescape(title) + " | Aremu Consulting",
+                "description": raw_desc[:300],
+            }),
         })
     json.dump(posts, open(os.path.join(OUT, "blog.json"), "w"), indent=2)
     return posts

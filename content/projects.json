@@ -22,7 +22,15 @@
         "value": "1",
         "label": "app replaces 3+ tools"
       }
-    ]
+    ],
+    "seo": {
+      "title": "MealPrep.exe | Aremu Consulting",
+      "description": "A local-first web app that replaces spreadsheets, WhatsApp, and notebooks for small-batch meal-prep businesses: menu planning, online ordering, batch counts, shopping lists, and delivery routes in one place.",
+      "og": {
+        "title": "MealPrep.exe",
+        "description": "A local-first web app that replaces spreadsheets, WhatsApp, and notebooks for small-batch meal-prep businesses: menu planning, online ordering, batch counts, shopping lists, and delivery routes in one place."
+      }
+    }
   },
   {
     "slug": "ledger-lens",
@@ -43,7 +51,15 @@
         "value": "0",
         "label": "manual data entry"
       }
-    ]
+    ],
+    "seo": {
+      "title": "LedgerLens | Aremu Consulting",
+      "description": "An intelligent automation system that turns the chaos of incoming invoices and receipts into structured, audit-ready ledger data — no manual entry required.",
+      "og": {
+        "title": "LedgerLens",
+        "description": "An intelligent automation system that turns the chaos of incoming invoices and receipts into structured, audit-ready ledger data — no manual entry required."
+      }
+    }
   },
   {
     "slug": "connex-one-data-bridge",
@@ -64,7 +80,15 @@
         "value": "0",
         "label": "manual keying"
       }
-    ]
+    ],
+    "seo": {
+      "title": "Connex-One Data Bridge | Aremu Consulting",
+      "description": "A silent automation engine linking Connex-One to Google Sheets so campaign and agent performance is captured, cleaned, and visualised without any manual work.",
+      "og": {
+        "title": "Connex-One Data Bridge",
+        "description": "A silent automation engine linking Connex-One to Google Sheets so campaign and agent performance is captured, cleaned, and visualised without any manual work."
+      }
+    }
   },
   {
     "slug": "docket-leads-ai",
@@ -85,7 +109,15 @@
         "value": "0",
         "label": "manual data entry"
       }
-    ]
+    ],
+    "seo": {
+      "title": "DocketLeads AI | Aremu Consulting",
+      "description": "Intelligent document processing that extracts high-value personal-injury leads from handwritten towing dockets — vision plus OCR, WhatsApp intake, straight into the CRM.",
+      "og": {
+        "title": "DocketLeads AI",
+        "description": "Intelligent document processing that extracts high-value personal-injury leads from handwritten towing dockets — vision plus OCR, WhatsApp intake, straight into the CRM."
+      }
+    }
   },
   {
     "slug": "accident-claims-intelligent-automator",
@@ -106,6 +138,14 @@
         "value": "0",
         "label": "manual typing"
       }
-    ]
+    ],
+    "seo": {
+      "title": "Accident Claims Intelligent Automator | Aremu Consulting",
+      "description": "A 24/7 digital triage and growth engine for insurance brokers and claims firms — liability analysis, a tailored first response, and zero-touch CRM sync.",
+      "og": {
+        "title": "Accident Claims Intelligent Automator",
+        "description": "A 24/7 digital triage and growth engine for insurance brokers and claims firms — liability analysis, a tailored first response, and zero-touch CRM sync."
+      }
+    }
   }
 ]

@@ -161,6 +161,15 @@ PROJECTS = [
 
 if __name__ == "__main__":
     os.makedirs(OUT, exist_ok=True)
+    # Keep reviewed editorial metadata when refreshing the source descriptions.
+    path = os.path.join(OUT, "projects.json")
+    existing = json.loads(open(path, encoding="utf-8").read()) if os.path.exists(path) else []
+    seo_by_slug = {p["slug"]: p["seo"] for p in existing if "seo" in p}
+    for project in PROJECTS:
+        project["seo"] = seo_by_slug.get(project["slug"], {
+            "title": project["title"] + " | Aremu Consulting",
+            "description": project["description"],
+        })
     with open(os.path.join(OUT, "projects.json"), "w", encoding="utf-8") as fh:
         json.dump(PROJECTS, fh, indent=2, ensure_ascii=False)
     print(f"wrote {len(PROJECTS)} projects to content/projects.json")

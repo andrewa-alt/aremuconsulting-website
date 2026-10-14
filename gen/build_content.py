@@ -23,13 +23,13 @@ import os
 import re
 import html as H
 
+from seo import BUSINESS, SITE_META, SITE_URL, canonical_url, head_substitutions
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PARTS = os.path.join(ROOT, "parts")
 CONTENT = os.path.join(ROOT, "content")
 PARTIAL_DIR = os.path.join(PARTS, "partials")
 FONTS = os.path.join(ROOT, "build", "assets", "fonts")
-
-SITE_URL = "https://www.aremuconsulting.com"
 
 
 def read(p):
@@ -86,27 +86,15 @@ def excerpt(fragment, limit=160):
     return t[: limit].rsplit(" ", 1)[0].rstrip(".,;:") + "…"
 
 
-def jsonld(obj):
-    return json.dumps(obj, ensure_ascii=False, separators=(",", ":"))
-
-
-def build_head(title, description, canonical_path, og_type, ld):
-    return (
-        "<!doctype html>\n<html lang=\"en\">\n<head>\n"
-        "<meta charset=\"utf-8\">\n"
-        "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n"
-        f"<title>{H.escape(title)}</title>\n"
-        f"<meta name=\"description\" content=\"{H.escape(description, quote=True)}\">\n"
-        f"<link rel=\"canonical\" href=\"{SITE_URL}/{canonical_path}\">\n"
-        f"<meta property=\"og:type\" content=\"{og_type}\">\n"
-        f"<meta property=\"og:title\" content=\"{H.escape(title, quote=True)}\">\n"
-        f"<meta property=\"og:description\" content=\"{H.escape(description, quote=True)}\">\n"
-        f"<meta property=\"og:url\" content=\"{SITE_URL}/{canonical_path}\">\n"
-        "<meta name=\"og:site_name\" content=\"Aremu Consulting\">\n"
-        f"<script type=\"application/ld+json\">{ld}</script>\n"
-        "<style>\n" + full_css() + "\n</style>\n</head>\n<body>\n"
-        "<a class=\"skip-link\" href=\"#main\">Skip to content</a>\n"
+def build_head(title, description, canonical_path, og_type, ld, meta=None):
+    head = read(os.path.join(PARTIAL_DIR, "head.html"))
+    substitutions = head_substitutions(
+        meta or {"title": title, "description": description}, canonical_path, og_type, ld
     )
+    substitutions["{{CSS}}"] = full_css()
+    for key, value in substitutions.items():
+        head = head.replace(key, value)
+    return head
 
 
 def build_header(active_blog=False, active_projects=False):
@@ -129,13 +117,7 @@ def build_footer():
     return f.replace("{{YEAR}}", "2026")
 
 
-ORG = {
-    "@type": "Organization",
-    "name": "Aremu Consulting Ltd",
-    "url": SITE_URL,
-    "founder": {"@type": "Person", "name": "Andrew Aremu"},
-    "address": {"@type": "PostalAddress", "addressLocality": "Manchester", "addressCountry": "GB"},
-}
+ORG = {"@id": BUSINESS["@id"]}
 
 
 def person():
@@ -143,18 +125,18 @@ def person():
 
 
 def blog_listing_ld():
-    return jsonld([{
+    return [{
         "@context": "https://schema.org",
         "@type": "CollectionPage",
         "name": "Field notes — Aremu Consulting",
         "description": "Automation, AI agents, and workflows for operators.",
-        "url": f"{SITE_URL}/blog.html",
-        "isPartOf": ORG,
-    }])
+        "url": canonical_url("blog.html"),
+        "publisher": ORG,
+    }]
 
 
 def blog_post_ld(post, url, description):
-    return jsonld([{
+    return [{
         "@context": "https://schema.org",
         "@type": "BlogPosting",
         "headline": post["title"],
@@ -164,22 +146,22 @@ def blog_post_ld(post, url, description):
         "publisher": ORG,
         "mainEntityOfPage": url,
         "articleSection": post["category"],
-    }])
+    }]
 
 
 def project_listing_ld():
-    return jsonld([{
+    return [{
         "@context": "https://schema.org",
         "@type": "CollectionPage",
         "name": "Selected work — Aremu Consulting",
         "description": "Systems built for real operations — projects and the tools behind them.",
-        "url": f"{SITE_URL}/projects.html",
-        "isPartOf": ORG,
-    }])
+        "url": canonical_url("projects.html"),
+        "publisher": ORG,
+    }]
 
 
 def project_ld(proj, url):
-    return jsonld([{
+    return [{
         "@context": "https://schema.org",
         "@type": "Article",
         "headline": proj["title"],
@@ -188,11 +170,11 @@ def project_ld(proj, url):
         "publisher": ORG,
         "mainEntityOfPage": url,
         "articleSection": "Project",
-    }])
+    }]
 
 
-def page(title, description, canonical, og_type, ld, body, active_blog=False, active_projects=False):
-    return build_head(title, description, canonical, og_type, ld) + \
+def page(title, description, canonical, og_type, ld, body, active_blog=False, active_projects=False, meta=None):
+    return build_head(title, description, canonical, og_type, ld, meta) + \
         build_header(active_blog=active_blog, active_projects=active_projects) + body + build_footer()
 
 
@@ -218,7 +200,7 @@ def blog_index_body(posts):
             '<li class="entry">'
             f'<p class="post-meta"><span class="cat">{H.escape(p["category"])}</span>'
             f'<span>{format_date(p["date"])}</span></p>'
-            f'<h2 class="entry-title"><a href="blog-{H.escape(p["slug"])}.html">{H.escape(p["title"])}</a></h2>'
+            f'<h2 class="entry-title"><a href="blog-{H.escape(p["slug"])}">{H.escape(p["title"])}</a></h2>'
             f'<p class="entry-excerpt">{H.escape(ext)}</p>'
             "</li>"
         )
@@ -246,7 +228,7 @@ def blog_post_body(p):
         "</header>"
         f'<div class="prose">{p["body"]}</div>'
         '<p class="disclosure">This article references illustrative cost figures — estimates for a typical business, not audited client results.</p>'
-        '<div class="post-cta"><a class="btn btn-primary" href="contact.html">Schedule Your Project Consultation</a></div>'
+        '<div class="post-cta"><a class="btn btn-primary" href="contact">Schedule Your Project Consultation</a></div>'
         "</article></div></main>"
     )
 
@@ -257,7 +239,7 @@ def projects_index_body(projects):
         rows.append(
             '<li class="entry">'
             f'<span class="case-label">{H.escape(p["kind"])}</span>'
-            f'<h2 class="entry-title"><a href="project-{H.escape(p["slug"])}.html">{H.escape(p["title"])}</a></h2>'
+            f'<h2 class="entry-title"><a href="project-{H.escape(p["slug"])}">{H.escape(p["title"])}</a></h2>'
             f'<p class="entry-excerpt">{H.escape(excerpt(p["body"], 180))}</p>'
             "</li>"
         )
@@ -356,7 +338,14 @@ SLIDE_JS = """<script>(function () {
   });
   document.addEventListener('keydown', function (e) {
     if (lb.hidden) return;
-    if (e.key === 'Escape') { closeLightbox(); }
+    if (e.key === 'Tab') {
+      var buttons = Array.prototype.slice.call(lb.querySelectorAll('button'));
+      var current = buttons.indexOf(document.activeElement);
+      var target = (current + (e.shiftKey ? -1 : 1) + buttons.length) % buttons.length;
+      buttons[target].focus();
+      e.preventDefault();
+    }
+    else if (e.key === 'Escape') { closeLightbox(); }
     else if (e.key === 'ArrowLeft') { step(-1); }
     else if (e.key === 'ArrowRight') { step(1); }
   });
@@ -409,7 +398,7 @@ def project_body(p, shots):
             '<p class="quote-footer">— anonymised client</p></blockquote>'
         )
     gallery = gallery_html(shots, p["slug"])
-    end = '<div class="post-cta"><a class="btn btn-primary" href="contact.html">Schedule Your Project Consultation</a></div>'
+    end = '<div class="post-cta"><a class="btn btn-primary" href="contact">Schedule Your Project Consultation</a></div>'
     if gallery:
         content = (
             '<div class="project-layout">'
@@ -461,7 +450,7 @@ def write_sitemap(blog, projects):
            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     for path, prio in urls:
         out.append("  <url>")
-        out.append(f"    <loc>{SITE_URL}/{path if path else ''}</loc>")
+        out.append(f"    <loc>{canonical_url(path)}</loc>")
         out.append(f"    <priority>{prio}</priority>")
         out.append("  </url>")
     out.append("</urlset>")
@@ -473,21 +462,22 @@ def write_robots():
     with open(os.path.join(ROOT, "robots.txt"), "w", encoding="utf-8") as fh:
         fh.write(
             "User-agent: *\n"
-            "Allow: /\n"
-            "Disallow: /build/\n"
             "Disallow: /parts/\n"
+            "Disallow: /content/\n"
+            "Disallow: /gen/\n"
+            "Allow: /\n"
             f"Sitemap: {SITE_URL}/sitemap.xml\n"
         )
 
 
 def write_vercel(blog, projects):
     redirects = [
-        {"source": "/blog/:slug((?!\\.html$).*)", "destination": "/blog-:slug.html", "statusCode": 308},
-        {"source": "/case-studies/:slug((?!\\.html$).*)", "destination": "/project-:slug.html", "statusCode": 308},
-        {"source": "/lab/:path*", "destination": "/blog.html", "statusCode": 308},
-        {"source": "/case-studies", "destination": "/projects.html", "statusCode": 308},
-        {"source": "/lab", "destination": "/blog.html", "statusCode": 308},
-        {"source": "/consultation", "destination": "/contact.html", "statusCode": 308},
+        {"source": "/blog/:slug((?!\\.html$).*)", "destination": "/blog-:slug", "statusCode": 308},
+        {"source": "/case-studies/:slug((?!\\.html$).*)", "destination": "/project-:slug", "statusCode": 308},
+        {"source": "/lab/:path*", "destination": "/blog", "statusCode": 308},
+        {"source": "/case-studies", "destination": "/projects", "statusCode": 308},
+        {"source": "/lab", "destination": "/blog", "statusCode": 308},
+        {"source": "/consultation", "destination": "/contact", "statusCode": 308},
     ]
     cfg = {"cleanUrls": True, "trailingSlash": False, "redirects": redirects}
     with open(os.path.join(ROOT, "vercel.json"), "w", encoding="utf-8") as fh:
@@ -502,33 +492,35 @@ def main():
     screenshots = json.loads(read(shots_path)) if os.path.exists(shots_path) else {}
 
     # blog index
-    bi_title = "Field notes — Aremu Consulting"
-    bi_desc = "Automation, AI agents, and workflows that give you your week back — written for operators."
+    bi_title = SITE_META["blog"]["title"]
+    bi_desc = SITE_META["blog"]["description"]
     bi_body = blog_index_body(blog)
     write(os.path.join(ROOT, "blog.html"),
-          page(bi_title, bi_desc, "blog.html", "website", blog_listing_ld(), bi_body, active_blog=True))
+          page(bi_title, bi_desc, "blog.html", "website", blog_listing_ld(), bi_body, active_blog=True, meta=SITE_META["blog"]))
 
     # posts
     for p in blog:
-        desc = excerpt(p["body"], 160) or p["description"]
-        url = f"{SITE_URL}/blog-{p['slug']}.html"
+        meta = p["seo"]
+        desc = meta["description"]
+        url = canonical_url(f"blog-{p['slug']}.html")
         write(os.path.join(ROOT, f"blog-{p['slug']}.html"),
-              page(p["title"], desc, f"blog-{p['slug']}.html", "article",
-                   blog_post_ld(p, url, desc), blog_post_body(p), active_blog=True))
+              page(meta["title"], desc, f"blog-{p['slug']}.html", "article",
+                   blog_post_ld(p, url, desc), blog_post_body(p), active_blog=True, meta=meta))
 
     # projects index
-    pi_title = "Selected work — Aremu Consulting"
-    pi_desc = "Systems built for real operations — projects and the tools behind them."
+    pi_title = SITE_META["projects"]["title"]
+    pi_desc = SITE_META["projects"]["description"]
     write(os.path.join(ROOT, "projects.html"),
           page(pi_title, pi_desc, "projects.html", "website", project_listing_ld(),
-               projects_index_body(projects), active_projects=True))
+               projects_index_body(projects), active_projects=True, meta=SITE_META["projects"]))
 
     # project pages
     for c in projects:
-        url = f"{SITE_URL}/project-{c['slug']}.html"
+        meta = c["seo"]
+        url = canonical_url(f"project-{c['slug']}.html")
         write(os.path.join(ROOT, f"project-{c['slug']}.html"),
-              page(c["title"], c["description"], f"project-{c['slug']}.html", "article",
-                   project_ld(c, url), project_body(c, screenshots.get(c["slug"], [])), active_projects=True))
+              page(meta["title"], meta["description"], f"project-{c['slug']}.html", "article",
+                   project_ld(c, url), project_body(c, screenshots.get(c["slug"], [])), active_projects=True, meta=meta))
 
     write_sitemap(blog, projects)
     write_robots()

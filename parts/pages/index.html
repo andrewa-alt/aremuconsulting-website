@@ -1,20 +1,149 @@
 <main id="main" class="page">
   <section class="hero">
     <div class="hero-inner">
-      <h1>Tools, systems, and processes that help small businesses improve, scale, and stay efficient.</h1>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="contact.html">Book a free fit call</a>
-        <a class="btn btn-secondary" href="services.html">Explore services</a>
+      <div class="hero-text">
+        <h1 class="h1-display">Ship the thing that runs the thing.</h1>
+        <p class="lede">One senior builder: web apps, workflow automation, and custom AI agents for small-to-medium businesses. Named method. Handover guaranteed. Manchester, UK.</p>
       </div>
-      <p class="hero-pricing">Fixed prices, published up front. Entry work from &pound;2,200. <a href="services.html">See the tiers →</a></p>
-      <p class="lede">I'm a solo builder, not an agency. Web and app builds, workflow and CRM automation, and custom AI agents for small-to-medium businesses. Every project ships with code, docs, and a handover. Manchester, UK.</p>
-      <div class="hero-offer" aria-label="What you leave the consultation with">
-        <div class="offer-chips">
-          <span class="offer-chip pf-rise" style="animation-delay:.1s">written scope</span>
-          <span class="offer-chip pf-rise" style="animation-delay:1.0s">milestone map</span>
-          <span class="offer-chip pf-rise" style="animation-delay:1.9s">pricing shape</span>
+
+      <!-- Living system diagram: Discover → Scope → Milestones → Handover -->
+      <div class="pipeline-wrap">
+        <svg class="pipeline-diagram" viewBox="0 0 860 185" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+          <defs>
+            <pattern id="pd-grid-pat" width="22" height="22" patternUnits="userSpaceOnUse">
+              <path d="M 22 0 L 0 0 0 22" fill="none" class="pd-grid-line-pat"/>
+            </pattern>
+          </defs>
+          <!-- Grid background -->
+          <rect width="860" height="185" fill="url(#pd-grid-pat)" class="pd-grid-bg"/>
+          <!-- Outer frame -->
+          <rect x="2" y="2" width="856" height="181" class="pd-frame"/>
+          <!-- Registration marks (drafting convention) -->
+          <g class="pd-reg">
+            <polyline points="2,14 2,2 14,2"/><polyline points="846,2 858,2 858,14"/>
+            <polyline points="2,171 2,183 14,183"/><polyline points="846,183 858,183 858,171"/>
+          </g>
+
+          <!-- Lead-in indicator (input arrow before S1) -->
+          <line x1="4" y1="70" x2="16" y2="70" class="pd-conn-line"/>
+          <polyline points="11,66 16,70 11,74" class="pd-conn-arrow"/>
+
+          <!-- ── Static gray connector lines ── -->
+          <line x1="168" y1="70" x2="236" y2="70" class="pd-conn-line"/>
+          <polyline points="231,66 236,70 231,74" class="pd-conn-arrow"/>
+          <line x1="386" y1="70" x2="454" y2="70" class="pd-conn-line"/>
+          <polyline points="449,66 454,70 449,74" class="pd-conn-arrow"/>
+          <line x1="622" y1="70" x2="690" y2="70" class="pd-conn-line"/>
+          <polyline points="685,66 690,70 685,74" class="pd-conn-arrow"/>
+
+          <!-- Artifact labels above connectors -->
+          <text x="202" y="62" class="pd-artifact" text-anchor="middle">scope brief</text>
+          <text x="420" y="62" class="pd-artifact" text-anchor="middle">written scope</text>
+          <text x="656" y="62" class="pd-artifact" text-anchor="middle">milestone plan</text>
+
+          <!-- ── GREEN overlays — connectors (drawn under box fills) ── -->
+          <line x1="168" y1="70" x2="236" y2="70" class="pd-green-conn pd-anim-c1"/>
+          <polyline points="231,66 236,70 231,74" class="pd-green-arrow pd-anim-c1"/>
+          <line x1="386" y1="70" x2="454" y2="70" class="pd-green-conn pd-anim-c2"/>
+          <polyline points="449,66 454,70 449,74" class="pd-green-arrow pd-anim-c2"/>
+          <line x1="622" y1="70" x2="690" y2="70" class="pd-green-conn pd-anim-c3"/>
+          <polyline points="685,66 690,70 685,74" class="pd-green-arrow pd-anim-c3"/>
+
+          <!-- ── Box fills (white — hides green connectors running through) ── -->
+          <!-- S1: DISCOVER -->
+          <rect x="16" y="20" width="152" height="100" class="pd-box-fill"/>
+          <!-- S2: SCOPE -->
+          <rect x="236" y="20" width="150" height="100" class="pd-box-fill"/>
+          <!-- S3: MILESTONES -->
+          <rect x="454" y="20" width="168" height="100" class="pd-box-fill"/>
+          <!-- S4: HANDOVER -->
+          <rect x="690" y="20" width="150" height="100" class="pd-box-fill"/>
+
+          <!-- ── Box borders (gray) ── -->
+          <rect x="16" y="20" width="152" height="100" class="pd-box-border"/>
+          <rect x="236" y="20" width="150" height="100" class="pd-box-border"/>
+          <rect x="454" y="20" width="168" height="100" class="pd-box-border"/>
+          <rect x="690" y="20" width="150" height="100" class="pd-box-border"/>
+
+          <!-- ── Box content ── -->
+          <!-- S1 -->
+          <text x="92" y="40" class="pd-stage-num" text-anchor="middle">01</text>
+          <text x="92" y="58" class="pd-stage-name" text-anchor="middle">DISCOVER</text>
+          <line x1="26" y1="66" x2="158" y2="66" class="pd-divider"/>
+          <text x="92" y="82" class="pd-stage-out" text-anchor="middle">problem</text>
+          <text x="92" y="96" class="pd-stage-out" text-anchor="middle">statement</text>
+          <!-- S2 -->
+          <text x="311" y="40" class="pd-stage-num" text-anchor="middle">02</text>
+          <text x="311" y="58" class="pd-stage-name" text-anchor="middle">SCOPE</text>
+          <line x1="246" y1="66" x2="376" y2="66" class="pd-divider"/>
+          <text x="311" y="82" class="pd-stage-out" text-anchor="middle">written scope</text>
+          <text x="311" y="96" class="pd-stage-out" text-anchor="middle">milestone map</text>
+          <!-- S3 -->
+          <text x="538" y="40" class="pd-stage-num" text-anchor="middle">03</text>
+          <text x="538" y="58" class="pd-stage-name" text-anchor="middle">MILESTONES</text>
+          <line x1="464" y1="66" x2="612" y2="66" class="pd-divider"/>
+          <text x="538" y="82" class="pd-stage-out" text-anchor="middle">plan approved</text>
+          <text x="538" y="96" class="pd-stage-out" text-anchor="middle">milestones set</text>
+          <!-- S4 -->
+          <text x="765" y="40" class="pd-stage-num" text-anchor="middle">04</text>
+          <text x="765" y="58" class="pd-stage-name" text-anchor="middle">HANDOVER</text>
+          <line x1="700" y1="66" x2="830" y2="66" class="pd-divider"/>
+          <text x="765" y="82" class="pd-stage-out" text-anchor="middle">code + docs</text>
+          <text x="765" y="96" class="pd-stage-out" text-anchor="middle">+ tests</text>
+
+          <!-- ── Static node dots at junction points ── -->
+          <circle cx="168" cy="70" r="2.5" class="pd-node-static"/>
+          <circle cx="236" cy="70" r="2.5" class="pd-node-static"/>
+          <circle cx="386" cy="70" r="2.5" class="pd-node-static"/>
+          <circle cx="454" cy="70" r="2.5" class="pd-node-static"/>
+          <circle cx="622" cy="70" r="2.5" class="pd-node-static"/>
+          <circle cx="690" cy="70" r="2.5" class="pd-node-static"/>
+
+          <!-- ── GREEN overlays — nodes ── -->
+          <circle cx="168" cy="70" r="3.5" class="pd-green-node pd-anim-c1"/>
+          <circle cx="236" cy="70" r="3.5" class="pd-green-node pd-anim-c1"/>
+          <circle cx="386" cy="70" r="3.5" class="pd-green-node pd-anim-c2"/>
+          <circle cx="454" cy="70" r="3.5" class="pd-green-node pd-anim-c2"/>
+          <circle cx="622" cy="70" r="3.5" class="pd-green-node pd-anim-c3"/>
+          <circle cx="690" cy="70" r="3.5" class="pd-green-node pd-anim-c3"/>
+
+          <!-- ── GREEN overlays — box borders ── -->
+          <rect x="16" y="20" width="152" height="100" class="pd-green-box pd-anim-s1"/>
+          <rect x="236" y="20" width="150" height="100" class="pd-green-box pd-anim-s2"/>
+          <rect x="454" y="20" width="168" height="100" class="pd-green-box pd-anim-s3"/>
+          <rect x="690" y="20" width="150" height="100" class="pd-green-box pd-anim-s4"/>
+
+          <!-- Meta label -->
+          <text x="840" y="179" class="pd-meta-label" text-anchor="end">AREMU METHOD</text>
+        </svg>
+      </div>
+
+      <!-- Hero bottom: CTAs + terminal demo -->
+      <div class="hero-bottom">
+        <div>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="contact.html">Book a free fit call</a>
+            <a class="btn btn-secondary" href="services.html">Explore services</a>
+          </div>
+          <p class="hero-pricing">Entry work from &pound;2,200 &mdash; <a href="services.html">fixed tiers, published up front →</a></p>
         </div>
-        <p class="offer-caption"><span class="pf-type" style="animation-delay:2.7s">You leave with a plan, not a pitch.</span></p>
+
+        <!-- Terminal micro-demo: what the discovery + scope process looks like -->
+        <div class="terminal-demo" aria-label="Agent log demonstration (demo only)">
+          <div class="td-header">
+            <span class="td-title">agent-log / scope-analysis</span>
+            <span class="td-badge">(demo)</span>
+          </div>
+          <div class="td-body">
+            <div class="td-line td-prompt td-l1">aremu-scope --analyze "claims intake workflow"</div>
+            <div class="td-line td-out td-l2">  Parsing workflow description...</div>
+            <div class="td-line td-out td-l3">  → 7 manual touch-points identified</div>
+            <div class="td-line td-out td-l4">  → Candidate: n8n + Zoho CRM webhook</div>
+            <div class="td-line td-out td-l5">  → Generating written scope...</div>
+            <div class="td-line td-ok td-l6">✓ scope-brief.md  [438 words, 4 milestones]</div>
+            <div class="td-line td-ok td-l7">✓ milestone-map.json  [Discover→Scope→Build→Handover]</div>
+          </div>
+        </div>
       </div>
     </div>
   </section>

@@ -3,15 +3,27 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MealPrep.exe</title>
+<script>document.documentElement.classList.add("js");</script>
+<title>MealPrep.exe | Aremu Consulting</title>
 <meta name="description" content="A local-first web app that replaces spreadsheets, WhatsApp, and notebooks for small-batch meal-prep businesses: menu planning, online ordering, batch counts, shopping lists, and delivery routes in one place.">
-<link rel="canonical" href="https://www.aremuconsulting.com/project-mealprep.html">
+<link rel="canonical" href="https://www.aremuconsulting.com/project-mealprep">
 <meta property="og:type" content="article">
+<meta property="og:site_name" content="Aremu Consulting">
+<meta property="og:locale" content="en_GB">
 <meta property="og:title" content="MealPrep.exe">
 <meta property="og:description" content="A local-first web app that replaces spreadsheets, WhatsApp, and notebooks for small-batch meal-prep businesses: menu planning, online ordering, batch counts, shopping lists, and delivery routes in one place.">
-<meta property="og:url" content="https://www.aremuconsulting.com/project-mealprep.html">
-<meta name="og:site_name" content="Aremu Consulting">
-<script type="application/ld+json">[{"@context":"https://schema.org","@type":"Article","headline":"MealPrep.exe","description":"A local-first web app that replaces spreadsheets, WhatsApp, and notebooks for small-batch meal-prep businesses: menu planning, online ordering, batch counts, shopping lists, and delivery routes in one place.","author":{"@type":"Person","name":"Andrew Aremu"},"publisher":{"@type":"Organization","name":"Aremu Consulting Ltd","url":"https://www.aremuconsulting.com","founder":{"@type":"Person","name":"Andrew Aremu"},"address":{"@type":"PostalAddress","addressLocality":"Manchester","addressCountry":"GB"}},"mainEntityOfPage":"https://www.aremuconsulting.com/project-mealprep.html","articleSection":"Project"}]</script>
+<meta property="og:url" content="https://www.aremuconsulting.com/project-mealprep">
+<meta property="og:image" content="https://www.aremuconsulting.com/build/assets/logo.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="160">
+<meta property="og:image:height" content="160">
+<meta property="og:image:alt" content="Aremu Consulting logo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MealPrep.exe">
+<meta name="twitter:description" content="A local-first web app that replaces spreadsheets, WhatsApp, and notebooks for small-batch meal-prep businesses: menu planning, online ordering, batch counts, shopping lists, and delivery routes in one place.">
+<meta name="twitter:image" content="https://www.aremuconsulting.com/build/assets/logo.png">
+<meta name="twitter:image:alt" content="Aremu Consulting logo">
+<script type="application/ld+json">[{"@context":"https://schema.org","@type":"LocalBusiness","@id":"https://www.aremuconsulting.com/#business","name":"Aremu Consulting Ltd","url":"https://www.aremuconsulting.com/","description":"Solo-builder consultancy in Manchester, UK, providing custom website and app builds, workflow and CRM automation, and custom AI agent development.","founder":{"@type":"Person","name":"Andrew Aremu"},"address":{"@type":"PostalAddress","addressLocality":"Manchester","addressCountry":"GB"}},{"@context":"https://schema.org","@type":"Article","headline":"MealPrep.exe","description":"A local-first web app that replaces spreadsheets, WhatsApp, and notebooks for small-batch meal-prep businesses: menu planning, online ordering, batch counts, shopping lists, and delivery routes in one place.","author":{"@type":"Person","name":"Andrew Aremu"},"publisher":{"@id":"https://www.aremuconsulting.com/#business"},"mainEntityOfPage":"https://www.aremuconsulting.com/project-mealprep","articleSection":"Project"}]</script>
 <style>
 :root {
   --paper: #F5F6F6;
@@ -26,7 +38,7 @@
   --accent-soft: #E6F0EA;
   --danger: #9B3226;
   --measure: 68ch;
-  --font-display: 'Atkinson Hyperlegible', 'Segoe UI', system-ui, sans-serif;
+  --font-display: 'Syne', 'Atkinson Hyperlegible', 'Segoe UI', system-ui, sans-serif;
   --font-body: 'Atkinson Hyperlegible', 'Segoe UI', system-ui, sans-serif;
   --font-mono: 'Martian Mono', 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace;
 }
@@ -35,6 +47,8 @@
 @font-face { font-family: 'Martian Mono'; font-style: normal; font-weight: 400; font-display: swap; src: url('build/assets/fonts/Martian_Mono-400.woff2') format('woff2'); }
 @font-face { font-family: 'Martian Mono'; font-style: normal; font-weight: 500; font-display: swap; src: url('build/assets/fonts/Martian_Mono-500.woff2') format('woff2'); }
 @font-face { font-family: 'Martian Mono'; font-style: normal; font-weight: 700; font-display: swap; src: url('build/assets/fonts/Martian_Mono-700.woff2') format('woff2'); }
+
+@font-face { font-family: 'Syne'; font-style: normal; font-weight: 700; font-display: swap; src: url('build/assets/fonts/Syne-700.woff2') format('woff2'); }
 
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -178,36 +192,173 @@ a:hover { text-decoration-thickness: 0.1em; }
 .btn-secondary { background: transparent; color: var(--ink); border-color: var(--ink); }
 .btn-secondary:hover { background: var(--ink); color: var(--paper); }
 .btn[aria-disabled="true"], .btn:disabled { opacity: 0.55; cursor: not-allowed; }
-.hero { padding: 72px 24px 60px; border-bottom: 1px solid var(--rule); }
+.hero { padding: 56px 24px 52px; border-bottom: 1px solid var(--rule); }
 .hero-inner {
   max-width: 1200px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 26px;
+  gap: 30px;
 }
-.hero h1 {
+/* Display H1 — Syne Bold, index hero only */
+.h1-display {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 5.2vw, 4rem);
+  font-weight: 700;
+  line-height: 1.06;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  max-width: 16ch;
+  margin: 0 0 18px;
+}
+/* Standard hero H1 (services/approach/contact pages) */
+.hero h1:not(.h1-display) {
   font-size: clamp(2.1rem, 4.4vw, 3.3rem);
   font-weight: 700;
   line-height: 1.12;
   letter-spacing: -0.02em;
-  max-width: 18ch;
+  max-width: 22ch;
 }
-.hero .lede { max-width: 68ch; font-size: 1.12rem; color: var(--ink-soft); }
-.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 8px; }
-.hero-offer { max-width: 100%; }
-.offer-chips { display: flex; flex-wrap: wrap; gap: 12px; }
-.offer-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  letter-spacing: 0.02em;
-  color: var(--ink);
+.hero .lede { max-width: 65ch; font-size: 1.07rem; color: var(--ink-soft); }
+.hero-text { max-width: 680px; }
+/* Two-column bottom area: CTAs left, terminal demo right */
+.hero-bottom {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 32px 48px;
+  align-items: start;
+}
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+.hero-pricing { margin: 10px 0 0; font-family: var(--font-mono); font-size: 0.85rem; color: var(--ink-soft); }
+.hero-pricing a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; display: inline-block; min-height: 44px; line-height: 44px; }
+/* Pipeline diagram container */
+.pipeline-wrap {
+  width: calc(100% + 0px);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.pipeline-wrap::-webkit-scrollbar { height: 4px; }
+.pipeline-wrap::-webkit-scrollbar-track { background: transparent; }
+.pipeline-wrap::-webkit-scrollbar-thumb { background: var(--rule); }
+/* ---- Pipeline diagram SVG styles ---- */
+.pipeline-diagram {
+  display: block;
+  min-width: 640px;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.pd-grid-line-pat { stroke: var(--grid); stroke-width: 0.5; }
+.pd-grid-bg { fill: var(--sheet); }
+.pd-frame { stroke: var(--rule); stroke-width: 0.5; fill: none; }
+.pd-reg { stroke: var(--rule); stroke-width: 0.5; fill: none; }
+.pd-conn-line { stroke: var(--rule); stroke-width: 1; }
+.pd-conn-arrow { fill: none; stroke: var(--rule); stroke-width: 1; stroke-linecap: butt; stroke-linejoin: miter; }
+.pd-artifact { font-family: var(--font-mono); font-size: 8px; fill: var(--muted); letter-spacing: 0.02em; }
+.pd-box-fill { fill: var(--sheet); }
+.pd-box-border { fill: none; stroke: var(--rule); stroke-width: 1; }
+.pd-divider { stroke: var(--grid); stroke-width: 0.5; }
+.pd-stage-num { font-family: var(--font-mono); font-size: 9px; fill: var(--muted); letter-spacing: 0.1em; }
+.pd-stage-name { font-family: var(--font-mono); font-size: 11px; font-weight: 500; fill: var(--ink); letter-spacing: 0.06em; }
+.pd-stage-out { font-family: var(--font-mono); font-size: 8px; fill: var(--muted); }
+.pd-node-static { fill: var(--paper); stroke: var(--rule); stroke-width: 1; }
+.pd-meta-label { font-family: var(--font-mono); font-size: 7.5px; fill: var(--muted); letter-spacing: 0.06em; opacity: 0.7; }
+/* Green animated overlays */
+.pd-green-conn { stroke: var(--accent); stroke-width: 2; fill: none; opacity: 0; }
+.pd-green-arrow { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; opacity: 0; }
+.pd-green-node { fill: var(--accent); opacity: 0; }
+.pd-green-box { fill: none; stroke: var(--accent); stroke-width: 1.5; opacity: 0; }
+/* Stage animations — 6s cycle */
+.pd-anim-s1 { animation: pd-s1 6s linear infinite; }
+.pd-anim-c1 { animation: pd-c1 6s linear infinite; }
+.pd-anim-s2 { animation: pd-s2 6s linear infinite; }
+.pd-anim-c2 { animation: pd-c2 6s linear infinite; }
+.pd-anim-s3 { animation: pd-s3 6s linear infinite; }
+.pd-anim-c3 { animation: pd-c3 6s linear infinite; }
+.pd-anim-s4 { animation: pd-s4 6s linear infinite; }
+@keyframes pd-s1 {
+  0%, 5% { opacity: 0; }
+  8%, 26% { opacity: 1; }
+  30%, 100% { opacity: 0; }
+}
+@keyframes pd-c1 {
+  0%, 22% { opacity: 0; }
+  25%, 33% { opacity: 1; }
+  37%, 100% { opacity: 0; }
+}
+@keyframes pd-s2 {
+  0%, 27% { opacity: 0; }
+  30%, 47% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+@keyframes pd-c2 {
+  0%, 43% { opacity: 0; }
+  46%, 54% { opacity: 1; }
+  58%, 100% { opacity: 0; }
+}
+@keyframes pd-s3 {
+  0%, 48% { opacity: 0; }
+  51%, 68% { opacity: 1; }
+  72%, 100% { opacity: 0; }
+}
+@keyframes pd-c3 {
+  0%, 64% { opacity: 0; }
+  67%, 75% { opacity: 1; }
+  79%, 100% { opacity: 0; }
+}
+@keyframes pd-s4 {
+  0%, 69% { opacity: 0; }
+  72%, 89% { opacity: 1; }
+  93%, 100% { opacity: 0; }
+}
+/* ---- Terminal demo ---- */
+.terminal-demo {
   background: var(--sheet);
   border: 1px solid var(--rule);
-  padding: 10px 16px;
+  font-family: var(--font-mono);
+  max-width: 520px;
+  min-width: 280px;
+}
+.td-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 9px 16px;
+  border-bottom: 1px solid var(--rule);
+}
+.td-title { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.03em; }
+.td-badge {
+  font-size: 0.70rem;
+  color: var(--muted);
+  border: 1px solid var(--rule);
+  padding: 2px 7px;
+  white-space: nowrap;
+  flex: none;
+}
+.td-body { padding: 12px 16px; display: grid; gap: 3px; }
+.td-line { font-size: 0.80rem; line-height: 1.55; white-space: pre; }
+.td-prompt { color: var(--ink); }
+.td-prompt::before { content: "$ "; color: var(--accent); }
+.td-out { color: var(--ink-soft); padding-left: 2ch; }
+.td-ok { color: var(--accent); }
+/* Sequential line reveal — one-shot, on page load */
+html.js .td-line { opacity: 0; animation: td-appear 0.25s ease forwards; }
+html.js .td-l1 { animation-delay: 0.3s; }
+html.js .td-l2 { animation-delay: 1.0s; }
+html.js .td-l3 { animation-delay: 1.5s; }
+html.js .td-l4 { animation-delay: 2.0s; }
+html.js .td-l5 { animation-delay: 2.6s; }
+html.js .td-l6 { animation-delay: 3.3s; }
+html.js .td-l7 { animation-delay: 4.0s; }
+@keyframes td-appear { from { opacity: 0; } to { opacity: 1; } }
+/* Button transitions */
+.btn { transition: background 0.12s ease, border-color 0.12s ease, color 0.12s ease; }
+/* Offer chips (legacy — keep for if reused) */
+.offer-chips { display: flex; flex-wrap: wrap; gap: 12px; }
+.offer-chip {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--font-mono); font-size: 0.85rem; letter-spacing: 0.02em;
+  color: var(--ink); background: var(--sheet); border: 1px solid var(--rule); padding: 10px 16px;
 }
 .offer-chip::before { content: ""; width: 7px; height: 7px; background: var(--accent); flex: none; }
 .offer-caption { margin: 16px 0 0; font-family: var(--font-mono); font-size: 0.85rem; color: var(--ink-soft); }
@@ -397,7 +548,9 @@ a:hover { text-decoration-thickness: 0.1em; }
   .footer-inner { grid-template-columns: 1fr 1fr; }
   .service-row { grid-template-columns: 1fr; gap: 6px; }
   .proof-row, .fit-grid { grid-template-columns: 1fr; }
-  .hero { padding: 52px 18px 44px; }
+  .hero { padding: 48px 18px 40px; }
+  .hero-bottom { grid-template-columns: 1fr; gap: 20px; }
+  .terminal-demo { max-width: 100%; }
 }
 @media (max-width: 640px) {
   .method-wrap svg { width: 640px; max-width: none; }
@@ -423,6 +576,11 @@ html.js .js-reveal g.sheet:nth-of-type(4) { transition-delay: 2400ms; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   html.js .js-reveal g.sheet { transform: none !important; opacity: 1 !important; }
   .skip-link { transition: none; }
+  /* Pipeline: show completed-state (all connectors green, stages gray) */
+  .pd-green-conn, .pd-green-arrow, .pd-green-node { opacity: 1 !important; }
+  .pd-green-box { opacity: 0 !important; }
+  /* Terminal demo: show all lines immediately */
+  html.js .td-line { opacity: 1 !important; }
 }
 /* ---- Blog + Projects content pages (gen/build_content.py) ---- */
 .post-list { list-style: none; padding: 0; max-width: 1200px; margin: 0 auto; }
@@ -656,7 +814,7 @@ html.js .js-reveal g.sheet:nth-of-type(4) { transition-delay: 2400ms; }
     </nav>
     <a class="btn btn-primary nav-cta" href="contact.html">Book a free fit call</a>
   </div>
-</header><main id="main" class="page"><div class="page-inner"><article><header class="post-head"><span class="case-label">Local-first meal-prep ERP</span><h1>MealPrep.exe</h1><p class="lede">A local-first web app that replaces spreadsheets, WhatsApp, and notebooks for small-batch meal-prep businesses: menu planning, online ordering, batch counts, shopping lists, and delivery routes in one place.</p></header><div class="project-layout"><div class="project-main"><div class="prose"><p>MealPrep.exe is a local-first meal-prep ERP for small-batch, home-based meal-prep businesses. It replaces the spreadsheets, WhatsApp groups, and notebooks that most chefs juggle with one purpose-built web app.</p><p>The problem it solves: a chef has to plan menus each week, let clients order online, track who ordered what, calculate exact batch counts, generate shopping lists, optimise delivery routes, and keep on top of allergen safety. Most chefs run three or more tools to do it. MealPrep.exe replaces all of them.</p><h2>For the chef</h2><ul><li><strong>Recipe builder:</strong> build meals from 818 real USDA ingredients with live cost and margin as you add them, plus auto-inherited allergens.</li><li><strong>Weekly menu planner:</strong> pick meals and publish when ready; unpublished meals stay hidden from clients.</li><li><strong>Order management:</strong> cards on a status workflow (pending → confirmed → prep → delivered), filterable by status.</li><li><strong>Batch counts:</strong> total portions per meal across all confirmed orders for the week.</li><li><strong>Shopping list:</strong> aggregated ingredients grouped by category, tickable while shopping, printable.</li><li><strong>Delivery route:</strong> an OR-Tools TSP solver turns client addresses into the optimal stop order with total miles and Google Maps links.</li><li><strong>Ingredient archive:</strong> 818 real USDA ingredients with full nutrition, plus custom ingredients and USDA lookup.</li></ul><h2>For the client</h2><ul><li><strong>Public menu:</strong> browse published meals with prices, calories, and macros. No login needed.</li><li><strong>PIN login:</strong> a simple four-digit PIN per client; no passwords or email verification.</li><li><strong>Allergen warnings:</strong> a red border and warning icon on any meal containing a client's allergens.</li><li><strong>Order placement:</strong> select portions, submit; the order starts as pending until the chef confirms.</li><li><strong>Order history:</strong> track past orders with colour-coded status badges.</li></ul><h2>How an order moves</h2><ol><li>The chef creates meals, plans the week, and clicks publish.</li><li>A client browses the menu, logs in with their PIN, and submits an order.</li><li>The chef sees the order as pending and confirms it.</li><li>The batch and shopping pages plan production.</li><li>The chef cooks, then marks the order delivered.</li><li>The client checks their history for live status updates.</li></ol><h2>Under the hood</h2><p>FastAPI and SQLite on the backend, a dependency-free vanilla JS frontend, a mobile-first dark theme built for the kitchen, and OR-Tools routing for deliveries. No cloud required: it runs on a laptop in the kitchen at localhost:8000, and the whole database is a single portable file.</p></div><div class="stat-grid"><div class="stat"><div class="stat-v">818</div><div class="stat-l">USDA ingredients imported</div></div><div class="stat"><div class="stat-v">9</div><div class="stat-l">SPA views</div></div><div class="stat"><div class="stat-v">10/10</div><div class="stat-l">backend tests passing</div></div><div class="stat"><div class="stat-v">1</div><div class="stat-l">app replaces 3+ tools</div></div></div><div class="post-cta"><a class="btn btn-primary" href="contact.html">Schedule Your Project Consultation</a></div></div><aside class="project-gallery" aria-label="Project screenshots"><h2 class="gallery-head">Screenshots</h2><figure class="gallery" aria-label="Screenshots"><button type="button" class="gallery-frame" aria-label="Open full-size screenshot viewer" aria-haspopup="dialog"><img src="build/assets/screenshots/mealprep/01.png" alt="Production dashboard" data-caption="Production dashboard" loading="eager"><img src="build/assets/screenshots/mealprep/02.png" alt="Client list" data-caption="Client list" loading="lazy" hidden><img src="build/assets/screenshots/mealprep/03.png" alt="Edit client details" data-caption="Edit client details" loading="lazy" hidden><img src="build/assets/screenshots/mealprep/04.png" alt="Saved meals" data-caption="Saved meals" loading="lazy" hidden><img src="build/assets/screenshots/mealprep/05.png" alt="Weekly planner" data-caption="Weekly planner" loading="lazy" hidden><img src="build/assets/screenshots/mealprep/06.png" alt="Planning calendar" data-caption="Planning calendar" loading="lazy" hidden><img src="build/assets/screenshots/mealprep/07.png" alt="Orders management" data-caption="Orders management" loading="lazy" hidden><img src="build/assets/screenshots/mealprep/08.png" alt="Meal batch counts" data-caption="Meal batch counts" loading="lazy" hidden><img src="build/assets/screenshots/mealprep/09.png" alt="Meal labels" data-caption="Meal labels" loading="lazy" hidden><img src="build/assets/screenshots/mealprep/10.png" alt="Production planning" data-caption="Production planning" loading="lazy" hidden><img src="build/assets/screenshots/mealprep/11.png" alt="Shareable shopping list" data-caption="Shareable shopping list" loading="lazy" hidden><img src="build/assets/screenshots/mealprep/12.png" alt="Ingredients list" data-caption="Ingredients list" loading="lazy" hidden><img src="build/assets/screenshots/mealprep/13.png" alt="Add ingredient" data-caption="Add ingredient" loading="lazy" hidden><img src="build/assets/screenshots/mealprep/14.png" alt="Ingredient lookup" data-caption="Ingredient lookup" loading="lazy" hidden><span class="gallery-zoom" aria-hidden="true">↗ Enlarge</span></button><figcaption class="gallery-caption">Production dashboard</figcaption><div class="gallery-controls"><button type="button" class="gallery-btn prev" aria-label="Previous screenshot">←</button><span class="gallery-counter" aria-live="polite">1 / 14</span><button type="button" class="gallery-btn next" aria-label="Next screenshot">→</button></div></figure></aside></div><div class="lightbox" role="dialog" aria-modal="true" aria-label="Screenshot viewer" hidden><div class="lightbox-backdrop"></div><div class="lightbox-panel" role="document"><div class="lightbox-top"><span class="lightbox-status" aria-live="polite"></span><button type="button" class="lightbox-close" aria-label="Close viewer">Close ✕</button></div><div class="lightbox-stage"><img class="lightbox-img" alt=""></div><div class="lightbox-nav"><button type="button" class="gallery-btn lightbox-prev" aria-label="Previous screenshot">←</button><span class="lightbox-counter" aria-live="polite"></span><button type="button" class="gallery-btn lightbox-next" aria-label="Next screenshot">→</button></div></div></div><script>(function () {
+</header><main id="main" class="page"><div class="page-inner"><article><header class="post-head"><span class="case-label">Local-first meal-prep ERP</span><h1>MealPrep.exe</h1><p class="lede">A local-first web app that replaces spreadsheets, WhatsApp, and notebooks for small-batch meal-prep businesses: menu planning, online ordering, batch counts, shopping lists, and delivery routes in one place.</p></header><div class="project-layout"><div class="project-main"><div class="prose"><p>MealPrep.exe is a local-first meal-prep ERP for small-batch, home-based meal-prep businesses. It replaces the spreadsheets, WhatsApp groups, and notebooks that most chefs juggle with one purpose-built web app.</p><p>The problem it solves: a chef has to plan menus each week, let clients order online, track who ordered what, calculate exact batch counts, generate shopping lists, optimise delivery routes, and keep on top of allergen safety. Most chefs run three or more tools to do it. MealPrep.exe replaces all of them.</p><h2>For the chef</h2><ul><li><strong>Recipe builder:</strong> build meals from 818 real USDA ingredients with live cost and margin as you add them, plus auto-inherited allergens.</li><li><strong>Weekly menu planner:</strong> pick meals and publish when ready; unpublished meals stay hidden from clients.</li><li><strong>Order management:</strong> cards on a status workflow (pending → confirmed → prep → delivered), filterable by status.</li><li><strong>Batch counts:</strong> total portions per meal across all confirmed orders for the week.</li><li><strong>Shopping list:</strong> aggregated ingredients grouped by category, tickable while shopping, printable.</li><li><strong>Delivery route:</strong> an OR-Tools TSP solver turns client addresses into the optimal stop order with total miles and Google Maps links.</li><li><strong>Ingredient archive:</strong> 818 real USDA ingredients with full nutrition, plus custom ingredients and USDA lookup.</li></ul><h2>For the client</h2><ul><li><strong>Public menu:</strong> browse published meals with prices, calories, and macros. No login needed.</li><li><strong>PIN login:</strong> a simple four-digit PIN per client; no passwords or email verification.</li><li><strong>Allergen warnings:</strong> a red border and warning icon on any meal containing a client's allergens.</li><li><strong>Order placement:</strong> select portions, submit; the order starts as pending until the chef confirms.</li><li><strong>Order history:</strong> track past orders with colour-coded status badges.</li></ul><h2>How an order moves</h2><ol><li>The chef creates meals, plans the week, and clicks publish.</li><li>A client browses the menu, logs in with their PIN, and submits an order.</li><li>The chef sees the order as pending and confirms it.</li><li>The batch and shopping pages plan production.</li><li>The chef cooks, then marks the order delivered.</li><li>The client checks their history for live status updates.</li></ol><h2>Under the hood</h2><p>FastAPI and SQLite on the backend, a dependency-free vanilla JS frontend, a mobile-first dark theme built for the kitchen, and OR-Tools routing for deliveries. No cloud required: it runs on a laptop in the kitchen at localhost:8000, and the whole database is a single portable file.</p></div><div class="stat-grid"><div class="stat"><div class="stat-v">818</div><div class="stat-l">USDA ingredients imported</div></div><div class="stat"><div class="stat-v">9</div><div class="stat-l">SPA views</div></div><div class="stat"><div class="stat-v">10/10</div><div class="stat-l">backend tests passing</div></div><div class="stat"><div class="stat-v">1</div><div class="stat-l">app replaces 3+ tools</div></div></div><div class="post-cta"><a class="btn btn-primary" href="contact">Schedule Your Project Consultation</a></div></div><aside class="project-gallery" aria-label="Project screenshots"><h2 class="gallery-head">Screenshots</h2><figure class="gallery" aria-label="Screenshots"><button type="button" class="gallery-frame" aria-label="Open full-size screenshot viewer" aria-haspopup="dialog"><img src="build/assets/screenshots/mealprep/01.png" alt="Production dashboard" data-caption="Production dashboard" loading="eager"><img src="build/assets/screenshots/mealprep/02.png" alt="Client list" data-caption="Client list" loading="lazy" hidden><img src="build/assets/screenshots/mealprep/03.png" alt="Edit client details" data-caption="Edit client details" loading="lazy" hidden><img src="build/assets/screenshots/mealprep/04.png" alt="Saved meals" data-caption="Saved meals" loading="lazy" hidden><img src="build/assets/screenshots/mealprep/05.png" alt="Weekly planner" data-caption="Weekly planner" loading="lazy" hidden><img src="build/assets/screenshots/mealprep/06.png" alt="Planning calendar" data-caption="Planning calendar" loading="lazy" hidden><img src="build/assets/screenshots/mealprep/07.png" alt="Orders management" data-caption="Orders management" loading="lazy" hidden><img src="build/assets/screenshots/mealprep/08.png" alt="Meal batch counts" data-caption="Meal batch counts" loading="lazy" hidden><img src="build/assets/screenshots/mealprep/09.png" alt="Meal labels" data-caption="Meal labels" loading="lazy" hidden><img src="build/assets/screenshots/mealprep/10.png" alt="Production planning" data-caption="Production planning" loading="lazy" hidden><img src="build/assets/screenshots/mealprep/11.png" alt="Shareable shopping list" data-caption="Shareable shopping list" loading="lazy" hidden><img src="build/assets/screenshots/mealprep/12.png" alt="Ingredients list" data-caption="Ingredients list" loading="lazy" hidden><img src="build/assets/screenshots/mealprep/13.png" alt="Add ingredient" data-caption="Add ingredient" loading="lazy" hidden><img src="build/assets/screenshots/mealprep/14.png" alt="Ingredient lookup" data-caption="Ingredient lookup" loading="lazy" hidden><span class="gallery-zoom" aria-hidden="true">↗ Enlarge</span></button><figcaption class="gallery-caption">Production dashboard</figcaption><div class="gallery-controls"><button type="button" class="gallery-btn prev" aria-label="Previous screenshot">←</button><span class="gallery-counter" aria-live="polite">1 / 14</span><button type="button" class="gallery-btn next" aria-label="Next screenshot">→</button></div></figure></aside></div><div class="lightbox" role="dialog" aria-modal="true" aria-label="Screenshot viewer" hidden><div class="lightbox-backdrop"></div><div class="lightbox-panel" role="document"><div class="lightbox-top"><span class="lightbox-status" aria-live="polite"></span><button type="button" class="lightbox-close" aria-label="Close viewer">Close ✕</button></div><div class="lightbox-stage"><img class="lightbox-img" alt=""></div><div class="lightbox-nav"><button type="button" class="gallery-btn lightbox-prev" aria-label="Previous screenshot">←</button><span class="lightbox-counter" aria-live="polite"></span><button type="button" class="gallery-btn lightbox-next" aria-label="Next screenshot">→</button></div></div></div><script>(function () {
   var g = document.querySelector('.gallery');
   if (!g || !document.querySelector('.lightbox')) return;
   var frame = g.querySelector('.gallery-frame');
@@ -720,7 +878,14 @@ html.js .js-reveal g.sheet:nth-of-type(4) { transition-delay: 2400ms; }
   });
   document.addEventListener('keydown', function (e) {
     if (lb.hidden) return;
-    if (e.key === 'Escape') { closeLightbox(); }
+    if (e.key === 'Tab') {
+      var buttons = Array.prototype.slice.call(lb.querySelectorAll('button'));
+      var current = buttons.indexOf(document.activeElement);
+      var target = (current + (e.shiftKey ? -1 : 1) + buttons.length) % buttons.length;
+      buttons[target].focus();
+      e.preventDefault();
+    }
+    else if (e.key === 'Escape') { closeLightbox(); }
     else if (e.key === 'ArrowLeft') { step(-1); }
     else if (e.key === 'ArrowRight') { step(1); }
   });

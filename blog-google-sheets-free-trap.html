@@ -3,15 +3,27 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>How to Make Google Sheets Work Like an Enterprise System (Without the Cost)</title>
-<meta name="description" content="The Real Cost Isn&#x27;t the Tool — It&#x27;s the Busywork For many Small and Medium-sized Businesses (SMBs), Google Sheets is the backbone of operations: financial…">
-<link rel="canonical" href="https://www.aremuconsulting.com/blog-google-sheets-free-trap.html">
+<script>document.documentElement.classList.add("js");</script>
+<title>How to Make Google Sheets Work Like an Enterprise System (Without the Cost) | Aremu Consulting</title>
+<meta name="description" content="Explore ways to improve Google Sheets with automation, validation and structured data, and learn when a dedicated application becomes the better fit.">
+<link rel="canonical" href="https://www.aremuconsulting.com/blog-google-sheets-free-trap">
 <meta property="og:type" content="article">
+<meta property="og:site_name" content="Aremu Consulting">
+<meta property="og:locale" content="en_GB">
 <meta property="og:title" content="How to Make Google Sheets Work Like an Enterprise System (Without the Cost)">
-<meta property="og:description" content="The Real Cost Isn&#x27;t the Tool — It&#x27;s the Busywork For many Small and Medium-sized Businesses (SMBs), Google Sheets is the backbone of operations: financial…">
-<meta property="og:url" content="https://www.aremuconsulting.com/blog-google-sheets-free-trap.html">
-<meta name="og:site_name" content="Aremu Consulting">
-<script type="application/ld+json">[{"@context":"https://schema.org","@type":"BlogPosting","headline":"How to Make Google Sheets Work Like an Enterprise System (Without the Cost)","description":"The Real Cost Isn't the Tool — It's the Busywork For many Small and Medium-sized Businesses (SMBs), Google Sheets is the backbone of operations: financial…","datePublished":"2026-03-01","author":{"@type":"Person","name":"Andrew Aremu"},"publisher":{"@type":"Organization","name":"Aremu Consulting Ltd","url":"https://www.aremuconsulting.com","founder":{"@type":"Person","name":"Andrew Aremu"},"address":{"@type":"PostalAddress","addressLocality":"Manchester","addressCountry":"GB"}},"mainEntityOfPage":"https://www.aremuconsulting.com/blog-google-sheets-free-trap.html","articleSection":"Automation"}]</script>
+<meta property="og:description" content="Explore ways to improve Google Sheets with automation, validation and structured data, and learn when a dedicated application becomes the better fit.">
+<meta property="og:url" content="https://www.aremuconsulting.com/blog-google-sheets-free-trap">
+<meta property="og:image" content="https://www.aremuconsulting.com/build/assets/logo.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="160">
+<meta property="og:image:height" content="160">
+<meta property="og:image:alt" content="Aremu Consulting logo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="How to Make Google Sheets Work Like an Enterprise System (Without the Cost)">
+<meta name="twitter:description" content="Explore ways to improve Google Sheets with automation, validation and structured data, and learn when a dedicated application becomes the better fit.">
+<meta name="twitter:image" content="https://www.aremuconsulting.com/build/assets/logo.png">
+<meta name="twitter:image:alt" content="Aremu Consulting logo">
+<script type="application/ld+json">[{"@context":"https://schema.org","@type":"LocalBusiness","@id":"https://www.aremuconsulting.com/#business","name":"Aremu Consulting Ltd","url":"https://www.aremuconsulting.com/","description":"Solo-builder consultancy in Manchester, UK, providing custom website and app builds, workflow and CRM automation, and custom AI agent development.","founder":{"@type":"Person","name":"Andrew Aremu"},"address":{"@type":"PostalAddress","addressLocality":"Manchester","addressCountry":"GB"}},{"@context":"https://schema.org","@type":"BlogPosting","headline":"How to Make Google Sheets Work Like an Enterprise System (Without the Cost)","description":"Explore ways to improve Google Sheets with automation, validation and structured data, and learn when a dedicated application becomes the better fit.","datePublished":"2026-03-01","author":{"@type":"Person","name":"Andrew Aremu"},"publisher":{"@id":"https://www.aremuconsulting.com/#business"},"mainEntityOfPage":"https://www.aremuconsulting.com/blog-google-sheets-free-trap","articleSection":"Automation"}]</script>
 <style>
 :root {
   --paper: #F5F6F6;
@@ -26,7 +38,7 @@
   --accent-soft: #E6F0EA;
   --danger: #9B3226;
   --measure: 68ch;
-  --font-display: 'Atkinson Hyperlegible', 'Segoe UI', system-ui, sans-serif;
+  --font-display: 'Syne', 'Atkinson Hyperlegible', 'Segoe UI', system-ui, sans-serif;
   --font-body: 'Atkinson Hyperlegible', 'Segoe UI', system-ui, sans-serif;
   --font-mono: 'Martian Mono', 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace;
 }
@@ -35,6 +47,8 @@
 @font-face { font-family: 'Martian Mono'; font-style: normal; font-weight: 400; font-display: swap; src: url('build/assets/fonts/Martian_Mono-400.woff2') format('woff2'); }
 @font-face { font-family: 'Martian Mono'; font-style: normal; font-weight: 500; font-display: swap; src: url('build/assets/fonts/Martian_Mono-500.woff2') format('woff2'); }
 @font-face { font-family: 'Martian Mono'; font-style: normal; font-weight: 700; font-display: swap; src: url('build/assets/fonts/Martian_Mono-700.woff2') format('woff2'); }
+
+@font-face { font-family: 'Syne'; font-style: normal; font-weight: 700; font-display: swap; src: url('build/assets/fonts/Syne-700.woff2') format('woff2'); }
 
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -178,36 +192,173 @@ a:hover { text-decoration-thickness: 0.1em; }
 .btn-secondary { background: transparent; color: var(--ink); border-color: var(--ink); }
 .btn-secondary:hover { background: var(--ink); color: var(--paper); }
 .btn[aria-disabled="true"], .btn:disabled { opacity: 0.55; cursor: not-allowed; }
-.hero { padding: 72px 24px 60px; border-bottom: 1px solid var(--rule); }
+.hero { padding: 56px 24px 52px; border-bottom: 1px solid var(--rule); }
 .hero-inner {
   max-width: 1200px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 26px;
+  gap: 30px;
 }
-.hero h1 {
+/* Display H1 — Syne Bold, index hero only */
+.h1-display {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 5.2vw, 4rem);
+  font-weight: 700;
+  line-height: 1.06;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  max-width: 16ch;
+  margin: 0 0 18px;
+}
+/* Standard hero H1 (services/approach/contact pages) */
+.hero h1:not(.h1-display) {
   font-size: clamp(2.1rem, 4.4vw, 3.3rem);
   font-weight: 700;
   line-height: 1.12;
   letter-spacing: -0.02em;
-  max-width: 18ch;
+  max-width: 22ch;
 }
-.hero .lede { max-width: 68ch; font-size: 1.12rem; color: var(--ink-soft); }
-.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 8px; }
-.hero-offer { max-width: 100%; }
-.offer-chips { display: flex; flex-wrap: wrap; gap: 12px; }
-.offer-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  letter-spacing: 0.02em;
-  color: var(--ink);
+.hero .lede { max-width: 65ch; font-size: 1.07rem; color: var(--ink-soft); }
+.hero-text { max-width: 680px; }
+/* Two-column bottom area: CTAs left, terminal demo right */
+.hero-bottom {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 32px 48px;
+  align-items: start;
+}
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+.hero-pricing { margin: 10px 0 0; font-family: var(--font-mono); font-size: 0.85rem; color: var(--ink-soft); }
+.hero-pricing a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; display: inline-block; min-height: 44px; line-height: 44px; }
+/* Pipeline diagram container */
+.pipeline-wrap {
+  width: calc(100% + 0px);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.pipeline-wrap::-webkit-scrollbar { height: 4px; }
+.pipeline-wrap::-webkit-scrollbar-track { background: transparent; }
+.pipeline-wrap::-webkit-scrollbar-thumb { background: var(--rule); }
+/* ---- Pipeline diagram SVG styles ---- */
+.pipeline-diagram {
+  display: block;
+  min-width: 640px;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.pd-grid-line-pat { stroke: var(--grid); stroke-width: 0.5; }
+.pd-grid-bg { fill: var(--sheet); }
+.pd-frame { stroke: var(--rule); stroke-width: 0.5; fill: none; }
+.pd-reg { stroke: var(--rule); stroke-width: 0.5; fill: none; }
+.pd-conn-line { stroke: var(--rule); stroke-width: 1; }
+.pd-conn-arrow { fill: none; stroke: var(--rule); stroke-width: 1; stroke-linecap: butt; stroke-linejoin: miter; }
+.pd-artifact { font-family: var(--font-mono); font-size: 8px; fill: var(--muted); letter-spacing: 0.02em; }
+.pd-box-fill { fill: var(--sheet); }
+.pd-box-border { fill: none; stroke: var(--rule); stroke-width: 1; }
+.pd-divider { stroke: var(--grid); stroke-width: 0.5; }
+.pd-stage-num { font-family: var(--font-mono); font-size: 9px; fill: var(--muted); letter-spacing: 0.1em; }
+.pd-stage-name { font-family: var(--font-mono); font-size: 11px; font-weight: 500; fill: var(--ink); letter-spacing: 0.06em; }
+.pd-stage-out { font-family: var(--font-mono); font-size: 8px; fill: var(--muted); }
+.pd-node-static { fill: var(--paper); stroke: var(--rule); stroke-width: 1; }
+.pd-meta-label { font-family: var(--font-mono); font-size: 7.5px; fill: var(--muted); letter-spacing: 0.06em; opacity: 0.7; }
+/* Green animated overlays */
+.pd-green-conn { stroke: var(--accent); stroke-width: 2; fill: none; opacity: 0; }
+.pd-green-arrow { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; opacity: 0; }
+.pd-green-node { fill: var(--accent); opacity: 0; }
+.pd-green-box { fill: none; stroke: var(--accent); stroke-width: 1.5; opacity: 0; }
+/* Stage animations — 6s cycle */
+.pd-anim-s1 { animation: pd-s1 6s linear infinite; }
+.pd-anim-c1 { animation: pd-c1 6s linear infinite; }
+.pd-anim-s2 { animation: pd-s2 6s linear infinite; }
+.pd-anim-c2 { animation: pd-c2 6s linear infinite; }
+.pd-anim-s3 { animation: pd-s3 6s linear infinite; }
+.pd-anim-c3 { animation: pd-c3 6s linear infinite; }
+.pd-anim-s4 { animation: pd-s4 6s linear infinite; }
+@keyframes pd-s1 {
+  0%, 5% { opacity: 0; }
+  8%, 26% { opacity: 1; }
+  30%, 100% { opacity: 0; }
+}
+@keyframes pd-c1 {
+  0%, 22% { opacity: 0; }
+  25%, 33% { opacity: 1; }
+  37%, 100% { opacity: 0; }
+}
+@keyframes pd-s2 {
+  0%, 27% { opacity: 0; }
+  30%, 47% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+@keyframes pd-c2 {
+  0%, 43% { opacity: 0; }
+  46%, 54% { opacity: 1; }
+  58%, 100% { opacity: 0; }
+}
+@keyframes pd-s3 {
+  0%, 48% { opacity: 0; }
+  51%, 68% { opacity: 1; }
+  72%, 100% { opacity: 0; }
+}
+@keyframes pd-c3 {
+  0%, 64% { opacity: 0; }
+  67%, 75% { opacity: 1; }
+  79%, 100% { opacity: 0; }
+}
+@keyframes pd-s4 {
+  0%, 69% { opacity: 0; }
+  72%, 89% { opacity: 1; }
+  93%, 100% { opacity: 0; }
+}
+/* ---- Terminal demo ---- */
+.terminal-demo {
   background: var(--sheet);
   border: 1px solid var(--rule);
-  padding: 10px 16px;
+  font-family: var(--font-mono);
+  max-width: 520px;
+  min-width: 280px;
+}
+.td-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 9px 16px;
+  border-bottom: 1px solid var(--rule);
+}
+.td-title { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.03em; }
+.td-badge {
+  font-size: 0.70rem;
+  color: var(--muted);
+  border: 1px solid var(--rule);
+  padding: 2px 7px;
+  white-space: nowrap;
+  flex: none;
+}
+.td-body { padding: 12px 16px; display: grid; gap: 3px; }
+.td-line { font-size: 0.80rem; line-height: 1.55; white-space: pre; }
+.td-prompt { color: var(--ink); }
+.td-prompt::before { content: "$ "; color: var(--accent); }
+.td-out { color: var(--ink-soft); padding-left: 2ch; }
+.td-ok { color: var(--accent); }
+/* Sequential line reveal — one-shot, on page load */
+html.js .td-line { opacity: 0; animation: td-appear 0.25s ease forwards; }
+html.js .td-l1 { animation-delay: 0.3s; }
+html.js .td-l2 { animation-delay: 1.0s; }
+html.js .td-l3 { animation-delay: 1.5s; }
+html.js .td-l4 { animation-delay: 2.0s; }
+html.js .td-l5 { animation-delay: 2.6s; }
+html.js .td-l6 { animation-delay: 3.3s; }
+html.js .td-l7 { animation-delay: 4.0s; }
+@keyframes td-appear { from { opacity: 0; } to { opacity: 1; } }
+/* Button transitions */
+.btn { transition: background 0.12s ease, border-color 0.12s ease, color 0.12s ease; }
+/* Offer chips (legacy — keep for if reused) */
+.offer-chips { display: flex; flex-wrap: wrap; gap: 12px; }
+.offer-chip {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--font-mono); font-size: 0.85rem; letter-spacing: 0.02em;
+  color: var(--ink); background: var(--sheet); border: 1px solid var(--rule); padding: 10px 16px;
 }
 .offer-chip::before { content: ""; width: 7px; height: 7px; background: var(--accent); flex: none; }
 .offer-caption { margin: 16px 0 0; font-family: var(--font-mono); font-size: 0.85rem; color: var(--ink-soft); }
@@ -397,7 +548,9 @@ a:hover { text-decoration-thickness: 0.1em; }
   .footer-inner { grid-template-columns: 1fr 1fr; }
   .service-row { grid-template-columns: 1fr; gap: 6px; }
   .proof-row, .fit-grid { grid-template-columns: 1fr; }
-  .hero { padding: 52px 18px 44px; }
+  .hero { padding: 48px 18px 40px; }
+  .hero-bottom { grid-template-columns: 1fr; gap: 20px; }
+  .terminal-demo { max-width: 100%; }
 }
 @media (max-width: 640px) {
   .method-wrap svg { width: 640px; max-width: none; }
@@ -423,6 +576,11 @@ html.js .js-reveal g.sheet:nth-of-type(4) { transition-delay: 2400ms; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   html.js .js-reveal g.sheet { transform: none !important; opacity: 1 !important; }
   .skip-link { transition: none; }
+  /* Pipeline: show completed-state (all connectors green, stages gray) */
+  .pd-green-conn, .pd-green-arrow, .pd-green-node { opacity: 1 !important; }
+  .pd-green-box { opacity: 0 !important; }
+  /* Terminal demo: show all lines immediately */
+  html.js .td-line { opacity: 1 !important; }
 }
 /* ---- Blog + Projects content pages (gen/build_content.py) ---- */
 .post-list { list-style: none; padding: 0; max-width: 1200px; margin: 0 auto; }
@@ -656,7 +814,7 @@ html.js .js-reveal g.sheet:nth-of-type(4) { transition-delay: 2400ms; }
     </nav>
     <a class="btn btn-primary nav-cta" href="contact.html">Book a free fit call</a>
   </div>
-</header><main id="main" class="page"><div class="page-inner"><article><header class="post-head"><p class="post-meta"><span class="cat">Automation</span><span>1 Mar 2026</span><span>By Andrew Aremu</span></p><h1>How to Make Google Sheets Work Like an Enterprise System (Without the Cost)</h1><p class="lede">The Real Cost Isn&#x27;t the Tool — It&#x27;s the Busywork For many Small and Medium-sized Businesses (SMBs), Google Sheets is the backbone of operations: financial tracking, reporting, CRM, inventory…</p></header><div class="prose"><div> <h2>The Real Cost Isn't the Tool — It's the Busywork</h2> <p>For many Small and Medium-sized Businesses (SMBs), Google Sheets is the backbone of operations: financial tracking, reporting, CRM, inventory management. It's free, collaborative, and everyone knows how to use it. That's not a limitation — that's an advantage.</p> <p>The problem isn't Google Sheets. It's the manual work happening inside it: copying data between tabs, waiting for formulas to recalculate, chasing down version conflicts, and rebuilding reports every month from scratch.</p> <p>You don't need to abandon Google Sheets and migrate to a £15,000 financial management platform. You need to automate the manual parts so your existing Sheets work like an expensive system — without disrupting how your team actually works.</p> <h3>The Three Bottlenecks (And How to Fix Them)</h3> <p>Most Google Sheets slowdowns come from three predictable sources: data volume strain, formula complexity, and unstructured collaboration. All three are solvable without switching tools.</p> <h3>1. Data Volume Strain: When Your Sheet Gets Heavy</h3> <p>Once a Google Sheet crosses ~100,000 rows or starts relying on dozens of interconnected formulas, performance degrades. Scrolling lags. Edits take seconds to process. Your finance team spends more time waiting than working.</p> <p>The issue isn't that Google Sheets "can't handle" large datasets — it's that the platform is recalculating everything, all the time. Functions like <code>TODAY()</code>, <code>NOW()</code>, and <code>RAND()</code> trigger constant recalculations. Nested <code>VLOOKUP</code> chains and <code>ARRAYFORMULA</code> operations multiply the load.</p> The Fix (Without Migrating): <p>A. Replace volatile functions with static values where possible. If you're using <code>TODAY()</code> to timestamp entries, switch to a Google Apps Script trigger that writes the date once on row creation — no more constant recalculation.</p> <p>B. Move heavy lookups to a separate, automated refresh. Instead of live <code>VLOOKUP</code> chains pulling from massive ranges, use Apps Script to pre-process and populate a "cache" tab once per hour. Your main dashboard reads from static data, not live calculations.</p> <p>C. Archive old data automatically. Set up a monthly script that moves rows older than 12 months to an "Archive" sheet. Your working dataset stays lean; historical data is still accessible when needed.</p> <p>Result: Your 200,000-row financial tracker becomes responsive again. There's no migration or retraining required — smarter automation simply runs behind the scenes.</p> <h3>2. Formula Complexity: When Calculations Become a Bottleneck</h3> <p>Google Sheets' formula capabilities are powerful — but stacking <code>SUMIFS</code>, <code>ARRAYFORMULA</code>, and nested <code>IF</code> statements across thousands of rows creates computational drag. During month-end, when your team is actively updating data, these formulas recalculate constantly, freezing the interface.</p> <p>You don't need to abandon formulas. You need to offload the heavy lifting to automation that runs once, not continuously.</p> The Fix: <p>A. Use Google Apps Script for complex calculations. Instead of a 12-level nested <code>IF</code> formula, write a custom function in Apps Script. It runs faster, is easier to debug, and only executes when triggered — not on every spreadsheet edit.</p> <p>Example: A client had a commission calculator with 8 nested <code>IF</code> statements checking tier thresholds. I replaced it with a custom <code>=calculateCommission(sales, tier)</code> function. Same logic, 10x faster, zero recalculation lag.</p> <p>B. Pre-calculate recurring reports. If you generate the same monthly P&L report from raw transaction data, don't rebuild it manually. Use Apps Script to auto-generate it on the 1st of each month, pre-calculated and formatted.</p> <p>C. Replace <code>ARRAYFORMULA</code> with batch processing. For operations across large ranges, Apps Script's batch <code>setValues()</code> is significantly faster than array formulas.</p> <p>Result: Your finance model runs in seconds, not minutes. Month-end close happens faster. Your team stops waiting for calculations to finish.</p> <h3>3. Collaboration Chaos: Too Many Hands, No Structure</h3> <p>Google Sheets' real-time collaboration is a feature — until multiple people start editing the same critical spreadsheet without structure. Accidental overwrites, formula deletions, and "who changed this cell?" investigations become the norm.</p> <p>You don't need to disable collaboration. You need to add guardrails so teams can collaborate safely.</p> The Fix: <p>A. Lock critical cells and formulas. Use Google Sheets' built-in protection to lock formula rows and key calculation cells. Only designated users can edit them. Everyone else can input data safely.</p> <p>B. Add data validation rules. Use Apps Script to enforce validation beyond Google Sheets' native dropdowns. Example: "If someone enters a negative revenue figure, reject it and send a Slack alert."</p> <p>C. Implement an audit trail. Use Apps Script's <code>onEdit()</code> trigger to log every change: who edited what, when, and what the previous value was. Store it in a hidden "Audit Log" tab. Now you can trace back errors instantly.</p> <p>D. Create approval workflows. For sensitive changes (like updating pricing or finalizing a budget), add an Apps Script-powered approval system: proposed changes go to a staging area, a manager reviews via Slack/email, and the change only commits once approved.</p> <p>Result: Your team still collaborates in real-time. But accidental errors are prevented, and when they do happen, you can trace and fix them in seconds — not hours.</p> <h3>When Should You Actually Migrate?</h3> <p>Automation can take Google Sheets incredibly far. But there are genuine limits where migration makes sense:</p> <p>Migrate when:</p> <ul> <li>You need row-level security beyond what Google Sheets permissions offer (e.g., salespeople should only see their own deals, not the entire pipeline)</li> <li>You're hitting 10 million cells regularly, even with optimizations</li> <li>Your workflows require complex multi-user transactional logic (like inventory management with real-time stock locking across warehouses)</li> <li>Compliance demands immutable audit trails that Google Sheets' version history can't provide</li> </ul> <p>But for most SMBs, startups, and solopreneurs? Those limits are years away. You'll get far more value from automating your existing Sheets than from migrating to a platform you don't need yet.</p> <h3>What This Looks Like in Practice</h3> <p>Example: A client with a 150,000-row transaction log</p> <p>Before:</p> <ul> <li>Finance team waited 30+ seconds for the sheet to load</li> <li>Monthly reports took 4 hours to compile manually</li> <li>Formula errors from accidental edits happened weekly</li> </ul> <p>After (with automation):</p> <ul> <li>Automated archiving keeps working dataset under 50,000 rows</li> <li>Custom Apps Script functions replace volatile formulas — load time down to 3 seconds</li> <li>Monthly reports auto-generate on the 1st — compile time: zero</li> <li>Protected ranges + validation rules prevent accidental edits</li> <li>Audit log tracks every change automatically</li> </ul> <p>Cost: £1,200 one-time build. There are no monthly software fees, and no retraining or migration is required.</p> <p>Time saved: 6 hours/week for a 3-person finance team = 288 hours/year = £8,640/year in reclaimed productivity (at £30/hour).</p> <p>ROI: Paid for itself in 7 weeks.</p> <h3>The Bottom Line</h3> <p>Google Sheets isn't "too simple" or "inadequate for real business." It's a powerful platform that can do 90% of what expensive enterprise software does — when properly automated.</p> <p>You don't need to rip out your existing systems. You need to eliminate the manual work so they perform like they cost £50k.</p> <p>That's what I build: automation that enhances what you already have, with minimal disruption to how your team works.</p> <p>There are no forced migrations or retraining steps — the team simply gets better workflows.</p> </div> <div> <h3></div><p class="disclosure">This article references illustrative cost figures — estimates for a typical business, not audited client results.</p><div class="post-cta"><a class="btn btn-primary" href="contact.html">Schedule Your Project Consultation</a></div></article></div></main><footer class="site-footer">
+</header><main id="main" class="page"><div class="page-inner"><article><header class="post-head"><p class="post-meta"><span class="cat">Automation</span><span>1 Mar 2026</span><span>By Andrew Aremu</span></p><h1>How to Make Google Sheets Work Like an Enterprise System (Without the Cost)</h1><p class="lede">The Real Cost Isn&#x27;t the Tool — It&#x27;s the Busywork For many Small and Medium-sized Businesses (SMBs), Google Sheets is the backbone of operations: financial tracking, reporting, CRM, inventory…</p></header><div class="prose"><h2>The Real Cost Isn't the Tool — It's the Busywork</h2> <p>For many Small and Medium-sized Businesses (SMBs), Google Sheets is the backbone of operations: financial tracking, reporting, CRM, inventory management. It's free, collaborative, and everyone knows how to use it. That's not a limitation — that's an advantage.</p> <p>The problem isn't Google Sheets. It's the manual work happening inside it: copying data between tabs, waiting for formulas to recalculate, chasing down version conflicts, and rebuilding reports every month from scratch.</p> <p>You don't need to abandon Google Sheets and migrate to a £15,000 financial management platform. You need to automate the manual parts so your existing Sheets work like an expensive system — without disrupting how your team actually works.</p> <h3>The Three Bottlenecks (And How to Fix Them)</h3> <p>Most Google Sheets slowdowns come from three predictable sources: data volume strain, formula complexity, and unstructured collaboration. All three are solvable without switching tools.</p> <h3>1. Data Volume Strain: When Your Sheet Gets Heavy</h3> <p>Once a Google Sheet crosses ~100,000 rows or starts relying on dozens of interconnected formulas, performance degrades. Scrolling lags. Edits take seconds to process. Your finance team spends more time waiting than working.</p> <p>The issue isn't that Google Sheets "can't handle" large datasets — it's that the platform is recalculating everything, all the time. Functions like <code>TODAY()</code>, <code>NOW()</code>, and <code>RAND()</code> trigger constant recalculations. Nested <code>VLOOKUP</code> chains and <code>ARRAYFORMULA</code> operations multiply the load.</p> The Fix (Without Migrating): <p>A. Replace volatile functions with static values where possible. If you're using <code>TODAY()</code> to timestamp entries, switch to a Google Apps Script trigger that writes the date once on row creation — no more constant recalculation.</p> <p>B. Move heavy lookups to a separate, automated refresh. Instead of live <code>VLOOKUP</code> chains pulling from massive ranges, use Apps Script to pre-process and populate a "cache" tab once per hour. Your main dashboard reads from static data, not live calculations.</p> <p>C. Archive old data automatically. Set up a monthly script that moves rows older than 12 months to an "Archive" sheet. Your working dataset stays lean; historical data is still accessible when needed.</p> <p>Result: Your 200,000-row financial tracker becomes responsive again. There's no migration or retraining required — smarter automation simply runs behind the scenes.</p> <h3>2. Formula Complexity: When Calculations Become a Bottleneck</h3> <p>Google Sheets' formula capabilities are powerful — but stacking <code>SUMIFS</code>, <code>ARRAYFORMULA</code>, and nested <code>IF</code> statements across thousands of rows creates computational drag. During month-end, when your team is actively updating data, these formulas recalculate constantly, freezing the interface.</p> <p>You don't need to abandon formulas. You need to offload the heavy lifting to automation that runs once, not continuously.</p> The Fix: <p>A. Use Google Apps Script for complex calculations. Instead of a 12-level nested <code>IF</code> formula, write a custom function in Apps Script. It runs faster, is easier to debug, and only executes when triggered — not on every spreadsheet edit.</p> <p>Example: A client had a commission calculator with 8 nested <code>IF</code> statements checking tier thresholds. I replaced it with a custom <code>=calculateCommission(sales, tier)</code> function. Same logic, 10x faster, zero recalculation lag.</p> <p>B. Pre-calculate recurring reports. If you generate the same monthly P&L report from raw transaction data, don't rebuild it manually. Use Apps Script to auto-generate it on the 1st of each month, pre-calculated and formatted.</p> <p>C. Replace <code>ARRAYFORMULA</code> with batch processing. For operations across large ranges, Apps Script's batch <code>setValues()</code> is significantly faster than array formulas.</p> <p>Result: Your finance model runs in seconds, not minutes. Month-end close happens faster. Your team stops waiting for calculations to finish.</p> <h3>3. Collaboration Chaos: Too Many Hands, No Structure</h3> <p>Google Sheets' real-time collaboration is a feature — until multiple people start editing the same critical spreadsheet without structure. Accidental overwrites, formula deletions, and "who changed this cell?" investigations become the norm.</p> <p>You don't need to disable collaboration. You need to add guardrails so teams can collaborate safely.</p> The Fix: <p>A. Lock critical cells and formulas. Use Google Sheets' built-in protection to lock formula rows and key calculation cells. Only designated users can edit them. Everyone else can input data safely.</p> <p>B. Add data validation rules. Use Apps Script to enforce validation beyond Google Sheets' native dropdowns. Example: "If someone enters a negative revenue figure, reject it and send a Slack alert."</p> <p>C. Implement an audit trail. Use Apps Script's <code>onEdit()</code> trigger to log every change: who edited what, when, and what the previous value was. Store it in a hidden "Audit Log" tab. Now you can trace back errors instantly.</p> <p>D. Create approval workflows. For sensitive changes (like updating pricing or finalizing a budget), add an Apps Script-powered approval system: proposed changes go to a staging area, a manager reviews via Slack/email, and the change only commits once approved.</p> <p>Result: Your team still collaborates in real-time. But accidental errors are prevented, and when they do happen, you can trace and fix them in seconds — not hours.</p> <h3>When Should You Actually Migrate?</h3> <p>Automation can take Google Sheets incredibly far. But there are genuine limits where migration makes sense:</p> <p>Migrate when:</p> <ul> <li>You need row-level security beyond what Google Sheets permissions offer (e.g., salespeople should only see their own deals, not the entire pipeline)</li> <li>You're hitting 10 million cells regularly, even with optimizations</li> <li>Your workflows require complex multi-user transactional logic (like inventory management with real-time stock locking across warehouses)</li> <li>Compliance demands immutable audit trails that Google Sheets' version history can't provide</li> </ul> <p>But for most SMBs, startups, and solopreneurs? Those limits are years away. You'll get far more value from automating your existing Sheets than from migrating to a platform you don't need yet.</p> <h3>What This Looks Like in Practice</h3> <p>Example: A client with a 150,000-row transaction log</p> <p>Before:</p> <ul> <li>Finance team waited 30+ seconds for the sheet to load</li> <li>Monthly reports took 4 hours to compile manually</li> <li>Formula errors from accidental edits happened weekly</li> </ul> <p>After (with automation):</p> <ul> <li>Automated archiving keeps working dataset under 50,000 rows</li> <li>Custom Apps Script functions replace volatile formulas — load time down to 3 seconds</li> <li>Monthly reports auto-generate on the 1st — compile time: zero</li> <li>Protected ranges + validation rules prevent accidental edits</li> <li>Audit log tracks every change automatically</li> </ul> <p>Cost: £1,200 one-time build. There are no monthly software fees, and no retraining or migration is required.</p> <p>Time saved: 6 hours/week for a 3-person finance team = 288 hours/year = £8,640/year in reclaimed productivity (at £30/hour).</p> <p>ROI: Paid for itself in 7 weeks.</p> <h3>The Bottom Line</h3> <p>Google Sheets isn't "too simple" or "inadequate for real business." It's a powerful platform that can do 90% of what expensive enterprise software does — when properly automated.</p> <p>You don't need to rip out your existing systems. You need to eliminate the manual work so they perform like they cost £50k.</p> <p>That's what I build: automation that enhances what you already have, with minimal disruption to how your team works.</p> <p>There are no forced migrations or retraining steps — the team simply gets better workflows.</p></div><p class="disclosure">This article references illustrative cost figures — estimates for a typical business, not audited client results.</p><div class="post-cta"><a class="btn btn-primary" href="contact">Schedule Your Project Consultation</a></div></article></div></main><footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-col footer-about">
       <p class="footer-brand">Aremu Consulting Ltd</p>
